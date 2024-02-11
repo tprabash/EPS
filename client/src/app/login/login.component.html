@@ -1,0 +1,108 @@
+<!-- <main class="form-signin mt-5">
+<form *ngIf="(accountServices.currentUser$ | async) === null" 
+    #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+  <img class="mb-4" src="../../assets/img/Maliban_logo.gif" alt="" width="150" height="150">
+    <div class="form-group">
+    <input name="username" [(ngModel)]="model.cAgentName" class="form-control" type="text" placeholder="Username"
+      required autofocus>
+  </div>
+  <div class="form-group">
+    <input name="password" [(ngModel)]="model.cPassword" class="form-control mr-sm-2" type="password"
+      placeholder="Password">
+  </div>
+  <div class="form-group text-center">
+    <button class="w-100 btn btn-md btn-primary" type="submit">Login</button
+  </div>
+</form>
+</main> -->
+<ng-container *ngIf="(accountServices.currentUser$ | async) === null">
+  <div class="hold-transition login-page" style="background-image: url(../../assets/img/Loginpic.jpg);background-position: center;
+  background-repeat: no-repeat;
+  width: auto;
+  background-size: cover;
+  background-attachment: fixed;">
+    <div class="login-box">
+      <!-- /.login-logo -->
+      <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+          <!-- <img src="../../assets/img/Maliban_logo.gif" alt="" width="100" height="100"> -->
+        </div>
+        <div class="card-body">
+          <p class="login-box-msg">Sign in to start your session</p>
+
+          <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+            <!-- *ngIf="(accountServices.currentUser$ | async) === null" #loginForm="ngForm" -->
+            <!-- <div class="form-group mb-3">
+              <label for="Sysmodule">Module </label>
+              <select class="form-control" id="Sysmodule" formControlName="ModuleId" name="Sysmodule"
+                [ngClass]="{ 'is-invalid': submitted && f.ModuleId.errors }" autofocus>
+                <option *ngFor="let module of sysModules" [value]="module.autoId">
+                  {{module.moduleName}}
+                </option>
+              </select>
+              <div *ngIf="submitted && f.ModuleId.errors" class="invalid-feedback">
+                <div *ngIf="f.ModuleId.errors.required">Module is required</div>
+              </div>
+            </div> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="Sysmodule">Module</label>
+              </div>
+              <select class="custom-select" id="Sysmodule" formControlName="ModuleId" name="Sysmodule"
+              [ngClass]="{ 'is-invalid': submitted && f.ModuleId.errors }" autofocus>
+                <option *ngFor="let module of sysModules" [value]="module.autoId">
+                  {{module.moduleName}}
+                </option>                
+              </select>
+              <div *ngIf="submitted && f.ModuleId.errors" class="invalid-feedback">
+                <div *ngIf="f.ModuleId.errors.required">Module is required</div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input name="username" formControlName="cAgentName" class="form-control" type="text"
+                [ngClass]="{ 'is-invalid': submitted && f.cAgentName.errors }" placeholder="Username">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+              <div *ngIf="submitted && f.cAgentName.errors" class="invalid-feedback">
+                <div *ngIf="f.cAgentName.errors.required">User Name is required</div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input name="password" formControlName="cPassword" class="form-control" type="password"
+                [ngClass]="{ 'is-invalid': submitted && f.cPassword.errors }" placeholder="Password">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+              <div *ngIf="submitted && f.cAgentName.errors" class="invalid-feedback">
+                <div *ngIf="f.cAgentName.errors.required">Password is required</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-8">
+                <!-- <div class="icheck-primary">
+                <input type="checkbox" id="remember">
+                <label for="remember">
+                  Remember Me
+                </label>
+              </div> -->
+              </div>
+              <!-- /.col -->
+              <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+  </div>
+</ng-container>

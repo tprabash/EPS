@@ -1,0 +1,23 @@
+
+<ng-container *ngIf="(accountServices.currentUser$ | async) === null" >
+  <app-login></app-login>
+</ng-container>
+
+<ng-container *ngIf="accountServices.currentUser$ | async" >
+  <div class="wrapper"> 
+    <!-- <app-nav></app-nav> -->
+    <!-- Main Sidebar Container -->
+    <app-mainsidebar></app-mainsidebar> 
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div> 
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside> 
+    <!-- Main Footer -->
+   <app-footer></app-footer>
+  </div>
+
+</ng-container>
+
+<app-spinner></app-spinner>

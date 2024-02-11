@@ -1,0 +1,21 @@
+<div class="container mt-5">
+    <div *ngIf="!registerMode" style ="text-align: center;">
+        <h1> MPlus Home Page</h1>
+        <p class="lead"> all you need to do is sign up!</p>
+        <div class="text-center">
+            <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
+            <button class="btn btn-info btn-lg">Learn more</button>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="registerMode">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <app-user-detail [usersFromHomeComponent]="users" 
+                (cancelRegister)="cancelRegisterMode($event)">                    
+                </app-user-detail>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,630 @@
+<!-- Navbar -->
+
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a #navMenu class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+  </ul>
+
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto">
+    <!-- <div class="combo-section">
+      <igx-combo class="combo" #noValueKey [data]="userLoc" displayKey="location" valueKey="locationId"
+        groupKey="companyName" [(ngModel)]="selectedNoValueKey" (onSelectionChange)="singleSelection($event)"
+        title="Location" (onSelectionChange)="selectLocation($event)">
+      </igx-combo>
+    </div> -->
+
+    <!--full screen -->
+    <li class="nav-item">
+      <a class="nav-link" data-widget="fullscreen" href="#" role="button" title="Full Screen">
+        <i class="fas fa-expand-arrows-alt"></i>
+      </a>
+    </li>
+    <!--right side bar -->
+    <li class="nav-item">
+      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" title="Message">
+        <i class="fas fa-th-large"></i>
+      </a>
+    </li>
+    <!--Log Out  -->
+    <li class="nav-item">
+      <a class="nav-link" href="#" role="button" (click)="logout()" title="Logout">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    </li>
+    <li class="nav-item dropdown ">
+      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" title="User Rights">
+        <i class="fas fa-light fa-user"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <a class="dropdown-item" href="#">FAQ</a>
+        <a class="dropdown-item" href="#">Support</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" type="button" data-target="#modalPaswChangeCommon" data-toggle="modal"
+          (click)="clearChangPwControls()">Change Password</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<!-- /.navbar -->
+
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='MPlus EE' ; then " style="background-color: #AEEBBA">
+    <!-- <img src="assets/img/Maliban_logo.gif" alt="EAM Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8"> -->
+    <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
+  </a>
+
+  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='CCS - EE' ; then " style="background-color: goldenrod">
+    <!-- <img src="assets/img/Maliban_logo.gif" alt="EAM Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8"> -->
+    <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
+  </a>
+
+  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='SMF - EE' ; then "
+    style="background-color: rgb(218, 32, 147)">
+    <!-- <img src="assets/img/Maliban_logo.gif" alt="EAM Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8"> -->
+    <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
+  </a>
+
+  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='EPS' ; then " style="background-color:#77dd76">
+    <!-- <img src="assets/img/Maliban_logo.gif" alt="EAM Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8"> -->
+    <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
+  </a>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="assets/img/user1-160x160 copy.jpg" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info" *ngIf="(accountServices.currentUser$ | async) as user">
+        <a href="#" class="d-block"> Welcome {{user.userName}}</a>
+      </div>
+    </div>
+
+    <!-- SidebarSearch Form -->
+    <!-- <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div> -->
+
+    <!-- Sidebar Menu -->
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+        <li class="nav-item" *ngIf="dashboard">
+          <!--menu-open-->
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Dashboard
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="adminGroup">
+          <!--menu-open-->
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user-shield"></i>
+            <p>
+              User Management
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/UserRegister" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>User Register</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" *ngIf="masterGroup">
+          <!--menu-open-->
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Masters
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/company-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Company</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/location-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Location</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/category-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Category</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/sub-category-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Sub Category</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/size-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Size</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/print-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Print</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/supplier-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Supplier</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/customer-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Customer</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/item-master" routerLinkActive="active" (click)="menuClose()">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Item</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" *ngIf="workstudyGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-book"></i>
+            <p>
+              Work Study
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="workstudyGroup">
+            <li class="nav-item" *ngIf="workstudyGroup">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-cog"></i>
+                <p>
+                  Master
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview" *ngIf="operationgroup">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/operationgroup" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Operation Group</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview" *ngIf="machinetype">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/machinetype" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Machine Type</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview" *ngIf="operation">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/operation" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Operation</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview" *ngIf="folderandattachment">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/folderandattachment" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Folder and Attachment Master</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview" *ngIf="foot">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/foot" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Foot Master</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview" *ngIf="mbrand">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/mbrand" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Brand Master</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview" *ngIf="type">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/type" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Type Master</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview" *ngIf="size">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/size" routerLinkActive="active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Size Master</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="departmentwisesectionmaster">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/departmentwisesection" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Department Wise Section</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="factorywisesection">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/factorywisesection" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Factory Wise Section</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="operationassigntofactory">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/operationassigntofactory" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Operation Assign to Factory</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="operationassigntofactorysection">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/operationassigntofactorysection" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Op: Ass: to Factory Secction</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="operationbreakdown">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/operationbreakdown" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Operation Breakdown</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="factorylayout">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/factorylayout" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Factory Layout</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="stylesmv">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/stylesmv" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Style Wise SMV</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="operationAssign">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/OperationAss" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Op: Ass: to To Employee</p>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-treeview" *ngIf="lostTime">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/lostTime" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Lost Time</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" *ngIf="transportGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Transport
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="vehicletype">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/vehicletype" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Vehicle Type</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="vehiclecategory">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/vehiclecategory" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Vehicle Category</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="bookingtype">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/bookingtype" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Booking Type</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="transporttype">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/transporttype" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Transport Type</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="paymenttype">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/paymenttype" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Payment Type</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="route">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/route" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Route</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="routefactoryallocation">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/routefactoryallocation" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Route Factory Allocation</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="vehicleother">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/vehicleother" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Vehicle Other Details</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="transpoter">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/transpoter" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Transpoter Master</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="transpoterfactoryallocation">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/transpoterfactoryallocation" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Transpoter Factory Allocation</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="vehicleregister">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/vehicleregister" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Vehicle Register</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="ratematrix">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/ratematrix" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Route Rate Details</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="approvalmatrix">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/approvalmatrix" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Approval Matrix Details</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="bookingrequest">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/bookingrequest" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Booking Request</p>
+              </a>
+            </li>
+          </ul>
+
+        </li>
+
+        <li class="nav-item" *ngIf="fixedAssetGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-link"></i>
+            <p>
+              Fixed Assets
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="faMasterTab">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/faMasterTab" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Master</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="fixedAssetDetails">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/FixedAssetDetails" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Details</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="machineBreak">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/MachineBreak" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Machine Breakdown</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- <li class="nav-item" *ngIf="sampleGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-link"></i>
+            <p>
+              Sample
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="sampleProdIn">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/sampleProdIn" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Production In</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="sampleProdOut">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/sampleProdOut" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Production Out</p>
+              </a>
+            </li>
+          </ul>
+        </li> -->
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu. -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
+
+
+<div class="modal fade" id="modalPaswChangeCommon">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Change Password </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="pwChangeForm" (ngSubmit)="pwChangeForm.valid" autocomplete="off">
+          <div class="form-group">
+            <label> User Name </label>
+            <igx-input-group type="text">
+              <input #input1 igxInput placeholder="User Name" formControlName="cAgentName" readonly="true"
+                style="font-size: large;color:red;" />
+            </igx-input-group>
+          </div>
+          <div class="form-group">
+            <igx-input-group>
+              <input igxInput type="text" formControlName="OldPassword" />
+              <label igxLabel for="OldPassword"> Old Password</label>
+            </igx-input-group>
+          </div>
+          <div class="form-group">
+            <igx-input-group>
+              <input igxInput type="password" formControlName="cPassword" />
+              <label igxLabel for="cPassword"> New Password</label>
+            </igx-input-group>
+          </div>
+          <div class="form-group">
+            <igx-input-group>
+              <input igxInput type="password" formControlName="confirmPassword" />
+              <label igxLabel for="confirmPassword"> Confirm Password</label>
+            </igx-input-group>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <div class="btn-group">
+          <button type="button" class="btn btn-success mr-3" (click)="changeUserPassword()"
+            [disabled]="!pwChangeForm.valid">
+            <i class="fas fa-save"></i> </button>
+          <button type="button" class="btn btn-default">
+            <i class="fas fa-broom"></i> </button>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

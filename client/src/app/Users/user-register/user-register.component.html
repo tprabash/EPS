@@ -1,0 +1,225 @@
+<!-- Main content -->
+<section class="content">
+    <!-- <div class="container-fluid"> -->
+        <!-- <div class="col-12"> -->
+            <div class="card card-default card-outline card-tabs">
+                <div class="card-header p-0 pt-1 border-bottom-0">
+                    <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                        <li class="nav-item" *ngIf="userReg">
+                            <a class="nav-link active" id="custom-tabs-user-tab" data-toggle="pill"
+                                href="#user-register-tab" role="tab" aria-controls="user-register-tab"
+                                aria-selected="true">User Registration</a>
+                        </li>
+                        <li class="nav-item" *ngIf="moduleReg">
+                            <a class="nav-link" id="custom-tabs-module-tab" data-toggle="pill"
+                                href="#module-register-tab" role="tab" aria-controls="module-register-tab"
+                                aria-selected="false">Module Registration</a>
+                        </li>
+                        <!-- <li class="nav-item" *ngIf="changePswd">
+                            <a class="nav-link" id="custom-tabs-password-tab" data-toggle="pill"
+                                href="#change-password-tab" role="tab" aria-controls="change-password-tab"
+                                aria-selected="false">Change Password</a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-three-tabContent">
+                        <div class="tab-pane fade show active" id="user-register-tab" role="tabpanel" aria-labelledby="custom-tabs-user-tab">
+                            <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <igx-input-group>
+                                                <input igxInput type="text" formControlName="cAgentName" />
+                                                <label igxLabel for="cAgentName"> User Name</label>
+                                            </igx-input-group>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <igx-input-group>
+                                                <input igxInput type="password" formControlName="cPassword" />
+                                                <label igxLabel for="cPassword"> Password</label>
+                                            </igx-input-group>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <igx-input-group>
+                                                <input igxInput type="password" formControlName="confirmPassword" />
+                                                <label igxLabel for="confirmPassword"> confirmPassword</label>
+                                            </igx-input-group>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>User Level</label>
+                                            <igx-combo #combo class="combo" displayKey="levelDescription" valueKey="autoId"
+                                                [itemsMaxHeight]="250" [data]="userLevel" placeholder="User Level"
+                                                (onSelectionChange)="singleSelection($event)" formControlName="iCategoryLevel"
+                                                searchPlaceholder="Search...">
+                                            </igx-combo>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <igx-input-group>
+                                                <input igxInput type="text" formControlName="cEmail" />
+                                                <label igxLabel for="cEmail"> E-mail</label>
+                                            </igx-input-group>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="btn-group">
+                                            <button type="submit" class="btn btn-success mr-2" [disabled]="!registerForm.valid">
+                                                <i class="fas fa-user-plus"></i> </button>
+                                            <button type="button" class="btn btn-info mr-2" [disabled]="!changePswd" data-toggle="modal" (click)="resetForm()"
+                                                    data-target="#modalPaswChange">
+                                                <i class="fas fa-key"></i></button>
+                                            <button type="button" (click)="cancelRegister()" class="btn btn-default">
+                                                <i class="fas fa-broom"></i></button>                                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">  
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <igx-input-group>
+                                                <input igxInput type="text" formControlName="cDescription" />
+                                                <label igxLabel for="cDescription"> Description</label>
+                                            </igx-input-group>
+                                        </div>
+                                    </div>                                  
+                                    
+                                </div>
+                                <div class="row">
+                                    <igx-grid #regUserGrid [data]="regUserList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
+                                        [primaryKey]="'idAgents'" cellSelection="none" (onColumnResized)="onResize($event)" [perPage]="100" height="400px"
+                                        displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
+                                        [allowAdvancedFiltering]="true" [rowSelection]="'Single'">                                
+                                        <igx-column [width]="'50px'" field="bActive" [header]="' '" [selectable]="false" [sortable]="false" [resizable]="false">
+                                            <ng-template igxCell let-cell="cell">
+                                                <!-- <button igxButton="icon" class="fab-compact" (click)="resetForm()" data-toggle="modal" data-target="#modalPaswChange">
+                                                    <igx-icon family="material">vpn_key</igx-icon>
+                                                </button> -->
+                                                <div *ngIf="!cell.value; then thenBlock else elseBlock"></div>
+                                                <ng-template #thenBlock>
+                                                    <button igxButton="icon" class="fab-compact" (click)="active($event ,cell.cellID)">
+                                                        <igx-icon class="icon-red" family="material">toggle_off</igx-icon>
+                                                    </button>
+                                                </ng-template>
+                                                <ng-template #elseBlock>
+                                                    <button igxButton="icon" class="fab-compact" (click)="deactive($event ,cell.cellID)">
+                                                        <igx-icon class="icon-green" family="material">toggle_on</igx-icon>
+                                                    </button>
+                                                </ng-template>
+                                            </ng-template>
+                                        </igx-column>
+                                        <igx-column [field]="'bActive'" [header]="'IsActive'" [resizable]="true" [width]="'100px'" [dataType]="'boolean'" [sortable]="true">
+                                        </igx-column>
+                                        <igx-column [field]="'agentName'" [header]="'User Name'" [resizable]="true" [width]="'150px'" [dataType]="'string'" [sortable]="true">
+                                        </igx-column>
+                                        <igx-column [field]="'email'" [header]="'E-mail'" [resizable]="true" [width]="'250px'" [dataType]="'string'" [sortable]="true">
+                                        </igx-column>
+                                        <igx-column [field]="'description'" [header]="'Description'" [resizable]="true" [width]="'200px'" [dataType]="'string'" [sortable]="true">
+                                        </igx-column>
+                                        <igx-column [field]="'levelDescription'" [header]="'Level'" [resizable]="true" [width]="'150px'" [dataType]="'string'" [sortable]="true">
+                                        </igx-column>
+                                       
+                                    </igx-grid>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="module-register-tab" role="tabpanel" aria-labelledby="custom-tabs-module-tab">
+                            <app-module-register></app-module-register>
+                        </div>
+                        <!-- <div class="tab-pane fade" id="change-password-tab" role="tabpanel" aria-labelledby="custom-tabs-password-tab">
+                            <app-user-pwchange></app-user-pwchange>
+                        </div>                 -->
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        <!-- </div>
+    </div>/.container-fluid -->
+</section>
+
+<div class="modal fade" id="modalPaswChange">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Change Password </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="pwChangeForm" (ngSubmit)="pwChangeForm.valid" autocomplete="off">
+                    <!-- <div class="row"> -->
+                        <!-- <div class="col-sm-2"> -->
+                            <div class="form-group">
+                                <label> User Name </label>
+                                <igx-input-group type="search">
+                                    <input #input1 igxInput placeholder="User Name" formControlName="cAgentName" (keyup)="clearPassword($event)" />
+                                    <igx-suffix *ngIf="input1.value.length > 0" (click)="input1.value = ''" (click)="clearChangPwControls()">
+                                        <igx-icon>clear</igx-icon>
+                                    </igx-suffix>
+                                    <igx-prefix (click)="searchUserPassword()" >
+                                        <igx-icon>search</igx-icon>
+                                    </igx-prefix>
+                                </igx-input-group>
+                                <!-- <igx-input-group>
+                                    <input igxInput type="text" formControlName="cAgentName" (keyup)="clearPassword($event)" />
+                                    <label igxLabel for="cAgentName"> User Name</label>
+                                </igx-input-group> -->
+                            </div>
+                        <!-- </div>
+                        <div class="col-sm-1"> 
+                            <button igxButton="icon" (click)="searchUserPassword()">
+                                <igx-icon>search</igx-icon>
+                            </button>
+                        </div>
+                        <div class="col-sm-2"> -->
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input igxInput type="text" formControlName="OldPassword" />
+                                    <label igxLabel for="OldPassword"> Old Password</label>
+                                </igx-input-group>
+                            </div>
+                        <!-- </div>
+                        <div class="col-sm-2"> -->
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input igxInput type="password" formControlName="cPassword" />
+                                    <label igxLabel for="cPassword"> New Password</label>
+                                </igx-input-group>
+                            </div>
+                        <!-- </div>
+                        <div class="col-sm-2"> -->
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input igxInput type="password" formControlName="confirmPassword" />
+                                    <label igxLabel for="confirmPassword"> Confirm Password</label>
+                                </igx-input-group>
+                            </div>
+                        <!-- </div> -->            
+                    <!-- </div> -->
+                </form> 
+            </div>
+
+            <div class="modal-footer">
+                <div class="btn-group">        
+                    <button type="button" class="btn btn-success mr-3" (click)="changeUserPassword()" [disabled]="!pwChangeForm.valid">
+                        <i class="fas fa-save"></i> </button>
+                    <button type="button" class="btn btn-default" (click)="resetForm()">
+                        <i class="fas fa-broom"></i> </button>
+                </div>           
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- <p> Form Value: {{registerForm.value | json}} </p>
+<p> Form Status: {{registerForm.status | json}} </p> -->

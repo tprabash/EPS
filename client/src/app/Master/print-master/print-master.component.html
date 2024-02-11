@@ -1,0 +1,65 @@
+<div class="card card-body">
+    <form [formGroup]="masterCompanyForm" autocomplete="off">
+        <div class="row">
+            <div class="col-11">
+                <h6 class="bg-secondary">
+                    Print Master
+                </h6>
+            </div>
+            <div class="col-1">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save"
+                        (click)="companysave()">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
+                        data-placement="bottom" title="Clear">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="text" formControlName="code" />
+                        <label igxLabel>Code</label>
+                    </igx-input-group>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="text" formControlName="description" />
+                        <label igxLabel>Description</label>
+                    </igx-input-group>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <igx-grid #masterCompanyGrid [data]="masterCompanyList" [autoGenerate]="false" [paging]="true"
+                    [rowEditable]="false" [primaryKey]="'autoId'" cellSelection="none" [perPage]="10" height="500px"
+                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
+                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
+                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                        <ng-template igxCell let-cell="cell">
+                            <button igxButton="icon" class="fab-compact" (click)="onEditCompany($event,cell.cellID)">
+                                <igx-icon family="material">edit</igx-icon>
+                            </button>
+                        </ng-template>
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Code'" [resizable]="true"
+                        [dataType]="'string'" [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Description'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                </igx-grid>
+            </div>
+        </div>
+    </form>
+</div>
+
