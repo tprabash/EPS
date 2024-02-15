@@ -1,0 +1,33 @@
+export interface DispatchNoteDt {
+    autoId: number;
+    dispatchNo: string;
+    customerId?: number;
+    cusLocationId?: number;
+    transDate: string;
+    isActive: boolean;
+    reason: string;
+    locationId?: number;
+    soItemId?: number;
+    soDelivDtId?: number;
+    dispatchSiteId: number;
+    deliveryRef: string;
+    orderRef: string;
+    articleName: string;
+    color: string;
+    size: string;
+    vehicleNo: string;
+    producedQty: number;
+    dispatchedQty: number;
+    balDispatchQty: number;
+    supplier: string;
+    ToSiteId?: number;
+    dispatchType: number;
+    indentNo: string;
+    mrNo: string;   
+    grnDate?: string;
+    grnHeaderId?: number;
+    grnNo: string;
+    stockQty: number;   
+    grnDetailsId?: number;
+    price?: number;
+}

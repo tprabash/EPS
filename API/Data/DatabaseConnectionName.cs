@@ -6,6 +6,7 @@ namespace API.Data
         CartonDbConnection,
         PTrackDbConnection,
         MTrackDbConnection,
-        MWSDbConnection
+        MWSDbConnection,
+        EPSDbConnection
     }
 }

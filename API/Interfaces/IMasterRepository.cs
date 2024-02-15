@@ -102,6 +102,7 @@ namespace API.Interfaces
         Task<int> SaveInvoiceTypeAsync(MstrInvoiceType invoiceType);
         Task<int> SavePaymentModeAsync(MstrPaymentMode paymentMode);
         Task<int> SaveMasterCompanyAsync(MstrCompany company);
+        
         Task<int> SaveDispatchSiteAsync(MstrDispatchSite dispatchSite);
         Task<int> SaveMasterCartonTypeAsync(MstrCartonType carton);
         Task<int> SaveSpecialInstructionAsync(MstrSpecialInstruction specialInstruction);

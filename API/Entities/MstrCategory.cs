@@ -9,8 +9,11 @@ namespace API.Entities
     {
         [Key]
         public int AutoId { get; set; }       
+         public int ModuleId { get; set; } 
         public string Code { get; set; }
-        public string Name { get; set; }        
+        public string Name { get; set; } 
+        public string Description { get; set; } 
+         public bool bActive { get; set; }        
         public int ? CreateUserId { get; set; }
         public DateTime ? CreateDateTime { get; set; } = DateTime.Now;
         public int ? UpdateUserId { get; set; }

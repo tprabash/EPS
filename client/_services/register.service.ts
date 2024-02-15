@@ -6,6 +6,7 @@ import { User } from 'src/app/_models/user';
 import { UserLevel } from 'src/app/_models/userLevel';
 import { environment } from 'src/environments/environment';
 import { LocalService } from './local.service';
+import { SysModule } from 'src/app/_models/sysModule';
 
 var usertoken: any;
 if (localStorage.length > 0) {
@@ -64,6 +65,10 @@ export class RegisterService {
       model,
       httpOptions
     );
+  }
+
+  getSysModules() {
+    return this.http.get<SysModule[]>(this.baseUrl + 'Agents/Module' );
   }
 
   getUserLevel() {

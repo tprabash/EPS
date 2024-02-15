@@ -1,36 +1,47 @@
+using System;
+
 namespace API.DTOs
 {
     public class MWSMasterDto
     {
-        public string F01 { get; set; }
-        public string F02 { get; set; }
-        public bool? F03 { get; set; }
-        public string F04 { get; set; }
-        public string F05 { get; set; }
-        public string F06 { get; set; }
-        public string F09 { get; set; }
-        public string F10 { get; set; }
-        public int? F11 { get; set; }
-        public int? F12 { get; set; }
-        public int? F13 { get; set; }
-        public int? F14 { get; set; }
-        public int? F15 { get; set; }
-        public int? F16 { get; set; }
-        public int? F17 { get; set; }
-        public int? F18 { get; set; }
-        public int? F19 { get; set; }
-        public int? F20 { get; set; }
-        public int? F21 { get; set; }
-        public int? F22 { get; set; }
-        public decimal? F23 { get; set; }
-        public decimal? F24 { get; set; }
-        public decimal? F25 { get; set; }
-        public decimal? F26 { get; set; }
-        public decimal? F27 { get; set; }
-        public string F28 { get; set; }
-        public string F29 { get; set; }
-        public string F30 { get; set; }
-        public int? F31 { get; set; }
+
+        public int?  ActivityNo { get; set; }
+        public int? ModuleNo { get; set; }
+        public int? CompanyNo { get; set; }
+        public int? LocationNo { get; set; }
+        public int? AgentNo { get; set; }
+        public int? bActive { get; set; }
+        public int? F01 { get; set; }
+        public int? F02 { get; set; }
+        public int? F03 { get; set; }
+        public int? F04 { get; set; }
+        public int? F05 { get; set; }
+        public int? F06 { get; set; }
+        public int? F07 { get; set; }
+        public int? F08 { get; set; }
+        public int? F09 { get; set; }
+        public int? F10 { get; set; }
+        public decimal? F11 { get; set; }
+        public decimal? F12 { get; set; }
+        public decimal? F13 { get; set; }
+        public decimal? F14 { get; set; }
+        public decimal? F15 { get; set; }
+        public decimal? F16 { get; set; }
+        public decimal? F17 { get; set; }
+        public string F18 { get; set; }
+        public string F19 { get; set; }
+        public string F20 { get; set; }
+        public string F21 { get; set; }
+        public string F22 { get; set; }
+        public string F23 { get; set; }
+        public string F24 { get; set; }
+        public string F25 { get; set; }
+        public string F26 { get; set; }
+        public string F27 { get; set; }
+        public DateTime ? F28 { get; set; }
+        public DateTime ? F29 { get; set; }
+        public DateTime ? F30 { get; set; }
+
 
     }
 }

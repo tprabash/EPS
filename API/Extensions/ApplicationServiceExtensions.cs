@@ -18,7 +18,8 @@ namespace API.Extensions
             string CartonconnectionString =  config.GetConnectionString("CartonDbConnection"); 
             string PTrackconnectionString =  config.GetConnectionString("PTrackDbConnection"); 
             string MTrackconnectionString =  config.GetConnectionString("MTrackDbConnection");
-            string MWSconnectionString =  config.GetConnectionString("MWSDbConnection");           
+            string MWSconnectionString =  config.GetConnectionString("MWSDbConnection");  
+            string EPSDbConnectionString =  config.GetConnectionString("EPSDbConnection");          
             
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IApplicationAdminDbContext>(provider => provider.GetService<ApplicationAdminDbContext>());
@@ -85,7 +86,8 @@ namespace API.Extensions
                 { DatabaseConnectionName.CartonDbConnection, CartonconnectionString },
                 { DatabaseConnectionName.PTrackDbConnection, PTrackconnectionString },
                 { DatabaseConnectionName.MTrackDbConnection, MTrackconnectionString },
-                { DatabaseConnectionName.MWSDbConnection, MWSconnectionString }
+                { DatabaseConnectionName.MWSDbConnection, MWSconnectionString },
+                { DatabaseConnectionName.EPSDbConnection, EPSDbConnectionString }
             };
 
             // Inject this dict

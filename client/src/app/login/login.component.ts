@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '_services/account.service';
+import { AdminService } from '_services/admin.service';
 import { LocalService } from '_services/local.service';
 import { RegisterService } from '_services/register.service';
+import { SysModule } from '../_models/sysModule';
 import { User } from '../_models/user';
 
 @Component({
@@ -14,6 +16,7 @@ import { User } from '../_models/user';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   model: any = {};
+  sysModules: SysModule[];
   users: any;
   submitted = false;
 
@@ -22,6 +25,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initilizeForm();
+    //console.log(this.accountServices.currentUser$);
+    this.LoadModules();
   }
 
   initilizeForm() {
@@ -63,5 +68,22 @@ export class LoginComponent implements OnInit {
     // const user: User = JSON.parse(localStorage.getItem('user'));
     this.accountServices.setCurrentUser(user);   
   }
+
+  // getAuthMenuList() {    
+  //   this.adminService.getAuthMenuList().subscribe(response => {
+  //     const menus = response;
+  //     localStorage.setItem('menus', JSON.stringify(menus));
+  //   });
+  // }
+  
+  LoadModules() {
+    this.registerService.getSysModules().subscribe(modules => {
+      this.sysModules = modules;
+      //console.log(modules);
+    })
+  }  
+
+ 
+
 
 }

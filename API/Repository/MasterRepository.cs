@@ -3464,632 +3464,183 @@ namespace API.Repository
                
             DynamicParameters para = new DynamicParameters();
 
-            MWSMaterDT.Columns.Add("F01", typeof(string));
-            MWSMaterDT.Columns.Add("F02", typeof(string));
-            MWSMaterDT.Columns.Add("F03", typeof(string));
-            MWSMaterDT.Columns.Add("F04", typeof(string));
-            MWSMaterDT.Columns.Add("F05", typeof(string));
-            MWSMaterDT.Columns.Add("F06", typeof(string));
-            MWSMaterDT.Columns.Add("F07", typeof(string));
-            MWSMaterDT.Columns.Add("F08", typeof(string));     
-            MWSMaterDT.Columns.Add("F09", typeof(string));
-            MWSMaterDT.Columns.Add("F10", typeof(string));
-            MWSMaterDT.Columns.Add("F11", typeof(int)); 
-            MWSMaterDT.Columns.Add("F12", typeof(int));  
-            MWSMaterDT.Columns.Add("F13", typeof(int)); 
-            MWSMaterDT.Columns.Add("F14", typeof(int));
-            MWSMaterDT.Columns.Add("F15", typeof(int)); 
-            MWSMaterDT.Columns.Add("F16", typeof(int));                               
-            MWSMaterDT.Columns.Add("F17", typeof(Int64));
-            MWSMaterDT.Columns.Add("F18", typeof(Int64));
-            MWSMaterDT.Columns.Add("F19", typeof(Int64));   
-            MWSMaterDT.Columns.Add("F20", typeof(Int64)); 
-            MWSMaterDT.Columns.Add("F21", typeof(Int64));       
-            MWSMaterDT.Columns.Add("F22", typeof(Int64));   
-            MWSMaterDT.Columns.Add("F23", typeof(decimal)); 
-            MWSMaterDT.Columns.Add("F24", typeof(decimal)); 
-            MWSMaterDT.Columns.Add("F25", typeof(decimal)); 
-            MWSMaterDT.Columns.Add("F26", typeof(decimal)); 
-            MWSMaterDT.Columns.Add("F27", typeof(decimal));                                                                                              
-            MWSMaterDT.Columns.Add("F28", typeof(string));
-            MWSMaterDT.Columns.Add("F29", typeof(string));
-            MWSMaterDT.Columns.Add("F30", typeof(string));
-            MWSMaterDT.Columns.Add("F31", typeof(int));     
-                                                                      
-   
+            MWSMaterDT.Columns.Add("ActivityNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("ModuleNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("CompanyNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("LocationNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("AgentNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("bActive", typeof(Int64));
+            MWSMaterDT.Columns.Add("F01", typeof(Int64));
+            MWSMaterDT.Columns.Add("F02", typeof(Int64));
+            MWSMaterDT.Columns.Add("F03", typeof(Int64));
+            MWSMaterDT.Columns.Add("F04", typeof(Int64));
+            MWSMaterDT.Columns.Add("F05", typeof(Int64));
+            MWSMaterDT.Columns.Add("F06", typeof(Int64));
+            MWSMaterDT.Columns.Add("F07", typeof(Int64));
+            MWSMaterDT.Columns.Add("F08", typeof(Int64));     
+            MWSMaterDT.Columns.Add("F09", typeof(Int64));
+            MWSMaterDT.Columns.Add("F10", typeof(Int64));
+            MWSMaterDT.Columns.Add("F11", typeof(decimal)); 
+            MWSMaterDT.Columns.Add("F12", typeof(decimal));  
+            MWSMaterDT.Columns.Add("F13", typeof(decimal)); 
+            MWSMaterDT.Columns.Add("F14", typeof(decimal));
+            MWSMaterDT.Columns.Add("F15", typeof(decimal)); 
+            MWSMaterDT.Columns.Add("F16", typeof(decimal));                               
+            MWSMaterDT.Columns.Add("F17", typeof(decimal));
+            MWSMaterDT.Columns.Add("F18", typeof(string));
+            MWSMaterDT.Columns.Add("F19", typeof(string));   
+            MWSMaterDT.Columns.Add("F20", typeof(string)); 
+            MWSMaterDT.Columns.Add("F21", typeof(string));       
+            MWSMaterDT.Columns.Add("F22", typeof(string));   
+            MWSMaterDT.Columns.Add("F23", typeof(string)); 
+            MWSMaterDT.Columns.Add("F24", typeof(string)); 
+            MWSMaterDT.Columns.Add("F25", typeof(string)); 
+            MWSMaterDT.Columns.Add("F26", typeof(string)); 
+            MWSMaterDT.Columns.Add("F27", typeof(string));                                                                                              
+            MWSMaterDT.Columns.Add("F28", typeof(DateTime));
+            MWSMaterDT.Columns.Add("F29", typeof(DateTime));
+            MWSMaterDT.Columns.Add("F30", typeof(DateTime));
+     
               MWSMaterDT.Rows.Add(
-                        0,
-                        0,
-                        0, 
-                        0,
-                        0, 0, 0,0,
-                         0,
-                        0,
-                        wsdt.F11, wsdt.F12, wsdt.F13, 0, 0, 0, wsdt.F17, wsdt.F18, wsdt.F19,wsdt.F20,0
+                        wsdt.ActivityNo,
+                        wsdt.ModuleNo,
+                        wsdt.CompanyNo,
+                        wsdt.LocationNo,
+                        wsdt.AgentNo,
+                        wsdt.bActive,  
+                        wsdt.F01,
+                        wsdt.F02,
+                        wsdt.F03,
+                        wsdt.F04,
+                        wsdt.F05,
+                        wsdt.F06,
+                        wsdt.F07,
+                        wsdt.F08,
+                        wsdt.F09,
+                        wsdt.F10,
+                        wsdt.F11,
+                        wsdt.F12,
+                        wsdt.F13,
+                        wsdt.F14,
+                        wsdt.F15,
+                        wsdt.F16,
+                        wsdt.F17,
+                        wsdt.F18,
+                        wsdt.F19,
+                        wsdt.F20,
+                        wsdt.F21,
+                        wsdt.F22,
+                        wsdt.F23,
+                        wsdt.F24,
+                        wsdt.F25,
+                        wsdt.F26,
+                        wsdt.F27,
+                        wsdt.F28,
+                        wsdt.F29,
+                        wsdt.F30
+                        
               );
                           
-            para.Add("UDT", MWSMaterDT.AsTableValuedParameter("UDT_MWSMaster"));
+            para.Add("UDT", MWSMaterDT.AsTableValuedParameter("udt_MasterData"));
 
-            MWSMaterList = await DbConnection.QueryAsync<MWSMasterDto>("sp_MWS_Master", para
+            MWSMaterList = await DbConnection.QueryAsync<MWSMasterDto>("sp_MasterData", para
                 , commandType: CommandType.StoredProcedure);
 
             return MWSMaterList;
         }
-        public async Task<ReturnDto> SaveMWSMasterData(List<SaveMWSMasterDto> wsDt)
+      public async Task<ReturnDto> SaveMWSMasterData(List<SaveMWSMasterDto> wsDt)
         {
            DataTable TMDT = new DataTable();
             DynamicParameters para = new DynamicParameters();
 
-            TMDT.Columns.Add("F01", typeof(string));
-            TMDT.Columns.Add("F02", typeof(string));
-            TMDT.Columns.Add("F03", typeof(string));
-            TMDT.Columns.Add("F04", typeof(string));
-            TMDT.Columns.Add("F05", typeof(string));
-            TMDT.Columns.Add("F06", typeof(string));
-            TMDT.Columns.Add("F07", typeof(string));
-            TMDT.Columns.Add("F08", typeof(string));     
-            TMDT.Columns.Add("F09", typeof(string));
-            TMDT.Columns.Add("F10", typeof(string));
-            TMDT.Columns.Add("F11", typeof(int)); 
-            TMDT.Columns.Add("F12", typeof(int));  
-            TMDT.Columns.Add("F13", typeof(int)); 
-            TMDT.Columns.Add("F14", typeof(int));
-            TMDT.Columns.Add("F15", typeof(int)); 
-            TMDT.Columns.Add("F16", typeof(int));                               
-            TMDT.Columns.Add("F17", typeof(Int64));
-            TMDT.Columns.Add("F18", typeof(Int64));
-            TMDT.Columns.Add("F19", typeof(Int64));   
-            TMDT.Columns.Add("F20", typeof(Int64)); 
-            TMDT.Columns.Add("F21", typeof(Int64));       
-            TMDT.Columns.Add("F22", typeof(Int64));   
-            TMDT.Columns.Add("F23", typeof(decimal)); 
-            TMDT.Columns.Add("F24", typeof(decimal)); 
-            TMDT.Columns.Add("F25", typeof(decimal)); 
-            TMDT.Columns.Add("F26", typeof(decimal)); 
-            TMDT.Columns.Add("F27", typeof(decimal));                                                                                              
+            TMDT.Columns.Add("ActivityNo", typeof(Int64));
+            TMDT.Columns.Add("ModuleNo", typeof(Int64));
+            TMDT.Columns.Add("CompanyNo", typeof(Int64));
+            TMDT.Columns.Add("LocationNo", typeof(Int64));
+            TMDT.Columns.Add("AgentNo", typeof(Int64));
+            TMDT.Columns.Add("bActive", typeof(Int64));
+            TMDT.Columns.Add("F01", typeof(Int64));
+            TMDT.Columns.Add("F02", typeof(Int64));
+            TMDT.Columns.Add("F03", typeof(Int64));
+            TMDT.Columns.Add("F04", typeof(Int64));
+            TMDT.Columns.Add("F05", typeof(Int64));
+            TMDT.Columns.Add("F06", typeof(Int64));
+            TMDT.Columns.Add("F07", typeof(Int64));
+            TMDT.Columns.Add("F08", typeof(Int64));     
+            TMDT.Columns.Add("F09", typeof(Int64));
+            TMDT.Columns.Add("F10", typeof(Int64));
+            TMDT.Columns.Add("F11", typeof(decimal)); 
+            TMDT.Columns.Add("F12", typeof(decimal));  
+            TMDT.Columns.Add("F13", typeof(decimal)); 
+            TMDT.Columns.Add("F14", typeof(decimal));
+            TMDT.Columns.Add("F15", typeof(decimal)); 
+            TMDT.Columns.Add("F16", typeof(decimal));                               
+            TMDT.Columns.Add("F17", typeof(decimal));
+            TMDT.Columns.Add("F18", typeof(string));
+            TMDT.Columns.Add("F19", typeof(string));   
+            TMDT.Columns.Add("F20", typeof(string)); 
+            TMDT.Columns.Add("F21", typeof(string));       
+            TMDT.Columns.Add("F22", typeof(string));   
+            TMDT.Columns.Add("F23", typeof(string)); 
+            TMDT.Columns.Add("F24", typeof(string)); 
+            TMDT.Columns.Add("F25", typeof(string)); 
+            TMDT.Columns.Add("F26", typeof(string)); 
+            TMDT.Columns.Add("F27", typeof(string));                                                                                              
             TMDT.Columns.Add("F28", typeof(DateTime));
             TMDT.Columns.Add("F29", typeof(DateTime));
             TMDT.Columns.Add("F30", typeof(DateTime));
-            TMDT.Columns.Add("F31", typeof(int));     
 
            
               foreach (var item in wsDt)
             {
-              var ActivityCode =item.Action;
-              var FactoryId = item.FactoryId;
-              var AgentId = item.AgentId;
-              var ModuleId = item.ModuleId;
+              var ActivityNo =item.ActivityNo;
+              var ModuleNo = item.ModuleNo;
+              var CompanyNo = item.CompanyNo;
+              var LocationNo = item.LocationNo;
+              var AgentNo = item.AgentNo;
+              var bActive = item.bActive;
                
-              if (item.sMerchandizer != null)
+              if (item.sCategory != null)
                 {                  
                       TMDT.Rows.Add(
-                        item.sMerchandizer.Code,
-                        item.sMerchandizer.Description,
-                        item.sMerchandizer.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sMerchandizer.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
+                        ActivityNo,
+                        ModuleNo,
+                        CompanyNo,
+                        LocationNo,
+                        AgentNo,
+                        bActive,
+                        item.sCategory.AutoId,//1
+                        item.sCategory.ModuleId,//2
+                        0,//3
+                        0,//4
+                        0,//5
+                        0,//6
+                        0,//7
+                        0,//8
+                        0,//9
+                        0,//10
+                        0,//11
+                        0,//12
+                        0,//13
+                        0,//14
+                        0,//15
+                        0,//16,
+                        0,//17,
+                        item.sCategory.Code,//18,
+                        item.sCategory.Description,//19
+                         item.sCategory.bActive,//20
+                        0,//21
                         0
                     );
                 }   
                 
-              if (item.sSampletype != null)
-                {                  
-                      TMDT.Rows.Add(
-                        item.sSampletype.Code,
-                        item.sSampletype.Description,
-                        item.sSampletype.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sSampletype.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                } 
-
-                if (item.sGender != null)
-                {                  
-                      TMDT.Rows.Add(
-                        item.sGender.Code,
-                        item.sGender.Description,
-                        item.sGender.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sGender.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-                if (item.sBuyingOfficeMaster != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sBuyingOfficeMaster.Code,
-                        item.sBuyingOfficeMaster.Description,
-                        item.sBuyingOfficeMaster.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sBuyingOfficeMaster.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-            //   if (item.sGatepassWashCat != null)
-            //       {                  
-            //           TMDT.Rows.Add(
-            //             item.sGatepassWashCat.Code,
-            //             item.sGatepassWashCat.Description,
-            //             item.sGatepassWashCat.bActive,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             ActivityCode,
-            //             0,
-            //             item.sGatepassWashCat.AutoId,
-            //             0,
-            //             0, 0, 0, 0, 0,
-            //             0
-            //         );
-            //     }
-
-                 if (item.sSampleIssue != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sSampleIssue.Code,
-                        item.sSampleIssue.Description,
-                        item.sSampleIssue.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sSampleIssue.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-            //      if (item.sBuyer != null)
-            //       {                  
-            //           TMDT.Rows.Add(
-            //             item.sBuyer.Code,
-            //             item.sBuyer.Description,
-            //             item.sBuyer.bActive,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             ActivityCode,
-            //             0,
-            //             item.sBuyer.AutoId,
-            //             0,
-            //             0, 0, 0, 0, 0,
-            //             0
-            //         );
-            //     }
-
-                if (item.sGMTType != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sGMTType.Code,
-                        item.sGMTType.Description,
-                        item.sGMTType.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sGMTType.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-            //     if (item.sFabricCategory != null)
-            //       {                  
-            //           TMDT.Rows.Add(
-            //             item.sFabricCategory.Code,
-            //             item.sFabricCategory.Description,
-            //             item.sFabricCategory.bActive,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             0,
-            //             ActivityCode,
-            //             0,
-            //             item.sFabricCategory.AutoId,
-            //             0,
-            //             0, 0, 0, 0, 0,
-            //             0
-            //         );
-            //     }
-
-                 if (item.sDyeType != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sDyeType.Code,
-                        item.sDyeType.Description,
-                        item.sDyeType.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sDyeType.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-                 if (item.sWashstd != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sWashstd.Code,
-                        item.sWashstd.Description,
-                        item.sWashstd.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sWashstd.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-                  if (item.sReceipetype != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sReceipetype.Code,
-                        item.sReceipetype.Description,
-                        item.sReceipetype.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sReceipetype.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-                if (item.sWashtypes != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sWashtypes.Code,
-                        item.sWashtypes.Description,
-                        item.sWashtypes.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sWashtypes.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-                if (item.sSpeoprtype != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sSpeoprtype.Code,
-                        item.sSpeoprtype.Description,
-                        item.sSpeoprtype.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sSpeoprtype.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-               
-                if (item.sFabComp != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sFabComp.Code,
-                        item.sFabComp.Description,
-                        item.sFabComp.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sFabComp.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-               
-
-               if (item.sProcesstype != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sProcesstype.Code,
-                        item.sProcesstype.Description,
-                        item.sProcesstype.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sProcesstype.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-                if (item.sUseby != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sUseby.Code,
-                        item.sUseby.Description,
-                        item.sUseby.bActive,
-                        0,
-                        0,
-                        item.sUseby.UseBy,
-                        0,
-                        0,
-                        item.sUseby.Units,
-                        item.sUseby.UOM,
-                        ActivityCode,
-                        0,
-                        item.sUseby.AutoId,
-                        0,
-                        0,
-                        0,
-                        0, 0, 0, 0, 0,
-                        0
-                    );
-                }
-
-                if (item.sRecipeUtl != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sRecipeUtl.Code,
-                        item.sRecipeUtl.Description,
-                        item.sRecipeUtl.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        item.sRecipeUtl.UOM,
-                        ActivityCode,
-                        0,
-                        item.sRecipeUtl.AutoId,
-                        0,
-                        0, 0, 0, 0, 0,0,0,0,
-                        item.sRecipeUtl.UnitRate
-                    );
-                }
-
-                 if (item.sMachtypes != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sMachtypes.Code,
-                        item.sMachtypes.Description,
-                        item.sMachtypes.bActive,
-                        item.sMachtypes.ProcessSection,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sMachtypes.AutoId,
-                        0,
-                        ModuleId, 
-                        0, 0, 0, 0, 0
-                    );
-                }
-
-                 if (item.sSubSalesCategory != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        item.sSubSalesCategory.Code,
-                        item.sSubSalesCategory.Description,
-                        item.sSubSalesCategory.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        0,
-                        item.sSubSalesCategory.AutoId,
-                        0,
-                        0, 0, 
-                        item.sSubSalesCategory.SaleCatId,
-                         0, 0,
-                        0
-                    );
-                }
-
-                if (item.sMachineMaster != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        0,
-                      0,
-                      item.sMachineMaster.bActive,
-                      item.sMachineMaster.ElectricityConsumption,
-                      item.sMachineMaster.SteamConsumption,
-                      item.sMachineMaster.WaterConsumption,
-                      0,
-                      0,
-                      0,
-                      0,
-                      ActivityCode,
-                      0,
-                      item.sMachineMaster.AutoId,
-                      0,
-                      item.sMachineMaster.MachineNo,
-                      item.sMachineMaster.Lots,
-                      item.sMachineMaster.Machintypeid,
-                      0, 0, 0,
-                      0, 0,
-                      item.sMachineMaster.MaxKg,
-                      0, 0, 0
-                    );
-                }
-
-                if (item.sMachineAllocation != null)
-                  {                  
-                      TMDT.Rows.Add(
-                        0,
-                        0,
-                        item.sMachineAllocation.bActive,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        ActivityCode,
-                        item.sMachineAllocation.ProcessId,
-                        item.sMachineAllocation.AutoId,
-                        0,
-                        0,
-                        0,
-                        item.sMachineAllocation.MachineTypeId,
-                        0, 
-                        0, 0,
-                        0,0,
-                        0,
-                        0,0,0
-                    );
-                }
-                if (item.sProcesstoChemical != null)
-                        {
-                            TMDT.Rows.Add(
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            ActivityCode,
-                            item.sProcesstoChemical.ProcessID,
-                            item.sProcesstoChemical.AutoId,
-                            item.sProcesstoChemical.ArticleId,
-                            0,
-                            0,
-                            item.sProcesstoChemical.bActive,
-                            0, 0, 0,
-                            0
-                        );
-                    }
 
               
             }
     
-              para.Add("UDT", TMDT.AsTableValuedParameter("UDT_MWSMaster"));
+              para.Add("UDT", TMDT.AsTableValuedParameter("udt_MasterData"));
 
-            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_MWS_Master", para
+            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_MasterData", para
                 , commandType: CommandType.StoredProcedure);
 
             return result;

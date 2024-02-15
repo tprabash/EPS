@@ -1,0 +1,52 @@
+export class Recipe {
+    F01: number;
+    F02: number;
+    F03: number;
+    F04: number;
+    F05: number;
+    F06: number;
+    F07: number;
+    F08: number;
+    F09: number;
+    F10: number;
+    F11: number;
+    F12: number;
+    F13: number;
+    F14: number;
+    F15: number;
+    F16: number;  
+    F17: number;  
+    F18: number;
+    F19: number;
+    F20: number;
+    f21: number;
+    f22: number;  
+    f23: number; 
+    f24: string; 
+    F25: string;  
+    F26: string;
+    F27: string;
+    F28: string;
+    f29: string;
+    f30: string;  
+    f31: string; 
+    f32: string; 
+    f33: string; 
+    f34: string; 
+    F35: string;  
+    F36: string;
+    F37: string;
+    F38: string;
+    f39: number;
+    f40: number;  
+    f41: number; 
+    f42: number;   
+    f43: number; 
+    f44: number; 
+    F45: number;  
+    F46: number;
+    F47: Date;
+    F48: Date;
+   
+}
+

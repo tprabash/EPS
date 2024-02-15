@@ -67,5 +67,7 @@ export class CompanyMasterComponent implements OnInit {
 
   refreshcompany() {}
 
+  
+
   onEditCompany(event, cellId) {}
 }
