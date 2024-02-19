@@ -1,5 +1,5 @@
 <div class="card card-body">
-    <form [formGroup]="masterCompanyForm" autocomplete="off">
+    <form [formGroup]="masterprintForm" autocomplete="off">
         <div class="row">
             <div class="col-11">
                 <h6 class="bg-secondary">
@@ -9,10 +9,10 @@
             <div class="col-1">
                 <div class="btn-group">
                     <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save"
-                        (click)="companysave()">
+                        (click)="Printsave()">
                         <i class="fas fa-save"></i>
                     </button>
-                    <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
+                    <button type="button" class="btn btn-default" (click)="clearControls()" data-toggle="tooltip"
                         data-placement="bottom" title="Clear">
                         <i class="fas fa-redo"></i>
                     </button>
@@ -36,27 +36,46 @@
                     </igx-input-group>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <igx-input-group hidden>
+                        <input igxInput type="text" formControlName="autoId" />
+                        <label igxLabel>autoId</label>
+                    </igx-input-group>
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <igx-grid #masterCompanyGrid [data]="masterCompanyList" [autoGenerate]="false" [paging]="true"
-                    [rowEditable]="false" [primaryKey]="'autoId'" cellSelection="none" [perPage]="10" height="500px"
-                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
-                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
-                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
-                        <ng-template igxCell let-cell="cell">
-                            <button igxButton="icon" class="fab-compact" (click)="onEditCompany($event,cell.cellID)">
-                                <igx-icon family="material">edit</igx-icon>
+                <igx-grid #masterprintGrid [data]="masterPrintList" [autoGenerate]="false" [paging]="true"
+                [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none"
+                (onColumnResized)="onResize($event)" [perPage]="10" height="500px" displayDensity="compact"
+                [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
+                [rowSelection]="'Single'">
+      
+                <igx-column [width]="'100px'" field="f20" [header]="' '"  [selectable]="false" [sortable]="false" [resizable]="false">
+                    <ng-template igxCell let-cell="cell">
+                        <button igxButton="icon" class="fab-compact" (click)="onEditCategory($event,cell.cellID)" >
+                            <igx-icon family="material">edit</igx-icon>
+                        </button>
+                        <div *ngIf="!cell.value; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <button igxButton="icon" class="fab-compact"  >
+                                <igx-icon class="icon-red" family="material" (click)="Active($event ,cell.cellID)">toggle_off</igx-icon>
                             </button>
                         </ng-template>
-                    </igx-column>
-                    <igx-column [field]="''" [header]="'Code'" [resizable]="true"
-                        [dataType]="'string'" [sortable]="true">
-                    </igx-column>
-                    <igx-column [field]="''" [header]="'Description'" [resizable]="true" [dataType]="'string'"
-                        [sortable]="true">
-                    </igx-column>
+                        <ng-template #elseBlock>
+                            <button igxButton="icon" class="fab-compact" >
+                                <igx-icon class="icon-green" family="material" (click)="Deactive($event ,cell.cellID)">toggle_on</igx-icon>
+                            </button>
+                        </ng-template>
+                    </ng-template>
+                </igx-column>
+      
+                <igx-column [field]="'f18'" [header]="'Code'" [resizable]="true" [dataType]="'string'" > </igx-column>
+                <igx-column [field]="'f19'" [header]="'Description'" [resizable]="true" [dataType]="'string'" > </igx-column>
+      
                 </igx-grid>
             </div>
         </div>

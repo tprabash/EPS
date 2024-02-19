@@ -14,7 +14,10 @@ namespace API.DTOs
         public int bActive { get; set; }
 
         public virtual   MstrCompany  sCompany  { get; set; }  
-         public virtual   MstrCategory  sCategory  { get; set; } 
+        public virtual   MstrCategory  sCategory  { get; set; } 
+        public virtual   MstrSupplierHeader  sSupplier { get; set; }
+        public virtual   MstrCustomerHeader  sCustomer { get; set; }
+        public virtual   MstrItem sItem  { get; set; }
        
     }
 }

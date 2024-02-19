@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-11">
                 <h6 class="bg-secondary">
-                    Customer Master
+                    Item Master
                 </h6>
             </div>
             <div class="col-1">
@@ -47,8 +47,8 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Category</label>
-                    <igx-combo #category id="category" class="combo" displayKey="" valueKey=""
-                        [itemsMaxHeight]="250" [data]="categoryList" placeholder="Category"
+                    <igx-combo #category id="category" class="combo" displayKey="f19" valueKey="f01"
+                        [itemsMaxHeight]="250" [data]="masterCategoryList" placeholder="Category"
                         (onSelectionChange)="singleSelection($event)" formControlName="category" searchPlaceholder="Search...">
                     </igx-combo>
                 </div>
@@ -56,8 +56,8 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Sub Category</label>
-                    <igx-combo #subcategory id="subcategory" class="combo" displayKey="" valueKey=""
-                        [itemsMaxHeight]="250" [data]="subcategoryList" placeholder="zSub Category"
+                    <igx-combo #subcategory id="subcategory" class="combo" displayKey="f19" valueKey="f01"
+                        [itemsMaxHeight]="250" [data]="masterSubCategoryList" placeholder="Sub Category"
                         (onSelectionChange)="singleSelection($event)" formControlName="subcategory" searchPlaceholder="Search...">
                     </igx-combo>
                 </div>
@@ -65,8 +65,8 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Size</label>
-                    <igx-combo #size id="size" class="combo" displayKey="" valueKey=""
-                        [itemsMaxHeight]="250" [data]="sizeList" placeholder="Size"
+                    <igx-combo #size id="size" class="combo" displayKey="f19" valueKey="f01"
+                        [itemsMaxHeight]="250" [data]="mastersizeList" placeholder="Size"
                         (onSelectionChange)="singleSelection($event)" formControlName="size" searchPlaceholder="Search...">
                     </igx-combo>
                 </div>
@@ -74,8 +74,8 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Print</label>
-                    <igx-combo #category id="print" class="combo" displayKey="" valueKey=""
-                        [itemsMaxHeight]="250" [data]="printList" placeholder="Print"
+                    <igx-combo #print id="print" class="combo" displayKey="f19" valueKey="f01"
+                        [itemsMaxHeight]="250" [data]="masterPrintList" placeholder="Print"
                         (onSelectionChange)="singleSelection($event)" formControlName="print" searchPlaceholder="Search...">
                     </igx-combo>
                 </div>
@@ -104,41 +104,70 @@
                     </igx-input-group>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <igx-input-group hidden>
+                        <input igxInput type="text" formControlName="autoId" />
+                        <label igxLabel>autoId</label>
+                    </igx-input-group>
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <igx-grid #masterCompanyGrid [data]="masterCompanyList" [autoGenerate]="false" [paging]="true"
-                    [rowEditable]="false" [primaryKey]="'autoId'" cellSelection="none" [perPage]="10" height="500px"
-                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
-                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
-                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                <igx-grid #masteritemGrid [data]="masterItemList" [autoGenerate]="false" [paging]="true"
+                [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none"
+                (onColumnResized)="onResize($event)" [perPage]="10" height="500px" displayDensity="compact"
+                [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
+                [rowSelection]="'Single'">
+                    <igx-column [width]="'100px'" field="f20" [header]="'Active/Inactive'"  [selectable]="false" [sortable]="false" [resizable]="false">
                         <ng-template igxCell let-cell="cell">
-                            <button igxButton="icon" class="fab-compact" (click)="onEditCompany($event,cell.cellID)">
+                            <button igxButton="icon" class="fab-compact" (click)="onEditCategory($event,cell.cellID)" >
                                 <igx-icon family="material">edit</igx-icon>
                             </button>
+                            <div *ngIf="!cell.value; then thenBlock else elseBlock"></div>
+                            <ng-template #thenBlock>
+                                <button igxButton="icon" class="fab-compact"  >
+                                    <igx-icon class="icon-red" family="material" (click)="Active($event ,cell.cellID)">toggle_off</igx-icon>
+                                </button>
+                            </ng-template>
+                            <ng-template #elseBlock>
+                                <button igxButton="icon" class="fab-compact" >
+                                    <igx-icon class="icon-green" family="material" (click)="Deactive($event ,cell.cellID)">toggle_on</igx-icon>
+                                </button>
+                            </ng-template>
                         </ng-template>
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Code'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f18'" [header]="'Code'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Customer Name'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f19'" [header]="'Item Name'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Todat crebal Amount'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f03'" [header]="'Barcode'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Address'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f18'" [header]="'Category'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Contact Person'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f19'" [header]="'Sub Category'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Vat No'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f20'" [header]="'Size'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Svat No'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f21'" [header]="'Print'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f11'" [header]="'Buying Rate'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f12'" [header]="'Selling Rate'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f13'" [header]="'ROL'" [resizable]="true" [dataType]="''"
+                    [sortable]="true">
                     </igx-column>
                 </igx-grid>
             </div>

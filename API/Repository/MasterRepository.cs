@@ -3633,7 +3633,80 @@ namespace API.Repository
                         0
                     );
                 }   
-                
+                 if (item.sSupplier  != null)
+                {                  
+                      TMDT.Rows.Add(
+                        ActivityNo,
+                        ModuleNo,
+                        CompanyNo,
+                        LocationNo,
+                        AgentNo,
+                        bActive,
+                        item.sSupplier.AutoId,//1
+                        item.sSupplier.ModuleId,//2
+                        item.sSupplier.Creaditeperiod,//3
+                        item.sSupplier.ContactNo,//4
+                        0,//5
+                        0,//6
+                        0,//7
+                        0,//8
+                        0,//9
+                        0,//10
+                        item.sSupplier.CreaditeLimite,//11
+                        0,//12
+                        0,//13
+                        0,//14
+                        0,//15
+                        0,//16,
+                        0,//17,
+                        item.sSupplier.Code,//18,
+                        item.sSupplier.SupName,//19
+                        item.sSupplier.bActive,//20
+                        item.sSupplier.Address,//21
+                        item.sSupplier.ContactPerson,//22
+                        item.sSupplier.VATNo,//23
+                        item.sSupplier.SvatNo,//24
+                         0
+                    );
+                }   
+
+                 if (item.sCustomer  != null)
+                    {                  
+                      TMDT.Rows.Add(
+                        ActivityNo,
+                        ModuleNo,
+                        CompanyNo,
+                        LocationNo,
+                        AgentNo,
+                        bActive,
+                        item.sCustomer.AutoId,//1
+                        item.sCustomer.ModuleId,//2
+                        0,//3
+                        0,//4
+                        0,//5
+                        0,//6
+                        0,//7
+                        0,//8
+                        0,//9
+                        0,//10
+                        item.sCustomer.TotalcrebalAmount,//11
+                        0,//12
+                        0,//13
+                        0,//14
+                        0,//15
+                        0,//16,
+                        0,//17,
+                        item.sCustomer.Code,//18,
+                        item.sCustomer.CustName,//19
+                        item.sCustomer.bActive,//20
+                        item.sCustomer.Address,//21
+                        item.sCustomer.ContactPerson,//22
+                        item.sCustomer.VATNo,//23
+                        item.sCustomer.SvatNo,//24
+                         0
+                    );
+
+                }
 
               
             }

@@ -27,6 +27,29 @@ export class ItemMasterComponent implements OnInit {
   sizeList = [];
   printList = [];
 
+  public col : IgxColumnComponent;
+  public oWidth : string;
+  public nWidth : string;
+  public ogIdx : BigInteger;
+  masterCustomerList: any[];
+  ccDisableButton: boolean = false;
+  masterCategoryList: any[];
+
+  @ViewChild('masteritemGrid' , {static : true})
+  public masteritemGrid : IgxGridComponent;
+  @ViewChild('category' , {static : true})
+  public category : IgxComboComponent;
+  @ViewChild('subcategory' , {static : true})
+  public subcategory : IgxComboComponent;
+  @ViewChild('size' , {static : true})
+  public size : IgxComboComponent;
+  @ViewChild('print' , {static : true})
+  public print : IgxComboComponent;
+  masterSubCategoryList: any[];
+  mastersizeList: any[];
+  masterPrintList: any[];
+  masterItemList: any[];
+
   constructor(
     private accountService: AccountService,
     private fb: FormBuilder,
@@ -36,6 +59,11 @@ export class ItemMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+    this.loadCategoryList();
+    this.loadSubCategoryList();
+    this.loadSizeList();
+    this.loadPrintList();
+    this.loadItemList();
   }
   initializeForm() {
     this.accountService.currentUser$.forEach((element) => {
@@ -65,6 +93,79 @@ export class ItemMasterComponent implements OnInit {
     });
   }
 
+  public onResize(event){
+    this.col = event.column;
+    this.oWidth = event.prevWidth;
+    this.nWidth = event.newWidth
+  }
+
+
+  loadCategoryList(){
+    this.masterCategoryList = [];
+    var objOG = {
+      ActivityNo: 3
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.masterCategoryList = OpGroupList;
+      console.log(OpGroupList);
+    });
+
+  }
+
+  loadSubCategoryList(){
+    this.masterSubCategoryList = [];
+    var objOG = {
+      ActivityNo: 12
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.masterSubCategoryList = OpGroupList;
+      console.log(OpGroupList);
+    });
+
+  }
+
+  loadSizeList(){
+    this.mastersizeList = [];
+    var objOG = {
+      ActivityNo: 22
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.mastersizeList = OpGroupList;
+      console.log(OpGroupList);
+    });
+
+  }
+
+  loadPrintList(){
+    this.masterPrintList = [];
+    var objOG = {
+      ActivityNo: 32
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.masterPrintList = OpGroupList;
+      console.log(OpGroupList);
+    });
+
+  }
+
+  loadItemList(){
+    this.masterItemList = [];
+    var objOG = {
+      ActivityNo: 61
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.masterItemList = OpGroupList;
+      console.log(OpGroupList);
+    });
+
+  }
+  
+  
   companysave() {
     if (this.saveButton == true) {
       var Obj = {};

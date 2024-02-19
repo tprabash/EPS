@@ -9,8 +9,16 @@ namespace API.Entities
     {
         [Key]
         public int SupplierId { get; set; }
-        public string Name { get; set; }
+         public int AutoId { get; set; }
+         public int ModuleId { get; set; }
+         public string Name { get; set; }
+         public string Code { get; set; }
+         public string SupName { get; set; }
         public string Address { get; set; }
+        public string ContactPerson { get; set; }
+         public int Creaditeperiod { get; set; }
+         public decimal CreaditeLimite { get; set; }
+         public int ContactNo { get; set; }
         public string Email { get; set; }
         public string Tel { get; set; }
         public string ShortCode { get; set; }
@@ -19,6 +27,7 @@ namespace API.Entities
         public int CountryId { get; set; }
         public int CurrencyId { get; set; }
         public string VATNo { get; set; }
+         public string SvatNo { get; set; }
         public string TaxNo { get; set; }
         public string TinNo { get; set; }
         public string ZipPostalCode { get; set; }

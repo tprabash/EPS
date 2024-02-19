@@ -9,10 +9,10 @@
             <div class="col-1">
                 <div class="btn-group">
                     <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save"
-                        (click)="companysave()">
+                        (click)="Suppliersave()">
                         <i class="fas fa-save"></i>
                     </button>
-                    <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
+                    <button type="button" class="btn btn-default" (click)="clearControls()" data-toggle="tooltip"
                         data-placement="bottom" title="Clear">
                         <i class="fas fa-redo"></i>
                     </button>
@@ -55,7 +55,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <igx-input-group>
-                        <input igxInput type="text" formControlName="creditperiod" />
+                        <input igxInput type="number" formControlName="creditperiod" />
                         <label igxLabel>Credit Period</label>
                     </igx-input-group>
                 </div>
@@ -63,7 +63,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <igx-input-group>
-                        <input igxInput type="text" formControlName="creditlimit" />
+                        <input igxInput type="number" formControlName="creditlimit" />
                         <label igxLabel>Credit Limit</label>
                     </igx-input-group>
                 </div>
@@ -71,7 +71,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <igx-input-group>
-                        <input igxInput type="text" formControlName="contactno" />
+                        <input igxInput type="number" formControlName="contactno" />
                         <label igxLabel>Contact no</label>
                     </igx-input-group>
                 </div>
@@ -92,39 +92,59 @@
                     </igx-input-group>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <igx-input-group hidden>
+                        <input igxInput type="text" formControlName="autoId" />
+                        <label igxLabel>autoId</label>
+                    </igx-input-group>
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <igx-grid #masterCompanyGrid [data]="masterCompanyList" [autoGenerate]="false" [paging]="true"
-                    [rowEditable]="false" [primaryKey]="'autoId'" cellSelection="none" [perPage]="10" height="500px"
-                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
-                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
-                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                <igx-grid #masterSupplierGrid [data]="masterSupplierList" [autoGenerate]="false" [paging]="true"
+                [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none"
+                (onColumnResized)="onResize($event)" [perPage]="10" height="500px" displayDensity="compact"
+                [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
+                [rowSelection]="'Single'">
+                    <igx-column [width]="'100px'" field="f20" [header]="'Active/Inactive'"  [selectable]="false" [sortable]="false" [resizable]="false">
                         <ng-template igxCell let-cell="cell">
-                            <button igxButton="icon" class="fab-compact" (click)="onEditCompany($event,cell.cellID)">
+                            <button igxButton="icon" class="fab-compact" (click)="onEditCategory($event,cell.cellID)" >
                                 <igx-icon family="material">edit</igx-icon>
                             </button>
+                            <div *ngIf="!cell.value; then thenBlock else elseBlock"></div>
+                            <ng-template #thenBlock>
+                                <button igxButton="icon" class="fab-compact"  >
+                                    <igx-icon class="icon-red" family="material" (click)="Active($event ,cell.cellID)">toggle_off</igx-icon>
+                                </button>
+                            </ng-template>
+                            <ng-template #elseBlock>
+                                <button igxButton="icon" class="fab-compact" >
+                                    <igx-icon class="icon-green" family="material" (click)="Deactive($event ,cell.cellID)">toggle_on</igx-icon>
+                                </button>
+                            </ng-template>
                         </ng-template>
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Code'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f18'" [header]="'Code'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Supplier Name'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f19'" [header]="'Supplier Name'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Address'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f21'" [header]="'Address'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Contact Person'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f22'" [header]="'Contact Person'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Credit Period'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f03'" [header]="'Credit Period'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Credit Limit'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f11'" [header]="'Credit Limit'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Contact No'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f04'" [header]="'Contact No'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Vat No'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f23'" [header]="'Vat No'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Svat No'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                    <igx-column [field]="'f24'" [header]="'Svat No'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                     </igx-column>
                 </igx-grid>
             </div>

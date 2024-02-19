@@ -9,9 +9,15 @@ namespace API.Entities
     {
         [Key]
         public int AutoId { get; set; }
+         public int ModuleId { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
+        public string CustName { get; set; }
+        public decimal TotalcrebalAmount { get; set; }
         public string Address { get; set; }
+        public string ContactPerson { get; set; }
         public string Email { get; set; }
+        public string SvatNo { get; set; }
         public string Tel { get; set; }
         public string ShortCode { get; set; }
         public string CustomerID { get; set; }
