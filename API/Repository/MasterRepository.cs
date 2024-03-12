@@ -3708,6 +3708,46 @@ namespace API.Repository
 
                 }
 
+                if (item.sItem  != null)
+                    {                  
+                      TMDT.Rows.Add(
+                        ActivityNo,
+                        ModuleNo,
+                        CompanyNo,
+                        LocationNo,
+                        AgentNo,
+                        bActive,
+                        item.sItem.AutoId,//1
+                        item.sItem.ModuleId,//2
+                        item.sItem.Barcode,//3
+                        item.sItem.CategoryId,//4
+                        item.sItem.SubCategoryId,//5
+                        item.sItem.SizeId,//6
+                        item.sItem.PrintId,//7
+                        0,//8
+                        0,//9
+                        0,//10
+                        item.sItem.buyingRate,//11
+                        item.sItem.SellingRate,//12
+                        item.sItem.ROL,//13
+                        0,//14
+                        0,//15
+                        0,//16,
+                        0,//17,
+                        item.sItem.Code,//18,
+                        item.sItem.ItemName,//19
+                        item.sItem.bActive,//20
+                        0,//21
+                        0,//22
+                        0,//23w
+                        0,//24
+                         0
+                    );
+
+                }
+
+
+
               
             }
     
