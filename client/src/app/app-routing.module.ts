@@ -16,7 +16,8 @@ import { SizeMasterComponent } from './Master/size-master/size-master.component'
 import { PrintMasterComponent } from './Master/print-master/print-master.component';
 import { SupplierMasterComponent } from './Master/supplier-master/supplier-master.component';
 import { CustomerMasterComponent } from './Master/customer-master/customer-master.component';
-import { ItemMasterComponent } from './Master/item-master/item-master.component';
+import { GrnComponent } from './purchasing/grn/grn.component';
+import { ItemTabComponent } from './Master/Item/item-tab/item-tab.component';
 
 const routes: Routes = [
   {path:'', component: LoginComponent},
@@ -39,7 +40,8 @@ const routes: Routes = [
       { path: 'print-master', component: PrintMasterComponent },
       { path: 'supplier-master', component: SupplierMasterComponent },
       { path: 'customer-master', component: CustomerMasterComponent },
-      { path: 'item-master', component: ItemMasterComponent }
+      { path: 'item-master', component: ItemTabComponent },
+      { path: 'grn', component: GrnComponent }
     ]
   },  
   {path:'not-found', component: NotFoundComponent},

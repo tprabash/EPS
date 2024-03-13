@@ -31,7 +31,11 @@ import { SizeMasterComponent } from './Master/size-master/size-master.component'
 import { PrintMasterComponent } from './Master/print-master/print-master.component';
 import { SupplierMasterComponent } from './Master/supplier-master/supplier-master.component';
 import { CustomerMasterComponent } from './Master/customer-master/customer-master.component';
-import { ItemMasterComponent } from './Master/item-master/item-master.component';
+import { ItemMasterComponent } from './Master/Item/item-master/item-master.component';
+import { GrnComponent } from './purchasing/grn/grn.component';
+import { ItemTabComponent } from './Master/Item/item-tab/item-tab.component';
+import { ColorTabComponent } from './Master/Item/color-tab/color-tab.component';
+import { SizeTabComponent } from './Master/Item/size-tab/size-tab.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,7 @@ import { ItemMasterComponent } from './Master/item-master/item-master.component'
     PrintMasterComponent, 
     SupplierMasterComponent, 
     CustomerMasterComponent, 
-    ItemMasterComponent,
+    ItemMasterComponent, GrnComponent, ItemTabComponent, ColorTabComponent, SizeTabComponent,
   ],
   imports: [
     BrowserModule,
