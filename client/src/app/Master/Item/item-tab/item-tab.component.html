@@ -1,0 +1,42 @@
+<section class="content">
+    <!-- <div class="container-fluid"> -->
+    <!-- <div class="col-12"> -->
+    <div class="card card-default card-outline card-tabs">
+        <div class="card-header p-0 pt-1 border-bottom-0">
+            <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                <li class="nav-item" *ngIf="article">
+                    <a class="nav-link active" id="custom-tabs-article" data-toggle="pill" href="#customer-article-tab"
+                        role="tab" aria-controls="customer-article-tab" aria-selected="true"> Article </a>
+                </li>
+                <li class="nav-item" *ngIf="articleSize">
+                    <a class="nav-link" id="custom-tabs-assignsize-tab" data-toggle="pill"
+                        href="#customer-assignsize-tab" role="tab" aria-controls="customer-assignsize-tab"
+                        aria-selected="false">Assign Size</a>
+                </li>
+                <li class="nav-item" *ngIf="articleColor">
+                    <a class="nav-link" id="custom-tabs-assigncolor-tab" data-toggle="pill"
+                        href="#customer-assigncolor-tab" role="tab" aria-controls="customer-assigncolor-tab"
+                        aria-selected="false">Assign Color</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content" id="custom-tabs-two-tabContent">
+            <div class="tab-pane fade show active" id="customer-article-tab" role="tabpanel"
+                aria-labelledby="custom-tabs-article">
+                <app-item-master></app-item-master>
+            </div>
+            <div class="tab-pane fade" id="customer-assignsize-tab" role="tabpanel"
+                aria-labelledby="custom-tabs-assignsize-tab">
+                <app-size-tab></app-size-tab>
+            </div>
+            <div class="tab-pane fade" id="customer-assigncolor-tab" role="tabpanel"
+                aria-labelledby="custom-tabs-assigncolor-tab">
+                <app-color-tab></app-color-tab>
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div>  -->
+    <!-- /.container-fluid -->
+</section>

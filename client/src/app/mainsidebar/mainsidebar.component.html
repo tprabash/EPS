@@ -61,7 +61,8 @@
     <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
   </a>
 
-  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='CCS - EE' ; then " style="background-color: goldenrod">
+  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='CCS - EE' ; then "
+    style="background-color: goldenrod">
     <!-- <img src="assets/img/Maliban_logo.gif" alt="EAM Logo" class="brand-image img-circle elevation-3"
       style="opacity: .8"> -->
     <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
@@ -90,27 +91,9 @@
         <a href="#" class="d-block"> Welcome {{user.userName}}</a>
       </div>
     </div>
-
-    <!-- SidebarSearch Form -->
-    <!-- <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div> -->
-
-    <!-- Sidebar Menu -->
-
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
         <li class="nav-item" *ngIf="dashboard">
-          <!--menu-open-->
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -120,7 +103,6 @@
           </a>
         </li>
         <li class="nav-item" *ngIf="adminGroup">
-          <!--menu-open-->
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-user-shield"></i>
             <p>
@@ -137,8 +119,26 @@
             </li>
           </ul>
         </li>
+
         <li class="nav-item" *ngIf="masterGroup">
-          <!--menu-open-->
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Order
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/grn" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>GRN</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" *ngIf="masterGroup">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>
             <p>
@@ -146,22 +146,6 @@
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
-          <!-- <ul class="nav nav-treeview" *ngIf="userReg">
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/company-master" routerLinkActive="active" (click)="menuClose()">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Company</p>
-              </a>
-            </li>
-          </ul> -->
-          <!-- <ul class="nav nav-treeview" *ngIf="userReg">
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/location-master" routerLinkActive="active" (click)="menuClose()">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Location</p>
-              </a>
-            </li>
-          </ul> -->
           <ul class="nav nav-treeview" *ngIf="userReg">
             <li class="nav-item">
               <a class="nav-link " routerLink="/category-master" routerLinkActive="active" (click)="menuClose()">
@@ -219,7 +203,6 @@
             </li>
           </ul>
         </li>
-
         <li class="nav-item" *ngIf="workstudyGroup">
           <a href="#" class="nav-link">
             <i class="nav-icon fa fa-book"></i>
@@ -384,7 +367,6 @@
             </li>
           </ul>
         </li>
-
         <li class="nav-item" *ngIf="transportGroup">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>

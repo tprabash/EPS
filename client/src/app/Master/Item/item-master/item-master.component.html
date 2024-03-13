@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3 mt-3">
                 <div class="form-group">
                     <igx-input-group>
                         <input igxInput type="text" formControlName="code" />
@@ -28,7 +28,7 @@
                     </igx-input-group>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-3">
                 <div class="form-group">
                     <igx-input-group>
                         <input igxInput type="text" formControlName="itemname" />
@@ -36,7 +36,7 @@
                     </igx-input-group>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-3">
                 <div class="form-group">
                     <igx-input-group>
                         <input igxInput type="text" formControlName="barcode" />
@@ -53,7 +53,7 @@
                     </igx-combo>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Sub Category</label>
                     <igx-combo #subcategory id="subcategory" class="combo" displayKey="f19" valueKey="f01"
@@ -62,25 +62,7 @@
                     </igx-combo>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Size</label>
-                    <igx-combo #size id="size" class="combo" displayKey="f19" valueKey="f01"
-                        [itemsMaxHeight]="250" [data]="mastersizeList" placeholder="Size"
-                        (onSelectionChange)="singleSelection($event)" formControlName="size" searchPlaceholder="Search...">
-                    </igx-combo>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Print</label>
-                    <igx-combo #print id="print" class="combo" displayKey="f19" valueKey="f01"
-                        [itemsMaxHeight]="250" [data]="masterPrintList" placeholder="Print"
-                        (onSelectionChange)="singleSelection($event)" formControlName="print" searchPlaceholder="Search...">
-                    </igx-combo>
-                </div>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-3 mt-3">
                 <div class="form-group">
                     <igx-input-group>
                         <input igxInput type="text" formControlName="buyingrate" />
@@ -88,7 +70,7 @@
                     </igx-input-group>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3 mt-3">
                 <div class="form-group">
                     <igx-input-group>
                         <input igxInput type="text" formControlName="sellingrate" />
@@ -96,7 +78,7 @@
                     </igx-input-group>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3 mt-3">
                 <div class="form-group">
                     <igx-input-group>
                         <input igxInput type="text" formControlName="rol" />
@@ -104,7 +86,7 @@
                     </igx-input-group>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-3">
                 <div class="form-group">
                     <igx-input-group hidden>
                         <input igxInput type="text" formControlName="autoId" />

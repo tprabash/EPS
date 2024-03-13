@@ -1,0 +1,102 @@
+<div class="card card-body">
+    <form [formGroup]="masterSupplierForm" autocomplete="off">
+        <div class="row">
+            <div class="col-11">
+                <h6 class="bg-secondary">
+                    Goods Received Note
+                </h6>
+            </div>
+            <div class="col-1">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save"
+                        (click)="companysave()">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
+                        data-placement="bottom" title="Clear">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>GRn Type</label>
+                    <igx-combo id="grntype" class="combo" displayKey="" valueKey=""
+                        [itemsMaxHeight]="250" [data]="grnTypeList" placeholder="GRN Type"
+                        formControlName="grntype" searchPlaceholder="Search...">
+                    </igx-combo>
+                </div>
+            </div>
+            <div class="col-md-2 mt-3">
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="text" formControlName="docno" />
+                        <label igxLabel>DocNo</label>
+                    </igx-input-group>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label> Supplier *</label>
+                    <igx-combo #supplier id="supplier" class="combo" displayKey="" valueKey=""
+                        [itemsMaxHeight]="250" [data]="supplierList" placeholder="Supplier"
+                        formControlName="supplier" searchPlaceholder="Search...">
+                    </igx-combo>
+                </div>
+            </div>
+            <div class="col-md-2 mt-3">
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="text" formControlName="supreff" />
+                        <label igxLabel>Supplier Reff</label>
+                    </igx-input-group>
+                </div>
+            </div>
+            <div class="col-md-2 mt-3">
+                <div class="group">
+                    <igx-date-picker id="docDate" formControlName="docDate">
+                        <label igxLabel>Doc Date</label>
+                    </igx-date-picker>
+                </div>
+            </div>
+            <div class="col-md-2 mt-3">
+                <div class="form-group">
+                    <igx-date-picker id="Transdatetime" formControlName="transDate">
+                        <label igxLabel>Trans Date</label>
+                    </igx-date-picker>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <igx-grid #masterCompanyGrid [data]="masterCompanyList" [autoGenerate]="false" [paging]="true"
+                    [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none" [perPage]="10" height="500px"
+                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
+                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
+                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                        <ng-template igxCell let-cell="cell">
+                            <button igxButton="icon" class="fab-compact" (click)="onEditCompany($event,cell.cellID)">
+                                <igx-icon family="material">edit</igx-icon>
+                            </button>
+                        </ng-template>
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'GRNQty'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'FreeQty'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'unitrate'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Value'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                     </igx-column>
+                </igx-grid>
+            </div>
+        </div>
+    </form>
+</div>
