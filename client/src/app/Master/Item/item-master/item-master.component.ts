@@ -80,16 +80,16 @@ export class ItemMasterComponent implements OnInit {
     this.masterItemForm = this.fb.group({
       autoId: [0],
       createUserId: this.user.userId,
-      code: ['', [Validators.required, Validators.maxLength(50)]],
-      itemname: ['', [Validators.required, Validators.maxLength(50)]],
-      barcode: ['', [Validators.required, Validators.maxLength(50)]],
-      category: ['', [Validators.required, Validators.maxLength(50)]],
-      subcategory: ['', [Validators.required, Validators.maxLength(50)]],
-      size: ['', [Validators.required, Validators.maxLength(50)]],
-      print: ['', [Validators.required, Validators.maxLength(50)]],
-      buyingrate: ['', [Validators.required, Validators.maxLength(50)]],
-      sellingrate: ['', [Validators.required, Validators.maxLength(50)]],
-      rol: ['', [Validators.required, Validators.maxLength(50)]],
+      code: [''],
+      itemname:[''],
+      barcode: [''],
+      category: [''],
+      subcategory: [''],
+      // size: ['', [Validators.required, Validators.maxLength(50)]],
+      // print: ['', [Validators.required, Validators.maxLength(50)]],
+      buyingrate: [''],
+      sellingrate: [''],
+      rol: [''],
     });
   }
 
@@ -169,29 +169,33 @@ export class ItemMasterComponent implements OnInit {
   Itemsave() {
 
     var SMList = [];
-
     var supplierData = {
       Code: this.masterItemForm.get('code').value,
-      ItemName: this.masterItemForm.get('custname').value.trim(),
-      Barcode: this.masterItemForm.get('address').value,
-      CategoryId: this.masterItemForm.get('contactperson').value,
-      SubCategoryId: this.masterItemForm.get('totalcrebalamount').value,
-      SizeId: this.masterItemForm.get('vatno').value,
-      PrintId: this.masterItemForm.get('svatno').value,
-      buyingRate: this.masterItemForm.get('totalcrebalamount').value,
-      SellingRate: this.masterItemForm.get('vatno').value,
-      ROL: this.masterItemForm.get('svatno').value,
+      ItemName: this.masterItemForm.get('itemname').value,
+      Barcode: this.masterItemForm.get('barcode').value,
+      // CategoryId: 1,
+      // SubCategoryId: 1,
+      CategoryId: this.masterItemForm.get('category').value[0],
+      SubCategoryId: this.masterItemForm.get('subcategory').value[0],
+      // SizeId: this.masterItemForm.get('vatno').value,
+      // PrintId: this.masterItemForm.get('svatno').value,
+      buyingRate: this.masterItemForm.get('buyingrate').value,
+      SellingRate: this.masterItemForm.get('sellingrate').value,
+      ROL: this.masterItemForm.get('rol').value,
       AutoId: this.masterItemForm.get('autoId').value
     };
 
+
+    console.log("supplierData",supplierData);
     var objSM = {
       sItem: supplierData,
-      ActivityNo: 50,
+      ActivityNo: 60,
       AgentNo:this.user.userId,
-      ModuleNo:this.user.moduleId,
+      ModuleNo:this.user.moduleId
     };
 
     SMList.push(objSM);
+    
     console.log(SMList);
 
       this.masterService.SaveMWSMasterData(SMList).subscribe((result) => {

@@ -21,10 +21,9 @@ namespace API.Entities
         public int PrintId { get; set; }
         public int buyingRate { get; set; }
         public int SellingRate { get; set; }
-        public int ROL { get; set; }
-        public bool bActive { get; set; }
-        public virtual SystemModule SysModule { get; set; }
-        public virtual MstrCompany MstrCompany {get; set;}
+        public decimal ROL { get; set; }
+        public int bActive { get; set; }
+ 
 
     }
 }

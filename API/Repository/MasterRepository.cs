@@ -3724,7 +3724,7 @@ namespace API.Repository
                         item.sItem.SubCategoryId,//5
                         item.sItem.SizeId,//6
                         item.sItem.PrintId,//7
-                        0,//8
+                        item.sItem.bActive,//8
                         0,//9
                         0,//10
                         item.sItem.buyingRate,//11
@@ -3736,12 +3736,12 @@ namespace API.Repository
                         0,//17,
                         item.sItem.Code,//18,
                         item.sItem.ItemName,//19
-                        item.sItem.bActive,//20
+                        0,//20
                         0,//21
                         0,//22
                         0,//23w
                         0,//24
-                         0
+                         0,0,0
                     );
 
                 }
