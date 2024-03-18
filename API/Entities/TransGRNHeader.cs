@@ -13,6 +13,7 @@ namespace API.Entities
         public string GRNNo { get; set; }
         public int GRNTypeId { get; set; }
         public int SupplierId { get; set; }
+        public int SupplierReff { get; set; }
         public int ToSiteId { get; set; }
         public int FromSiteId { get; set; }
         public int FromLocation { get; set; }

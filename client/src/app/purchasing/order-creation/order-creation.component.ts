@@ -7,29 +7,38 @@ import {
   IgxGridComponent,
   IgxComboComponent,
   IComboSelectionChangeEventArgs,
+  IgxDialogComponent,
 } from 'igniteui-angular';
 import { MasterService } from '_services/master.service';
 import { AccountService } from '_services/account.service';
 import { SalesorderService } from '_services/salesorder.service';
 import { DatePipe } from '@angular/common';
-
 @Component({
-  selector: 'app-grn',
-  templateUrl: './grn.component.html',
-  styleUrls: ['./grn.component.css'],
+  selector: 'app-order-creation',
+  templateUrl: './order-creation.component.html',
+  styleUrls: ['./order-creation.component.css'],
 })
-export class GrnComponent implements OnInit {
-  masterSupplierForm: FormGroup;
+export class OrderCreationComponent implements OnInit {
+  orderCreationForm: FormGroup;
+  docnosearchForm: FormGroup;
+  addpoForm: FormGroup;
   user: User;
   saveButton: boolean = false;
-  masterCompanyList = [];
-  supplierList: any = [];
-  grnTypeList: any = [];
+  customerList: any[] = [];
+  articleList: any[] = [];
+  OrderCreationSearchList: any[] = [];
+  orderCreationList: any[] = [];
 
   @ViewChild('grntype', { static: true })
   public grntype: IgxComboComponent;
   @ViewChild('supplier', { static: true })
   public supplier: IgxComboComponent;
+  @ViewChild('orderCreationGrid', { static: true })
+  public orderCreationGrid: IgxGridComponent;
+  @ViewChild('OrderCreationSearchGrid', { static: true })
+  public OrderCreationSearchGrid: IgxGridComponent;
+  @ViewChild('LoadAddPoDialog', { read: IgxDialogComponent })
+  public LoadAddPoDialog: IgxDialogComponent;
 
   constructor(
     private accountService: AccountService,
@@ -41,8 +50,8 @@ export class GrnComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.loadCategoryList();
-    this.loadSupplierList();
+    this.loadCustomerList();
+    this.loadArticleList();
   }
   initializeForm() {
     this.accountService.currentUser$.forEach((element) => {
@@ -55,39 +64,47 @@ export class GrnComponent implements OnInit {
         this.saveButton = true;
       }
     }
-    this.masterSupplierForm = this.fb.group({
+    this.orderCreationForm = this.fb.group({
       createUserId: this.user.userId,
       docno: [''],
-      docnoId: [0],
-      supname: ['', [Validators.required, Validators.maxLength(50)]],
-      supreff: ['', [Validators.required, Validators.maxLength(50)]],
-      supplier: ['', [Validators.required, Validators.maxLength(50)]],
-      transDate: ['', [Validators.required, Validators.maxLength(50)]],
-      docDate: ['', [Validators.required, Validators.maxLength(50)]],
-      grntype: ['', [Validators.required, Validators.maxLength(50)]],
+      customer: [''],
+      article: [''],
+      remarks: [''],
+    });
+
+    this.docnosearchForm = this.fb.group({
+      docnosearch: [''],
+      customersearch: [''],
+      articlesearch: [''],
+    });
+
+    this.addpoForm = this.fb.group({
+      sohid: [''],
+      addponame: [''],
+      deliverydate: [''],
     });
   }
 
-  loadCategoryList() {
-    this.grnTypeList = [];
+  loadCustomerList() {
+    this.customerList = [];
+    var objOG = {
+      ActivityNo: 1,
+    };
+    console.log(objOG);
+    this.salesOrderService.GetGRNData(objOG).subscribe((OpGroupList) => {
+      this.customerList = OpGroupList;
+      console.log('customerList', OpGroupList);
+    });
+  }
+
+  loadArticleList() {
+    this.articleList = [];
     var objOG = {
       ActivityNo: 2,
     };
     console.log(objOG);
     this.salesOrderService.GetGRNData(objOG).subscribe((OpGroupList) => {
-      this.grnTypeList = OpGroupList;
-      console.log('grnTypeList', OpGroupList);
-    });
-  }
-
-  loadSupplierList() {
-    this.supplierList = [];
-    var objOG = {
-      ActivityNo: 3,
-    };
-    console.log(objOG);
-    this.salesOrderService.GetGRNData(objOG).subscribe((OpGroupList) => {
-      this.supplierList = OpGroupList;
+      this.articleList = OpGroupList;
       console.log('grnTypeList', OpGroupList);
     });
   }
@@ -102,18 +119,18 @@ export class GrnComponent implements OnInit {
     var GRNList = [];
 
     var GRNHeaderData = {
-      GRNTypeId: this.masterSupplierForm.get('grntype').value[0],
-      SupplierIdx: this.masterSupplierForm.get('supplier').value[0],
-      SupplierRef: this.masterSupplierForm.get('supreff').value,
+      GRNTypeId: this.orderCreationForm.get('grntype').value[0],
+      SupplierIdx: this.orderCreationForm.get('supplier').value[0],
+      SupplierRef: this.orderCreationForm.get('supreff').value,
       DocDate: this.datePipe.transform(
-        this.masterSupplierForm.get('docDate').value,
+        this.orderCreationForm.get('docDate').value,
         'yyyy-MM-dd'
       ),
       Transdatetime: this.datePipe.transform(
-        this.masterSupplierForm.get('transDate').value,
+        this.orderCreationForm.get('transDate').value,
         'yyyy-MM-dd'
       ),
-      AutoId: this.masterSupplierForm.get('docnoId').value,
+      AutoId: this.orderCreationForm.get('docnoId').value,
     };
 
     var GRNDetailsData = {};
@@ -132,8 +149,8 @@ export class GrnComponent implements OnInit {
     this.salesOrderService.SaveGRNData(GRNList).subscribe((result) => {
       // console.log(result);
       if (result['result'] == 1) {
-        this.masterSupplierForm.get('docnoId').setValue(result['refNumId']);
-        this.masterSupplierForm.get('docno').setValue(result['refNum']);
+        this.orderCreationForm.get('docnoId').setValue(result['refNumId']);
+        this.orderCreationForm.get('docno').setValue(result['refNum']);
         this.toaster.success('save Successfully !!!');
       } else if (result['result'] == 2) {
         this.toaster.warning('update Successfully !!!');
@@ -147,7 +164,40 @@ export class GrnComponent implements OnInit {
     });
   }
 
-  refreshcompany() {}
+  filterByDocNo(term){
 
-  onEditCompany(event, cellId) {}
+  }
+
+  filterByCustomer(term){
+
+  }
+
+  filterByArticle(term){
+
+  }
+
+  onEditOrderCreation(event){
+
+  }
+
+  deleteOrderCreation(event){
+
+  }
+
+  refreshcompany() {
+
+  }
+
+  addpo(){
+
+  }
+
+  saverecipestep(){
+    
+  }
+
+  LoadAddPo(){
+    this.LoadAddPoDialog.open();
+  }
+
 }

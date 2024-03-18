@@ -3233,46 +3233,47 @@ namespace API.Repository
             POAssociationDT.Columns.Add("F26", typeof(string));
             POAssociationDT.Columns.Add("F27", typeof(DateTime));
 
-                var ActivityCode = savePOAssociationList.Action;
-                var ModuleId = savePOAssociationList.ModuleId;
-                var LocationId = savePOAssociationList.LocationId;
-                var UserId = savePOAssociationList.UserId;
+            var ActivityCode = savePOAssociationList.Action;
+            var ModuleId = savePOAssociationList.ModuleId;
+            var LocationId = savePOAssociationList.LocationId;
+            var UserId = savePOAssociationList.UserId;
 
-                if (savePOAssociationList.sTransPOAssociationHeader != null)
+            if (savePOAssociationList.sTransPOAssociationHeader != null)
+            {
+                POAssociationDT.Rows.Add(
+                    ActivityCode,//1
+                    ModuleId,//2
+                    LocationId,//3
+                    UserId,//4
+                    savePOAssociationList.sTransPOAssociationHeader.AutoId,//5
+                    savePOAssociationList.sTransPOAssociationHeader.CustomerId,//6
+                    savePOAssociationList.sTransPOAssociationHeader.ArticleId,//7
+                    savePOAssociationList.sTransPOAssociationHeader.PoQty,//8
+                    savePOAssociationList.sTransPOAssociationHeader.AgentID,//9
+                    0,//10
+                    1,//11
+                    0,//12
+                    0,//13
+                    0,//14
+                    savePOAssociationList.sTransPOAssociationHeader.PoPrice,//15
+                    0,//16
+                    savePOAssociationList.sTransPOAssociationHeader.PoName,//17
+                    0,//18
+                    0,//19
+                    0,//20 
+                    0,//21
+                    0,//22
+                    0,//23
+                    "H",//24
+                    0,//25
+                    0,//26
+                    savePOAssociationList.sTransPOAssociationHeader.PoDate //27
+                );
+            }
+            if (savePOAssociationList.sTransPOAssociationDetails != null)
+            {
+                foreach (var item in savePOAssociationList.sTransPOAssociationDetails)
                 {
-                    POAssociationDT.Rows.Add(
-                        ActivityCode,//1
-                        ModuleId,//2
-                        LocationId,//3
-                        UserId,//4
-                        savePOAssociationList.sTransPOAssociationHeader.AutoId,//5
-                        savePOAssociationList.sTransPOAssociationHeader.CustomerId,//6
-                        savePOAssociationList.sTransPOAssociationHeader.ArticleId,//7
-                        savePOAssociationList.sTransPOAssociationHeader.PoQty,//8
-                        savePOAssociationList.sTransPOAssociationHeader.AgentID,//9
-                        0,//10
-                        1,//11
-                        0,//12
-                        0,//13
-                        0,//14
-                        savePOAssociationList.sTransPOAssociationHeader.PoPrice,//15
-                        0,//16
-                        savePOAssociationList.sTransPOAssociationHeader.PoName,//17
-                        0,//18
-                        0,//19
-                        0,//20 
-                        0,//21
-                        0,//22
-                        0,//23
-                        "H",//24
-                        0,//25
-                        0,//26
-                        savePOAssociationList.sTransPOAssociationHeader.PoDate //27
-                    );
-                }
-                if (savePOAssociationList.sTransPOAssociationDetails != null)
-                {
-                foreach(var item in savePOAssociationList.sTransPOAssociationDetails){
                     POAssociationDT.Rows.Add(
                         ActivityCode,//1
                         0,//2
@@ -3300,10 +3301,10 @@ namespace API.Repository
                         0,//24
                         0,//25
                         0//26
-                            //27
+                         //27
                     );
-                    }
                 }
+            }
 
             para.Add("UDT", POAssociationDT.AsTableValuedParameter("UDT_POAssociation"));
 
@@ -3314,6 +3315,216 @@ namespace API.Repository
         }
         #endregion "POAssociation"
 
-    }
+        #region "GRNData"
 
+        public async Task<IEnumerable<GRNDto>> GetGRNData(GRNDto wsdt)
+        {
+            DataTable MWSMaterDT = new DataTable();
+            IEnumerable<GRNDto> MWSMaterList;
+
+            DynamicParameters para = new DynamicParameters();
+
+            MWSMaterDT.Columns.Add("ActivityNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("ModuleNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("CompanyNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("LocationNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("AgentNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("bActive", typeof(Int64));
+            MWSMaterDT.Columns.Add("F01", typeof(Int64));
+            MWSMaterDT.Columns.Add("F02", typeof(Int64));
+            MWSMaterDT.Columns.Add("F03", typeof(Int64));
+            MWSMaterDT.Columns.Add("F04", typeof(Int64));
+            MWSMaterDT.Columns.Add("F05", typeof(Int64));
+            MWSMaterDT.Columns.Add("F06", typeof(Int64));
+            MWSMaterDT.Columns.Add("F07", typeof(Int64));
+            MWSMaterDT.Columns.Add("F08", typeof(Int64));
+            MWSMaterDT.Columns.Add("F09", typeof(decimal));
+            MWSMaterDT.Columns.Add("F10", typeof(decimal));
+            MWSMaterDT.Columns.Add("F11", typeof(decimal));
+            MWSMaterDT.Columns.Add("F12", typeof(decimal));
+            MWSMaterDT.Columns.Add("F13", typeof(decimal));
+            MWSMaterDT.Columns.Add("F14", typeof(decimal));
+            MWSMaterDT.Columns.Add("F15", typeof(decimal));
+            MWSMaterDT.Columns.Add("F16", typeof(string));
+            MWSMaterDT.Columns.Add("F17", typeof(string));
+            MWSMaterDT.Columns.Add("F18", typeof(string));
+            MWSMaterDT.Columns.Add("F19", typeof(string));
+            MWSMaterDT.Columns.Add("F20", typeof(string));
+            MWSMaterDT.Columns.Add("F21", typeof(string));
+            MWSMaterDT.Columns.Add("F22", typeof(string));
+            MWSMaterDT.Columns.Add("F23", typeof(DateTime));
+            MWSMaterDT.Columns.Add("F24", typeof(DateTime));
+            MWSMaterDT.Columns.Add("F25", typeof(DateTime));
+
+
+            MWSMaterDT.Rows.Add(
+                      wsdt.ActivityNo,
+                      wsdt.ModuleNo,
+                      wsdt.CompanyNo,
+                      wsdt.LocationNo,
+                      wsdt.AgentNo,
+                      wsdt.bActive,
+                      wsdt.F01,
+                      wsdt.F02,
+                      wsdt.F03,
+                      wsdt.F04,
+                      wsdt.F05,
+                      wsdt.F06,
+                      wsdt.F07,
+                      wsdt.F08,
+                      wsdt.F09,
+                      wsdt.F10,
+                      wsdt.F11,
+                      wsdt.F12,
+                      wsdt.F13,
+                      wsdt.F14,
+                      wsdt.F15,
+                      wsdt.F16,
+                      wsdt.F17,
+                      wsdt.F18,
+                      wsdt.F19,
+                      wsdt.F20,
+                      wsdt.F21,
+                      wsdt.F22,
+                      wsdt.F23,
+                      wsdt.F24,
+                      wsdt.F25
+            );
+
+            para.Add("UDT", MWSMaterDT.AsTableValuedParameter("udt_GRNData"));
+
+            MWSMaterList = await DbConnection.QueryAsync<GRNDto>("sp_GRNData", para
+                , commandType: CommandType.StoredProcedure);
+
+            return MWSMaterList;
+        }
+
+        public async Task<ReturnDto> SaveGRNDATA(List<SaveGRNDto> wsDt)
+
+        {
+            DataTable MWSMaterDT = new DataTable();
+            DynamicParameters para = new DynamicParameters();
+
+            MWSMaterDT.Columns.Add("ActivityNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("ModuleNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("CompanyNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("LocationNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("AgentNo", typeof(Int64));
+            MWSMaterDT.Columns.Add("bActive", typeof(Int64));
+            MWSMaterDT.Columns.Add("F01", typeof(Int64));
+            MWSMaterDT.Columns.Add("F02", typeof(Int64));
+            MWSMaterDT.Columns.Add("F03", typeof(Int64));
+            MWSMaterDT.Columns.Add("F04", typeof(Int64));
+            MWSMaterDT.Columns.Add("F05", typeof(Int64));
+            MWSMaterDT.Columns.Add("F06", typeof(Int64));
+            MWSMaterDT.Columns.Add("F07", typeof(Int64));
+            MWSMaterDT.Columns.Add("F08", typeof(Int64));
+            MWSMaterDT.Columns.Add("F09", typeof(decimal));
+            MWSMaterDT.Columns.Add("F10", typeof(decimal));
+            MWSMaterDT.Columns.Add("F11", typeof(decimal));
+            MWSMaterDT.Columns.Add("F12", typeof(decimal));
+            MWSMaterDT.Columns.Add("F13", typeof(decimal));
+            MWSMaterDT.Columns.Add("F14", typeof(decimal));
+            MWSMaterDT.Columns.Add("F15", typeof(decimal));
+            MWSMaterDT.Columns.Add("F16", typeof(string));
+            MWSMaterDT.Columns.Add("F17", typeof(string));
+            MWSMaterDT.Columns.Add("F18", typeof(string));
+            MWSMaterDT.Columns.Add("F19", typeof(string));
+            MWSMaterDT.Columns.Add("F20", typeof(string));
+            MWSMaterDT.Columns.Add("F21", typeof(string));
+            MWSMaterDT.Columns.Add("F22", typeof(string));
+            MWSMaterDT.Columns.Add("F23", typeof(DateTime));
+            MWSMaterDT.Columns.Add("F24", typeof(DateTime));
+            MWSMaterDT.Columns.Add("F25", typeof(DateTime));
+
+            foreach (var item in wsDt)
+            {
+                var ActivityNo = item.ActivityNo;
+                var ModuleNo = item.ModuleNo;
+                var CompanyNo = item.CompanyNo;
+                var LocationNo = item.LocationNo;
+                var AgentNo = item.AgentNo;
+                var bActive = item.bActive;
+
+
+                if (item.sGRNHeader != null)
+                {
+                    MWSMaterDT.Rows.Add(
+                      ActivityNo,
+                      ModuleNo,
+                      CompanyNo,
+                      LocationNo,
+                      AgentNo,
+                      bActive,
+                      item.sGRNHeader.AutoId,//1
+                      item.sGRNHeader.SupplierIdx,//2
+                      item.sGRNHeader.GRNTypeId,//3
+                      0,//4
+                      0,//5
+                      0,//6
+                      0,//7
+                      1,//8
+                      0,//9
+                      0,//10
+                      0,//11
+                      0,//12
+                      0,//13
+                      0,//14
+                      0,//15
+                      0,//16,
+                      item.sGRNHeader.SupplierRef,//17,
+                      0,//18,
+                      0,//19
+                      0,//20
+                      0,//21
+                      0,//22
+                      item.sGRNHeader.DocDate,//23
+                      item.sGRNHeader.Transdatetime//24
+                  );
+                }
+                if (item.sGRNDetails != null)
+                {
+                    MWSMaterDT.Rows.Add(
+                     ActivityNo,
+                      ModuleNo,
+                      CompanyNo,
+                      LocationNo,
+                      AgentNo,
+                      bActive,
+                      0,//1
+                      0,//2
+                      0,//3
+                      item.sGRNDetails.ItemMasterIdx,//4
+                      0,//5
+                      0,//6
+                      0,//7
+                      2,//8
+                      item.sGRNDetails.GRNQty,//9
+                      item.sGRNDetails.FreeQty,//10
+                      item.sGRNDetails.UnitRate,//11
+                      item.sGRNDetails.Value,//12
+                      0,//13
+                      0,//14
+                      0,//15
+                      0,//16,
+                      0,//17,
+                      0,//18,
+                      0,//19
+                      0,//20
+                      0,//21
+                      0//22
+                  );
+                }
+
+            }
+
+            para.Add("UDT", MWSMaterDT.AsTableValuedParameter("udt_GRNData"));
+
+            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_GRNData", para,
+            commandType: CommandType.StoredProcedure);
+
+            return result;
+        }
+        #endregion "GRNData"
+    }
 }
