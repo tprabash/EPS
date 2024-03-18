@@ -9,7 +9,7 @@
             <div class="col-1">
                 <div class="btn-group">
                     <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save"
-                        (click)="companysave()">
+                        (click)="GRNsave()">
                         <i class="fas fa-save"></i>
                     </button>
                     <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
@@ -22,15 +22,18 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label>GRn Type</label>
-                    <igx-combo id="grntype" class="combo" displayKey="" valueKey=""
-                        [itemsMaxHeight]="250" [data]="grnTypeList" placeholder="GRN Type"
-                        formControlName="grntype" searchPlaceholder="Search...">
+                    <label>GRN Type</label>
+                    <igx-combo #grntype id="grntype" class="combo" displayKey="f20" valueKey="f05"
+                        [itemsMaxHeight]="250" [data]="grnTypeList" placeholder="GRN Type" formControlName="grntype"
+                        searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
                     </igx-combo>
                 </div>
             </div>
             <div class="col-md-2 mt-3">
                 <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="number" formControlName="docnoId" />
+                    </igx-input-group>
                     <igx-input-group>
                         <input igxInput type="text" formControlName="docno" />
                         <label igxLabel>DocNo</label>
@@ -40,9 +43,9 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label> Supplier *</label>
-                    <igx-combo #supplier id="supplier" class="combo" displayKey="" valueKey=""
-                        [itemsMaxHeight]="250" [data]="supplierList" placeholder="Supplier"
-                        formControlName="supplier" searchPlaceholder="Search...">
+                    <igx-combo #supplier id="supplier" class="combo" displayKey="f20" valueKey="f05"
+                        [itemsMaxHeight]="250" [data]="supplierList" placeholder="Supplier" formControlName="supplier"
+                        searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
                     </igx-combo>
                 </div>
             </div>
@@ -94,7 +97,7 @@
                     </igx-column>
                     <igx-column [field]="''" [header]="'Value'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true">
-                     </igx-column>
+                    </igx-column>
                 </igx-grid>
             </div>
         </div>

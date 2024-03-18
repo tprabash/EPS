@@ -756,5 +756,21 @@ namespace API.Controllers.CCSystem.Transaction
         }
         #endregion "PO-Association"
 
+        #region "GRN"
+
+        [HttpPost("GetGRNData")]
+        public async Task<IActionResult> GetGRNData(GRNDto productdto)
+        {
+            var result = await _salesRepository.GetGRNData(productdto);
+            return Ok(result);
+        }
+        [HttpPost("SaveGRNDATA")]
+        public async Task<IActionResult> SaveGRNDATA(List<SaveGRNDto> wsDt)
+        {
+            var result = await _salesRepository.SaveGRNDATA(wsDt);
+            return Ok(result);
+        }
+        #endregion "GRn"
+    
       }
 }

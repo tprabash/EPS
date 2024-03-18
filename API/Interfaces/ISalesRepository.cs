@@ -101,5 +101,9 @@ namespace API.Interfaces
         //Po Association
         Task<IEnumerable<POAssociationDto>> GetPOAssociationData(POAssociationDto productdto);
         Task<ReturnDto> SavePOAssociationDataAsync (SavePOAssociationDto productdto);
+
+        //GRN Data
+        Task<IEnumerable<GRNDto>> GetGRNData(GRNDto wsdt);
+        Task<ReturnDto> SaveGRNDATA(List<SaveGRNDto> wsdt);
     }
 }
