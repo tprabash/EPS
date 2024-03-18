@@ -32,6 +32,10 @@ export class SizeTabComponent implements OnInit {
   public col: IgxColumnComponent;
   public pWidth: string;
   public nWidth: string;
+  masterItemList: any[];
+  allocSizeList: any[];
+  itemidx: any;
+  notallocSizeList: any[];
   
   constructor(private fb: FormBuilder,
     private accountService: AccountService,
@@ -81,33 +85,158 @@ export class SizeTabComponent implements OnInit {
     this.nWidth = event.newWidth;
   }
 
-  loadArticles() {
 
+  loadArticles(){
+    this.masterItemList = [];
+    var objOG = {
+      ActivityNo: 62
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.masterItemList = OpGroupList;
+      console.log('xxxxxxxxxxxxx');
+      console.log(OpGroupList);
+    });
   }
-
+  
+  
   onSelectArticle(event) {    
-    this.clearGridDetails();
-    this.assignSizeForm.get("sizeCard").setValue("");
     for (const item of event.added) {
-      var selectedRow = this.articleList.filter(x => x.autoId == item);
-
-      if(selectedRow.length > 0) {
-        this.assignSizeForm.get("sizeCard").setValue(selectedRow[0]["sizeCard"]);
-      }
-      this.loadSizeDetails(item);
+      this.loadAllocSizeDetails(item);
+      this.loadNotAllocSizeDetails(item);
+      console.log("onSelectArticle item", item);
     }
   }
 
   //// loads both permited and not permited Size list
-  loadSizeDetails(articleId) {
-   
+  loadAllocSizeDetails(item) {
+    this.allocSizeList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 71,
+      f01:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.allocSizeList = OpGroupList;
+      console.log(OpGroupList);
+    });
+  }
+
+  loadNotAllocSizeDetails(item) {
+    this.notallocSizeList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 70,
+      f01:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.notallocSizeList = OpGroupList;
+      console.log(OpGroupList);
+    });
   }
 
   saveArticleSize() {
-    
-  }
+
+    var OGList = [];
+    var machineallocationData = {};
+    var objOG = {};
+    var selectedRows = this.npSizeGrid.selectedRows;
+
+    selectedRows.forEach((f01) => {
+      machineallocationData = {
+        ModuleId: f01,
+        AutoId: this.assignSizeForm.get('sarticle').value[0]
+      };
+
+      console.log(machineallocationData);
+
+      objOG = {
+        sItem: machineallocationData,
+        ActivityNo: 72,
+        AgentNo:this.user.userId,
+        ModuleNo:this.user.moduleId
+      };
+      OGList.push(objOG);
+      console.log(OGList)
+    });
+
+
+      this.masterService.SaveMWSMasterData(OGList).subscribe((result) => {
+            // console.log(result);
+            if (result['result'] == 1) {
+              this.toastr.success('save Successfully !!!');
+              this.loadAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+              this.loadNotAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+            }
+            else if (result['result'] == 2) {
+              this.toastr.success('update Successfully !!!');
+              this.loadAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+              this.loadNotAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+            }
+            else if (result['result'] == 3) {
+              this.toastr.success('Code already Exists!!!');
+              this.loadAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+              this.loadNotAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+            }
+            else {
+              this.toastr.warning(
+                'Contact Admin. Error No:- ' + result['result'].toString()
+              );
+            }
+          });
+
+      }
 
   deleteArticleSize() {
+    var OGList = [];
+    var machineallocationData = {};
+    var objOG = {};
+    var selectedRows = this.pSizeGrid.selectedRows;
+
+    selectedRows.forEach((f01) => {
+      machineallocationData = {
+        ModuleId: f01,
+        AutoId: this.assignSizeForm.get('sarticle').value[0]
+      };
+
+      console.log(machineallocationData);
+
+      objOG = {
+        sItem: machineallocationData,
+        ActivityNo: 73,
+        AgentNo:this.user.userId,
+        ModuleNo:this.user.moduleId
+      };
+      OGList.push(objOG);
+      console.log(OGList)
+    });
+
+
+      this.masterService.SaveMWSMasterData(OGList).subscribe((result) => {
+            // console.log(result);
+            if (result['result'] == 1) {
+              this.toastr.error('Deleted Successfully !!!');
+              this.loadAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+              this.loadNotAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+            }
+            else if (result['result'] == 2) {
+              this.toastr.success('update Successfully !!!');
+              this.loadAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+              this.loadNotAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+            }
+            else if (result['result'] == 3) {
+              this.toastr.success('Code already Exists!!!');
+              this.loadAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+              this.loadNotAllocSizeDetails(this.assignSizeForm.get('sarticle').value[0]);
+            }
+            else {
+              this.toastr.warning(
+                'Contact Admin. Error No:- ' + result['result'].toString()
+              );
+            }
+          });
    
   }
 

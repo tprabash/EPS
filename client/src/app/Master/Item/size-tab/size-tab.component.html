@@ -9,8 +9,8 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label> Article </label>
-                        <igx-combo #sarticle id="sarticle" class="combo" displayKey="articleName" valueKey="autoId"
-                            [itemsMaxHeight]="250" [data]="articleList" placeholder="Article"
+                        <igx-combo #sarticle id="sarticle" class="combo" displayKey="f19" valueKey="f01"
+                            [itemsMaxHeight]="250" [data]="masterItemList" placeholder="Article"
                             (onSelectionChange)="singleSelection($event)" formControlName="sarticle"
                             (onSelectionChange)="onSelectArticle($event)"
                             searchPlaceholder="Search...">
@@ -18,14 +18,14 @@
                     </div>
                 </div> 
                 
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <div class="form-group">
                         <igx-input-group>
                             <input igxInput type="text" formControlName="sizeCard" />
                             <label igxLabel for="sizeCard"> Size Card</label>
                         </igx-input-group>
                     </div>
-                </div> 
+                </div>  -->
 
                 <div class="col-md-1">
                     <div class="form-group">
@@ -59,25 +59,25 @@
             
             <div class="row">
                 <div class="col-md-6">
-                    <igx-grid #npSizeGrid [data]="npSizeList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
-                        [primaryKey]="'sizeId'" cellSelection="none" (onColumnResized)="onResize($event)" [perPage]="10" height="450px"
+                    <igx-grid #npSizeGrid [data]="notallocSizeList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
+                        [primaryKey]="'f01'" cellSelection="none" (onColumnResized)="onResize($event)" [perPage]="10" height="450px"
                         displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
                         [allowAdvancedFiltering]="true" [rowSelection]="'multiple'">
-                        <igx-column [field]="'code'" [header]="'Code'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                        <igx-column [field]="'f18'" [header]="'Code'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                         </igx-column>
-                        <igx-column [field]="'name'" [header]="'Name'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                        <igx-column [field]="'f19'" [header]="'Name'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                         </igx-column>
                     </igx-grid>
                 </div>
 
                 <div class="col-md-6">
-                    <igx-grid #pSizeGrid [data]="pSizeList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
-                        [primaryKey]="'sizeId'" cellSelection="none" (onColumnResized)="onResize($event)" [perPage]="10" height="450px"
+                    <igx-grid #pSizeGrid [data]="allocSizeList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
+                        [primaryKey]="'f01'" cellSelection="none" (onColumnResized)="onResize($event)" [perPage]="10" height="450px"
                         displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
                         [allowAdvancedFiltering]="true" [rowSelection]="'multiple'">
-                        <igx-column [field]="'code'" [header]="'Code'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                        <igx-column [field]="'f18'" [header]="'Code'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                         </igx-column>
-                        <igx-column [field]="'name'" [header]="'Name'" [resizable]="true" [dataType]="'string'" [sortable]="true">
+                        <igx-column [field]="'f19'" [header]="'Name'" [resizable]="true" [dataType]="'string'" [sortable]="true">
                         </igx-column>
                     </igx-grid>
                 </div>                

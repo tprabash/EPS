@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AccountService } from '_services/account.service';
+import { MasterService } from '_services/master.service';
 import {
   IComboSelectionChangeEventArgs,
   IgxColumnComponent,
@@ -36,12 +38,18 @@ export class ColorTabComponent implements OnInit {
   public pWidth: string;
   public nWidth: string;
   articleRowID: string;
+  asSaveButton: boolean;
+  asRemoveButton: boolean;
+  masterItemList: any[];
+  SizeList: any[];
+  itemidx: any;
+  allocPrintList: any[];
+  notallocPrintList: any[];
 
-  constructor(
-    private fb: FormBuilder,
-
-    private toastr: ToastrService
-  ) {}
+  constructor(private fb: FormBuilder,
+    private accountService: AccountService,
+    private masterService: MasterService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initilizeForm();
@@ -50,6 +58,27 @@ export class ColorTabComponent implements OnInit {
   }
 
   initilizeForm() {
+    this.accountService.currentUser$.forEach((element) => {
+      this.user = element;
+      //console.log(this.user.userId);
+    });
+
+    var authMenus = this.user.permitMenus;
+
+    if (authMenus != null) {
+      if (authMenus.filter((x) => x.autoIdx == 136).length > 0) {
+        this.asSaveButton = true;
+      }
+      if (authMenus.filter((x) => x.autoIdx == 137).length > 0) {
+        this.asRemoveButton = true;
+      }
+    }
+
+    this.assignColorForm = this.fb.group({
+      userId: this.user.userId,     
+      carticle: [''],     
+      size: ['']     
+    });   
  
   }
 
@@ -66,12 +95,74 @@ export class ColorTabComponent implements OnInit {
     this.nWidth = event.newWidth;
   }
 
-  loadArticles() {
-   
+  loadArticles(){
+    this.masterItemList = [];
+    var objOG = {
+      ActivityNo: 62
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.masterItemList = OpGroupList;
+      console.log('xxxxxxxxxxxxx');
+      console.log(OpGroupList);
+    });
+  }
+  
+  
+  onSelectArticle(event) {    
+    for (const item of event.added) {
+      this.loadSizeDetails(item);
+    }
   }
 
-  onSelectArticle(event) {
-  
+  onSelectSize(event) {    
+    for (const item of event.added) {
+      this.loadAlloPrintDetails(item);
+      this.loadNotAllocPrintDetails(item);
+    }
+  }
+
+
+  loadAlloPrintDetails(item) {
+    this.allocPrintList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 82,
+      f01:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.allocPrintList = OpGroupList;
+      console.log(OpGroupList);
+    });
+  }
+
+  loadNotAllocPrintDetails(item) {
+    this.notallocPrintList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 81,
+      f01:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.notallocPrintList = OpGroupList;
+      console.log(OpGroupList);
+    });
+  }
+
+  loadSizeDetails(item) {
+    this.SizeList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 80,
+      f01:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.SizeList = OpGroupList;
+      console.log(OpGroupList);
+    });
   }
 
   //// loads both permited and not permited color list
