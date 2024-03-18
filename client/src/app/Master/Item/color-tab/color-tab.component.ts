@@ -28,6 +28,8 @@ export class ColorTabComponent implements OnInit {
 
   @ViewChild('carticle', { read: IgxComboComponent })
   public carticle: IgxComboComponent;
+  @ViewChild('size', { read: IgxComboComponent })
+  public size: IgxComboComponent;
 
   @ViewChild('npColorGrid', { static: true })
   public npColorGrid: IgxGridComponent;
@@ -128,7 +130,8 @@ export class ColorTabComponent implements OnInit {
     this.itemidx = item;
     var objOG = {
       ActivityNo: 82,
-      f01:this.itemidx
+      f01:this.assignColorForm.get('carticle').value[0],
+      f02:this.itemidx
     };
     console.log(objOG);
     this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
@@ -142,7 +145,8 @@ export class ColorTabComponent implements OnInit {
     this.itemidx = item;
     var objOG = {
       ActivityNo: 81,
-      f01:this.itemidx
+      f01:this.assignColorForm.get('carticle').value[0],
+      f02:this.itemidx
     };
     console.log(objOG);
     this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
@@ -165,18 +169,111 @@ export class ColorTabComponent implements OnInit {
     });
   }
 
-  //// loads both permited and not permited color list
-  loadColorDetails(articleId) {
+  saveArticlePrint() {
 
-  }
+    var OGList = [];
+    var machineallocationData = {};
+    var objOG = {};
+    var selectedRows = this.npColorGrid.selectedRows;
 
-  saveArticleColor() {
- 
-  }
+    selectedRows.forEach((f01) => {
+      machineallocationData = {
+        Barcode:f01,
+        ModuleId: this.assignColorForm.get('size').value[0],
+        AutoId: this.assignColorForm.get('carticle').value[0]
+      };
+
+      console.log(machineallocationData);
+
+      objOG = {
+        sItem: machineallocationData,
+        ActivityNo: 83,
+        AgentNo:this.user.userId,
+        ModuleNo:this.user.moduleId
+      };
+      OGList.push(objOG);
+      console.log(OGList)
+    });
+
+
+      this.masterService.SaveMWSMasterData(OGList).subscribe((result) => {
+            // console.log(result);
+            if (result['result'] == 1) {
+              this.toastr.success('save Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 2) {
+              this.toastr.success('update Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 3) {
+              this.toastr.success('Code already Exists!!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else {
+              this.toastr.warning(
+                'Contact Admin. Error No:- ' + result['result'].toString()
+              );
+            }
+          });
+
+      }
 
   deleteArticleColor() {
- 
-  }
+
+    var OGList = [];
+    var machineallocationData = {};
+    var objOG = {};
+    var selectedRows = this.pColorGrid.selectedRows;
+
+    selectedRows.forEach((f01) => {
+      machineallocationData = {
+        Barcode:f01,
+        ModuleId: this.assignColorForm.get('size').value[0],
+        AutoId: this.assignColorForm.get('carticle').value[0]
+      };
+
+      console.log(machineallocationData);
+
+      objOG = {
+        sItem: machineallocationData,
+        ActivityNo: 84,
+        AgentNo:this.user.userId,
+        ModuleNo:this.user.moduleId
+      };
+      OGList.push(objOG);
+      console.log(OGList)
+    });
+
+
+      this.masterService.SaveMWSMasterData(OGList).subscribe((result) => {
+            // console.log(result);
+            if (result['result'] == 1) {
+              this.toastr.error('Deleted Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 2) {
+              this.toastr.success('update Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 3) {
+              this.toastr.success('Code already Exists!!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else {
+              this.toastr.warning(
+                'Contact Admin. Error No:- ' + result['result'].toString()
+              );
+            }
+          });
+
+      }
 
   clearGridDetails() {
     this.npColorGrid.deselectAllRows();
