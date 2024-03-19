@@ -103,7 +103,7 @@
                 (onColumnResized)="onResize($event)" [perPage]="10" height="500px" displayDensity="compact"
                 [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
                 [rowSelection]="'Single'">
-                    <igx-column [width]="'100px'" field="f20" [header]="'Active/Inactive'"  [selectable]="false" [sortable]="false" [resizable]="false">
+                    <igx-column [width]="'100px'" field="f08" [header]="'Active/Inactive'"  [selectable]="false" [sortable]="false" [resizable]="false">
                         <ng-template igxCell let-cell="cell">
                             <button igxButton="icon" class="fab-compact" (click)="onEditCategory($event,cell.cellID)" >
                                 <igx-icon family="material">edit</igx-icon>

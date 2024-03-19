@@ -75,6 +75,9 @@ export class ItemMasterComponent implements OnInit {
       if (authMenus.filter((x) => x.autoIdx == 2201).length > 0) {
         this.saveButton = true;
       }
+      if (authMenus.filter((x) => x.autoIdx == 130).length > 0) {
+        this.ccDisableButton = true;
+      }
       //console.log(this.saveButton);
     }
     this.masterItemForm = this.fb.group({
@@ -270,5 +273,67 @@ onEditCategory(event , cellId){
       event.newSelection = event.added;
     }
   }
+
+    //deactive click even
+    Deactive(cellValue, cellId) {
+
+      var RCTList = [];
+      const id = cellId.rowID;
+  
+      var CatData = {
+      AutoId: id,
+      bActive: 0
+      };
+  
+      var objOG = {
+        sItem: CatData,
+      ActivityNo: 63,
+      AgentNo:this.user.userId
+      };
+      RCTList.push(objOG);
+  
+      this.deactiveRecepieType(RCTList, 'Deactive');
+      }
+  
+      //active click event
+      Active(cellValue, cellId) {
+      if(this.saveButton == true) {
+      var RCTList = [];
+      const id = cellId.rowID;
+      var CatData = {
+        AutoId: id,
+        bActive: 1
+      };
+      var objMMA = {
+        sItem: CatData,
+        ActivityNo: 63,
+        AgentNo:this.user.userId
+      };
+      RCTList.push(objMMA);
+      console.log(objMMA);
+      this.deactiveRecepieType(RCTList, 'Active');
+      } else {
+      this.toaster.error('Active permission denied !!!');
+      }
+      }
+  
+      //active/deactive method
+      deactiveRecepieType(RCTList, status) {
+      if(this.ccDisableButton == true) {
+        this.masterService.SaveMWSMasterData(RCTList).subscribe((result) => {
+          if (result['result'] == 2) {
+            this.toaster.success('Category ' + status + ' Successfully !!!');
+            this.loadItemList();
+          } else {
+            this.toaster.warning(
+              'Contact Admin. Error No:- ' + result['result'].toString()
+            );
+          }
+        });
+      } else {
+        this.toaster.error('Disable permission denied !!!');
+      }
+      }
+  
 
 }

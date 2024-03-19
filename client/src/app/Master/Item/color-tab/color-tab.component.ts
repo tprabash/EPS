@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AccountService } from '_services/account.service';
+import { MasterService } from '_services/master.service';
 import {
   IComboSelectionChangeEventArgs,
   IgxColumnComponent,
@@ -26,6 +28,8 @@ export class ColorTabComponent implements OnInit {
 
   @ViewChild('carticle', { read: IgxComboComponent })
   public carticle: IgxComboComponent;
+  @ViewChild('size', { read: IgxComboComponent })
+  public size: IgxComboComponent;
 
   @ViewChild('npColorGrid', { static: true })
   public npColorGrid: IgxGridComponent;
@@ -36,12 +40,18 @@ export class ColorTabComponent implements OnInit {
   public pWidth: string;
   public nWidth: string;
   articleRowID: string;
+  asSaveButton: boolean;
+  asRemoveButton: boolean;
+  masterItemList: any[];
+  SizeList: any[];
+  itemidx: any;
+  allocPrintList: any[];
+  notallocPrintList: any[];
 
-  constructor(
-    private fb: FormBuilder,
-
-    private toastr: ToastrService
-  ) {}
+  constructor(private fb: FormBuilder,
+    private accountService: AccountService,
+    private masterService: MasterService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initilizeForm();
@@ -50,6 +60,27 @@ export class ColorTabComponent implements OnInit {
   }
 
   initilizeForm() {
+    this.accountService.currentUser$.forEach((element) => {
+      this.user = element;
+      //console.log(this.user.userId);
+    });
+
+    var authMenus = this.user.permitMenus;
+
+    if (authMenus != null) {
+      if (authMenus.filter((x) => x.autoIdx == 136).length > 0) {
+        this.asSaveButton = true;
+      }
+      if (authMenus.filter((x) => x.autoIdx == 137).length > 0) {
+        this.asRemoveButton = true;
+      }
+    }
+
+    this.assignColorForm = this.fb.group({
+      userId: this.user.userId,     
+      carticle: [''],     
+      size: ['']     
+    });   
  
   }
 
@@ -66,26 +97,183 @@ export class ColorTabComponent implements OnInit {
     this.nWidth = event.newWidth;
   }
 
-  loadArticles() {
-   
+  loadArticles(){
+    this.masterItemList = [];
+    var objOG = {
+      ActivityNo: 62
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.masterItemList = OpGroupList;
+      console.log('xxxxxxxxxxxxx');
+      console.log(OpGroupList);
+    });
   }
-
-  onSelectArticle(event) {
   
+  
+  onSelectArticle(event) {    
+    for (const item of event.added) {
+      this.loadSizeDetails(item);
+    }
   }
 
-  //// loads both permited and not permited color list
-  loadColorDetails(articleId) {
-
+  onSelectSize(event) {    
+    for (const item of event.added) {
+      this.loadAlloPrintDetails(item);
+      this.loadNotAllocPrintDetails(item);
+    }
   }
 
-  saveArticleColor() {
- 
+
+  loadAlloPrintDetails(item) {
+    this.allocPrintList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 82,
+      f01:this.assignColorForm.get('carticle').value[0],
+      f02:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.allocPrintList = OpGroupList;
+      console.log(OpGroupList);
+    });
   }
+
+  loadNotAllocPrintDetails(item) {
+    this.notallocPrintList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 81,
+      f01:this.assignColorForm.get('carticle').value[0],
+      f02:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.notallocPrintList = OpGroupList;
+      console.log(OpGroupList);
+    });
+  }
+
+  loadSizeDetails(item) {
+    this.SizeList = [];
+    this.itemidx = item;
+    var objOG = {
+      ActivityNo: 80,
+      f01:this.itemidx
+    };
+    console.log(objOG);
+    this.masterService.GetMWSMasterData(objOG).subscribe((OpGroupList) => {
+      this.SizeList = OpGroupList;
+      console.log(OpGroupList);
+    });
+  }
+
+  saveArticlePrint() {
+
+    var OGList = [];
+    var machineallocationData = {};
+    var objOG = {};
+    var selectedRows = this.npColorGrid.selectedRows;
+
+    selectedRows.forEach((f01) => {
+      machineallocationData = {
+        Barcode:f01,
+        ModuleId: this.assignColorForm.get('size').value[0],
+        AutoId: this.assignColorForm.get('carticle').value[0]
+      };
+
+      console.log(machineallocationData);
+
+      objOG = {
+        sItem: machineallocationData,
+        ActivityNo: 83,
+        AgentNo:this.user.userId,
+        ModuleNo:this.user.moduleId
+      };
+      OGList.push(objOG);
+      console.log(OGList)
+    });
+
+
+      this.masterService.SaveMWSMasterData(OGList).subscribe((result) => {
+            // console.log(result);
+            if (result['result'] == 1) {
+              this.toastr.success('save Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 2) {
+              this.toastr.success('update Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 3) {
+              this.toastr.success('Code already Exists!!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else {
+              this.toastr.warning(
+                'Contact Admin. Error No:- ' + result['result'].toString()
+              );
+            }
+          });
+
+      }
 
   deleteArticleColor() {
- 
-  }
+
+    var OGList = [];
+    var machineallocationData = {};
+    var objOG = {};
+    var selectedRows = this.pColorGrid.selectedRows;
+
+    selectedRows.forEach((f01) => {
+      machineallocationData = {
+        Barcode:f01,
+        ModuleId: this.assignColorForm.get('size').value[0],
+        AutoId: this.assignColorForm.get('carticle').value[0]
+      };
+
+      console.log(machineallocationData);
+
+      objOG = {
+        sItem: machineallocationData,
+        ActivityNo: 84,
+        AgentNo:this.user.userId,
+        ModuleNo:this.user.moduleId
+      };
+      OGList.push(objOG);
+      console.log(OGList)
+    });
+
+
+      this.masterService.SaveMWSMasterData(OGList).subscribe((result) => {
+            // console.log(result);
+            if (result['result'] == 1) {
+              this.toastr.error('Deleted Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 2) {
+              this.toastr.success('update Successfully !!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else if (result['result'] == 3) {
+              this.toastr.success('Code already Exists!!!');
+              this.loadAlloPrintDetails(this.assignColorForm.get('carticle').value[0]);
+              this.loadNotAllocPrintDetails(this.assignColorForm.get('carticle').value[0]);
+            }
+            else {
+              this.toastr.warning(
+                'Contact Admin. Error No:- ' + result['result'].toString()
+              );
+            }
+          });
+
+      }
 
   clearGridDetails() {
     this.npColorGrid.deselectAllRows();
