@@ -1,4 +1,10 @@
 export interface POAssociation {
+    ActivityNo: number;
+    ModuleNo: number;
+    CompanyNo: number;
+    LocationNo: number;
+    AgentNo: number;
+    bActive: number;
     F01: number;
     F02: number;
     F03: number;
@@ -21,9 +27,11 @@ export interface POAssociation {
     F20: string;
     F21: string;
     F22: string;
-    F23: string;
+    F23: string; 
     F24: string;
     F25: string;
-    F26: string;
-    F27: Date;
 }
+
+
+
+

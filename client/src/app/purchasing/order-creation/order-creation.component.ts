@@ -91,7 +91,7 @@ export class OrderCreationComponent implements OnInit {
       ActivityNo: 1,
     };
     console.log(objOG);
-    this.salesOrderService.GetGRNData(objOG).subscribe((OpGroupList) => {
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
       this.customerList = OpGroupList;
       console.log('customerList', OpGroupList);
     });
@@ -103,7 +103,7 @@ export class OrderCreationComponent implements OnInit {
       ActivityNo: 2,
     };
     console.log(objOG);
-    this.salesOrderService.GetGRNData(objOG).subscribe((OpGroupList) => {
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
       this.articleList = OpGroupList;
       console.log('grnTypeList', OpGroupList);
     });
