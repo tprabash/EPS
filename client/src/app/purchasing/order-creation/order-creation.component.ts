@@ -39,6 +39,7 @@ export class OrderCreationComponent implements OnInit {
   public OrderCreationSearchGrid: IgxGridComponent;
   @ViewChild('LoadAddPoDialog', { read: IgxDialogComponent })
   public LoadAddPoDialog: IgxDialogComponent;
+  articleprintsizeList: import("d:/EPS/client/src/app/_models/POAssociation").POAssociation[];
 
   constructor(
     private accountService: AccountService,
@@ -105,6 +106,19 @@ export class OrderCreationComponent implements OnInit {
     console.log(objOG);
     this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
       this.articleList = OpGroupList;
+      console.log('grnTypeList', OpGroupList);
+    });
+  }
+
+  loadArticlePrintSizeList() {
+    this.articleprintsizeList = [];
+    var objOG = {
+      ActivityNo: 7,
+      f01:this.orderCreationForm.get('article').value[0],
+    };
+    console.log(objOG);
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+      this.articleprintsizeList = OpGroupList;
       console.log('grnTypeList', OpGroupList);
     });
   }
@@ -198,6 +212,12 @@ export class OrderCreationComponent implements OnInit {
 
   LoadAddPo(){
     this.LoadAddPoDialog.open();
+    this.loadArticlePrintSizeList();
+
+  }
+
+  closeaddpo(){
+    this.LoadAddPoDialog.close();
   }
 
 }

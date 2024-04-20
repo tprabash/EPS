@@ -203,7 +203,7 @@
             </button>
         </div>
         <div igxButton class="col-md-1">
-            <button type="button" class="close">
+            <button type="button" class="close" (click)="closeaddpo()">
                 <igx-icon>clear</igx-icon>
             </button>
         </div>
@@ -225,33 +225,33 @@
         </div>
     </form>
     <div class="row mt-3">
-        <igx-grid #OrderCreationSearchGrid [data]="OrderCreationSearchList" [autoGenerate]="false" [paging]="true"
-            [rowEditable]="false" [primaryKey]="''" cellSelection="none" [perPage]="50" height="400px"
+        <igx-grid #OrderCreationSearchGrid [data]="articleprintsizeList" [autoGenerate]="false" [paging]="true"
+            [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none" [perPage]="50" height="400px"
             displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
             [allowAdvancedFiltering]="true" [rowSelection]="'none'">
-            <igx-column [field]="''" [header]="'MISPId'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+            <igx-column [field]="'f01'" [header]="'MISPId'" [resizable]="true" [dataType]="'string'" [sortable]="true"
                 [width]="'250px'" [editable]="false">
             </igx-column>
-            <igx-column [field]="''" [header]="'MSId'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+            <igx-column [field]="'f02'" [header]="'MSId'" [resizable]="true" [dataType]="'string'" [sortable]="true"
                 [width]="'150px'" [editable]="false">
             </igx-column>
-            <igx-column [field]="''" [header]="'PrintId'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+            <igx-column [field]="'f03'" [header]="'PrintId'" [resizable]="true" [dataType]="'string'" [sortable]="true"
                 [width]="'150px'" [editable]="false">
             </igx-column>
-            <igx-column [field]="''" [header]="'Size'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+            <igx-column [field]="'f16'" [header]="'Size'" [resizable]="true" [dataType]="'string'" [sortable]="true"
                 [width]="'250px'" [editable]="false">
             </igx-column>
-            <igx-column [field]="''" [header]="'Print'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+            <igx-column [field]="'f17'" [header]="'Print'" [resizable]="true" [dataType]="'string'" [sortable]="true"
                 [width]="'150px'" [editable]="false">
             </igx-column>
             <igx-column [field]="''" [header]="'Order Qty'" [resizable]="true" [dataType]="'string'" [sortable]="true"
-                [width]="'150px'" [editable]="false">
+                [width]="'150px'" [editable]="true">
             </igx-column>
             <igx-column [field]="''" [header]="'Production Qty'" [resizable]="true" [dataType]="'string'"
-                [sortable]="true" [width]="'150px'" [editable]="false">
+                [sortable]="true" [width]="'150px'" [editable]="true">
             </igx-column>
             <igx-column [field]="''" [header]="'Damage Qty'" [resizable]="true" [dataType]="'string'" [sortable]="true"
-                [width]="'150px'" [editable]="false">
+                [width]="'150px'" [editable]="true">
             </igx-column>
         </igx-grid>
     </div>
