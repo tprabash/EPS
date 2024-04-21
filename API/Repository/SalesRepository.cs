@@ -3151,7 +3151,7 @@ namespace API.Repository
         }
         #endregion "ProductionDispatch"
 
-        #region "POAssociation"
+        #region "POAssociation - EPS Order Creation"
         public async Task<IEnumerable<POAssociationDto>> GetPOAssociationData(POAssociationDto poassociationDto)
         {
             DataTable POAssociationDT = new DataTable();
@@ -3159,6 +3159,14 @@ namespace API.Repository
 
             DynamicParameters para = new DynamicParameters();
 
+
+            
+            POAssociationDT.Columns.Add("ActivityNo", typeof(Int64));
+            POAssociationDT.Columns.Add("ModuleNo", typeof(Int64));
+            POAssociationDT.Columns.Add("CompanyNo", typeof(Int64));
+            POAssociationDT.Columns.Add("LocationNo", typeof(Int64));
+            POAssociationDT.Columns.Add("AgentNo", typeof(Int64));
+            POAssociationDT.Columns.Add("bActive", typeof(Int64));
             POAssociationDT.Columns.Add("F01", typeof(long));
             POAssociationDT.Columns.Add("F02", typeof(long));
             POAssociationDT.Columns.Add("F03", typeof(long));
@@ -3184,17 +3192,16 @@ namespace API.Repository
             POAssociationDT.Columns.Add("F23", typeof(string));
             POAssociationDT.Columns.Add("F24", typeof(string));
             POAssociationDT.Columns.Add("F25", typeof(string));
-            POAssociationDT.Columns.Add("F26", typeof(string));
-            POAssociationDT.Columns.Add("F27", typeof(DateTime));
 
             POAssociationDT.Rows.Add(
+            poassociationDto.ActivityNo, poassociationDto.ModuleNo, poassociationDto.CompanyNo, poassociationDto.LocationNo, poassociationDto.AgentNo, poassociationDto.bActive,
             poassociationDto.F01, poassociationDto.F02, poassociationDto.F03, poassociationDto.F04, poassociationDto.F05, poassociationDto.F06, poassociationDto.F07, poassociationDto.F08, poassociationDto.F09, poassociationDto.F10,
             poassociationDto.F11, poassociationDto.F12, poassociationDto.F13, poassociationDto.F14, poassociationDto.F15, poassociationDto.F16, poassociationDto.F17, poassociationDto.F18, poassociationDto.F19, poassociationDto.F20,
-            poassociationDto.F21, poassociationDto.F22, poassociationDto.F23, poassociationDto.F24, poassociationDto.F25, poassociationDto.F26, poassociationDto.F27
+            poassociationDto.F21, poassociationDto.F22, poassociationDto.F23, poassociationDto.F24, poassociationDto.F25
             );
-            para.Add("UDT", POAssociationDT.AsTableValuedParameter("UDT_POAssociation"));
+            para.Add("UDT", POAssociationDT.AsTableValuedParameter("udt_OrderCreationData"));
 
-            PoassociationList = await DbConnection.QueryAsync<POAssociationDto>("SP_POAssociation", para
+            PoassociationList = await DbConnection.QueryAsync<POAssociationDto>("sp_OrderCreationData", para
             , commandType: CommandType.StoredProcedure);
 
             return PoassociationList;

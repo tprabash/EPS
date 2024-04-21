@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GRN } from 'src/app/_models/GRN';
+import { POAssociation } from 'src/app/_models/POAssociation';
 import { environment } from 'src/environments/environment';
 
 var usertoken: any;
@@ -29,5 +30,14 @@ export class SalesorderService {
 
   SaveGRNData(wsDt: any) {
     return this.http.post(this.baseUrl + 'SalesOrder/SaveGRNData', wsDt, httpOptions);
+  }
+
+
+  GetPOAssociationData(wsDt: any) {
+    return this.http.post<POAssociation[]>(this.baseUrl + 'SalesOrder/GetPOAssociationData', wsDt, httpOptions);
+  }
+
+  SavePOAssociationData(wsDt: any) {
+    return this.http.post<any>(this.baseUrl + 'SalesOrder/SavePOAssociationData', wsDt, httpOptions);
   }
 }
