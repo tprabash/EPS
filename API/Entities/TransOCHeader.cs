@@ -20,6 +20,7 @@ namespace API.Entities
         public int BrandCodeId {get;set;}
         public int CurrencyId {get;set;}
         public int SeasonId {get;set;}
+        public int ArticleId {get;set;}
         public int EndCustomerId {get;set;}
         public int originCountryId {get;set;}
         public int PaymentTermId {get;set;}

@@ -9,7 +9,7 @@
             <div class="col-md-2 text-center">
                 <div class="btn-group">
                     <button type="button" class="btn btn-success" data-placement="bottom" title="Save"
-                        (click)="GRNsave()">
+                        (click)="OCsave()">
                         <i class="fas fa-save"></i>
                     </button>
                     <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
@@ -40,7 +40,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Customer</label>
-                    <igx-combo #customer id="grntype" class="combo mt-1" displayKey="f16" valueKey="f01"
+                    <igx-combo #customer id="customer" class="combo mt-1" displayKey="f16" valueKey="f01"
                         [itemsMaxHeight]="250" [data]="customerList" placeholder="Customer" formControlName="customer"
                         searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
                     </igx-combo>
@@ -60,6 +60,14 @@
                     <igx-input-group>
                         <input igxInput type="text" formControlName="remarks" class="mt-1" />
                         <label igxLabel>Remarks</label>
+                    </igx-input-group>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3" hidden>
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="number" formControlName="ochidx" class="mt-1" />
+                        <label igxLabel>ochidx</label>
                     </igx-input-group>
                 </div>
             </div>

@@ -3212,20 +3212,26 @@ namespace API.Repository
             DataTable POAssociationDT = new DataTable();
             DynamicParameters para = new DynamicParameters();
 
-            POAssociationDT.Columns.Add("F01", typeof(long));
-            POAssociationDT.Columns.Add("F02", typeof(long));
-            POAssociationDT.Columns.Add("F03", typeof(long));
-            POAssociationDT.Columns.Add("F04", typeof(long));
-            POAssociationDT.Columns.Add("F05", typeof(long));
-            POAssociationDT.Columns.Add("F06", typeof(long));
-            POAssociationDT.Columns.Add("F07", typeof(long));
-            POAssociationDT.Columns.Add("F08", typeof(long));
-            POAssociationDT.Columns.Add("F09", typeof(long));
-            POAssociationDT.Columns.Add("F10", typeof(long));
-            POAssociationDT.Columns.Add("F11", typeof(long));
-            POAssociationDT.Columns.Add("F12", typeof(long));
-            POAssociationDT.Columns.Add("F13", typeof(long));
-            POAssociationDT.Columns.Add("F14", typeof(long));
+            POAssociationDT.Columns.Add("ActivityNo", typeof(Int64));
+            POAssociationDT.Columns.Add("ModuleNo", typeof(Int64));
+            POAssociationDT.Columns.Add("CompanyNo", typeof(Int64));
+            POAssociationDT.Columns.Add("LocationNo", typeof(Int64));
+            POAssociationDT.Columns.Add("AgentNo", typeof(Int64));
+            POAssociationDT.Columns.Add("bActive", typeof(Int64));
+            POAssociationDT.Columns.Add("F01", typeof(Int64));
+            POAssociationDT.Columns.Add("F02", typeof(Int64));
+            POAssociationDT.Columns.Add("F03", typeof(Int64));
+            POAssociationDT.Columns.Add("F04", typeof(Int64));
+            POAssociationDT.Columns.Add("F05", typeof(Int64));
+            POAssociationDT.Columns.Add("F06", typeof(Int64));
+            POAssociationDT.Columns.Add("F07", typeof(Int64));
+            POAssociationDT.Columns.Add("F08", typeof(Int64));
+            POAssociationDT.Columns.Add("F09", typeof(Int64));
+            POAssociationDT.Columns.Add("F10", typeof(Int64));
+            POAssociationDT.Columns.Add("F11", typeof(Int64));
+            POAssociationDT.Columns.Add("F12", typeof(Int64));
+            POAssociationDT.Columns.Add("F13", typeof(Int64));
+            POAssociationDT.Columns.Add("F14", typeof(decimal));
             POAssociationDT.Columns.Add("F15", typeof(decimal));
             POAssociationDT.Columns.Add("F16", typeof(string));
             POAssociationDT.Columns.Add("F17", typeof(string));
@@ -3234,88 +3240,128 @@ namespace API.Repository
             POAssociationDT.Columns.Add("F20", typeof(string));
             POAssociationDT.Columns.Add("F21", typeof(string));
             POAssociationDT.Columns.Add("F22", typeof(string));
-            POAssociationDT.Columns.Add("F23", typeof(string));
-            POAssociationDT.Columns.Add("F24", typeof(string));
-            POAssociationDT.Columns.Add("F25", typeof(string));
-            POAssociationDT.Columns.Add("F26", typeof(string));
-            POAssociationDT.Columns.Add("F27", typeof(DateTime));
+            POAssociationDT.Columns.Add("F23", typeof(DateTime));
+            POAssociationDT.Columns.Add("F24", typeof(DateTime));
+            POAssociationDT.Columns.Add("F25", typeof(DateTime));
 
-            var ActivityCode = savePOAssociationList.Action;
-            var ModuleId = savePOAssociationList.ModuleId;
-            var LocationId = savePOAssociationList.LocationId;
-            var UserId = savePOAssociationList.UserId;
+            var ActivityNo = savePOAssociationList.ActivityNo;
+            var ModuleNo = savePOAssociationList.ModuleNo;
+            var CompanyNo = savePOAssociationList.CompanyNo;
+            var LocationNo = savePOAssociationList.LocationNo;
+            var AgentNo = savePOAssociationList.AgentNo;
+            var bActive = savePOAssociationList.bActive;
 
-            if (savePOAssociationList.sTransPOAssociationHeader != null)
+            if (savePOAssociationList.sOCHeader != null)
             {
                 POAssociationDT.Rows.Add(
-                    ActivityCode,//1
-                    ModuleId,//2
-                    LocationId,//3
-                    UserId,//4
-                    savePOAssociationList.sTransPOAssociationHeader.AutoId,//5
-                    savePOAssociationList.sTransPOAssociationHeader.CustomerId,//6
-                    savePOAssociationList.sTransPOAssociationHeader.ArticleId,//7
-                    savePOAssociationList.sTransPOAssociationHeader.PoQty,//8
-                    savePOAssociationList.sTransPOAssociationHeader.AgentID,//9
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    savePOAssociationList.sOCHeader.AutoId,//1
+                    savePOAssociationList.sOCHeader.CustomerId,//2
+                    savePOAssociationList.sOCHeader.ArticleId,//3
+                    0,//4
+                    0,//5
+                    0,//6
+                    0,//7
+                    0,//8
+                    0,//9
                     0,//10
-                    1,//11
+                    0,//11
                     0,//12
                     0,//13
                     0,//14
-                    savePOAssociationList.sTransPOAssociationHeader.PoPrice,//15
-                    0,//16
-                    savePOAssociationList.sTransPOAssociationHeader.PoName,//17
+                    0,//15 
+                    savePOAssociationList.sOCHeader.OCNo,//16
+                    savePOAssociationList.sOCHeader.Remaks,//17
                     0,//18
                     0,//19
-                    0,//20 
+                    0,//20
                     0,//21
-                    0,//22
-                    0,//23
-                    "H",//24
-                    0,//25
-                    0,//26
-                    savePOAssociationList.sTransPOAssociationHeader.PoDate //27
+                    0//22
+                    
                 );
+                
             }
-            if (savePOAssociationList.sTransPOAssociationDetails != null)
+
+            if (savePOAssociationList.sSalesOrderHeader != null)
             {
-                foreach (var item in savePOAssociationList.sTransPOAssociationDetails)
-                {
-                    POAssociationDT.Rows.Add(
-                        ActivityCode,//1
-                        0,//2
-                        item.PAHId,//3
-                        item.SOHId,//4
-                        item.Qty,//5
-                        item.bActive,//6
-                        0,//7
-                        0,//8
-                        0,//9
-                        0,//10
-                        2,//11
-                        0,//12
-                        0,//13
-                        0,//14
-                        0,//15
-                        0,//16
-                        0,//17
-                        0,//18
-                        0,//19
-                        0,//20
-                        0,//21
-                        0,//22
-                        0,//23
-                        0,//24
-                        0,//25
-                        0//26
-                         //27
-                    );
-                }
+                POAssociationDT.Rows.Add(
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    0,//1
+                    0,//2
+                    0,//3
+                    savePOAssociationList.sSalesOrderHeader.AutoId,//4
+                    savePOAssociationList.sSalesOrderHeader.OCHIdx,//5
+                    0,//6
+                    0,//7
+                    0,//8
+                    0,//9
+                    0,//10
+                    0,//11
+                    0,//12
+                    0,//13
+                    0,//14
+                    0,//15 
+                    0,//16
+                    0,//17
+                    savePOAssociationList.sSalesOrderHeader.PoNo,//18
+                    0,//19
+                    0,//20
+                    0,//21
+                    "H",//22
+                    savePOAssociationList.sSalesOrderHeader.BuyerDelDate//23
+                );
+                
             }
 
-            para.Add("UDT", POAssociationDT.AsTableValuedParameter("UDT_POAssociation"));
+             if (savePOAssociationList.sSalesOrderDeatails != null)
+            {
+                POAssociationDT.Rows.Add(
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    0,//1
+                    0,//2
+                    0,//3
+                    0,//4
+                    0,//5
+                    savePOAssociationList.sSalesOrderDeatails.AutoId,//6
+                    savePOAssociationList.sSalesOrderDeatails.SOHId,//7
+                    savePOAssociationList.sSalesOrderDeatails.MISPId,//8
+                    savePOAssociationList.sSalesOrderDeatails.MSId,//9
+                    savePOAssociationList.sSalesOrderDeatails.MPId,//10
+                    savePOAssociationList.sSalesOrderDeatails.OrderQty,//11
+                    savePOAssociationList.sSalesOrderDeatails.ProductionOutQty,//12
+                    savePOAssociationList.sSalesOrderDeatails.DamageQty,//13
+                    savePOAssociationList.sSalesOrderDeatails.Price,//14
+                    0,//15 
+                    0,//16
+                    0,//17
+                    savePOAssociationList.sSalesOrderHeader.PoNo,//18
+                    0,//19
+                    0,//20
+                    0,//21
+                    "D",//22
+                    savePOAssociationList.sSalesOrderHeader.BuyerDelDate//23
+                );
+                
+            }
+           
+            para.Add("UDT", POAssociationDT.AsTableValuedParameter("udt_OrderCreationData"));
 
-            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("SP_POAssociation", para,
+            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_OrderCreationData", para,
             commandType: CommandType.StoredProcedure);
 
             return result;
@@ -3460,7 +3506,7 @@ namespace API.Repository
                       ActivityNo,
                       ModuleNo,
                       CompanyNo,
-                      LocationNo,
+                      CompanyNo,
                       AgentNo,
                       bActive,
                       item.sGRNHeader.AutoId,//1

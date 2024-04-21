@@ -11,6 +11,12 @@ namespace API.Entities
         public int AutoId {get;set;} 
         public int OCHId {get;set;}
         public int SOHId {get;set;}
+        public int MISPId {get;set;}
+        public int MSId {get;set;}
+        public int MPId {get;set;}
+        public int OrderQty {get;set;}
+        public int ProductionOutQty {get;set;}
+        public int DamageQty {get;set;}
         public int ArticleColorSizeId {get;set;}
         public Decimal Price {get;set;}
         public Decimal Qty {get;set;}

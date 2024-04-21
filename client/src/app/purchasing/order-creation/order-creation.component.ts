@@ -71,6 +71,7 @@ export class OrderCreationComponent implements OnInit {
       customer: [''],
       article: [''],
       remarks: [''],
+      ochidx: [0],
     });
 
     this.docnosearchForm = this.fb.group({
@@ -129,41 +130,25 @@ export class OrderCreationComponent implements OnInit {
     }
   }
 
-  GRNsave() {
-    var GRNList = [];
-
-    var GRNHeaderData = {
-      GRNTypeId: this.orderCreationForm.get('grntype').value[0],
-      SupplierIdx: this.orderCreationForm.get('supplier').value[0],
-      SupplierRef: this.orderCreationForm.get('supreff').value,
-      DocDate: this.datePipe.transform(
-        this.orderCreationForm.get('docDate').value,
-        'yyyy-MM-dd'
-      ),
-      Transdatetime: this.datePipe.transform(
-        this.orderCreationForm.get('transDate').value,
-        'yyyy-MM-dd'
-      ),
-      AutoId: this.orderCreationForm.get('docnoId').value,
+  OCsave() {
+    var OCData = {
+      CustomerId: this.orderCreationForm.get('customer').value[0],
+      ArticleId: this.orderCreationForm.get('article').value[0],
+      Remaks: this.orderCreationForm.get('remarks').value
     };
 
-    var GRNDetailsData = {};
-
     var objSM = {
-      sGRNHeader: GRNHeaderData,
-      // sGRNDetails: GRNDetailsData,
-      ActivityNo: 1,
+      sOCHeader: OCData,
+      ActivityNo: 3,
       AgentNo: this.user.userId,
       ModuleNo: this.user.moduleId,
     };
+    console.log(objSM);
 
-    GRNList.push(objSM);
-    console.log(GRNList);
-
-    this.salesOrderService.SaveGRNData(GRNList).subscribe((result) => {
-      // console.log(result);
+    this.salesOrderService.SavePOAssociationData(objSM).subscribe((result) => {
+      console.log(result);
       if (result['result'] == 1) {
-        this.orderCreationForm.get('docnoId').setValue(result['refNumId']);
+        this.orderCreationForm.get('ochidx').setValue(result['refNumId']);
         this.orderCreationForm.get('docno').setValue(result['refNum']);
         this.toaster.success('save Successfully !!!');
       } else if (result['result'] == 2) {
