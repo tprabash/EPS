@@ -38,6 +38,6 @@ export class SalesorderService {
   }
 
   SavePOAssociationData(wsDt: any) {
-    return this.http.post<any>(this.baseUrl + 'SalesOrder/SavePOAssociationData', wsDt, httpOptions);
+    return this.http.post(this.baseUrl + 'SalesOrder/SavePOAssociationData', wsDt, httpOptions);
   }
 }

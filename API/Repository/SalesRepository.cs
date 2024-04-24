@@ -3349,12 +3349,12 @@ namespace API.Repository
                     0,//15 
                     0,//16
                     0,//17
-                    savePOAssociationList.sSalesOrderHeader.PoNo,//18
+                    0,//18
                     0,//19
                     0,//20
                     0,//21
                     "D",//22
-                    savePOAssociationList.sSalesOrderHeader.BuyerDelDate//23
+                    0//23
                 );
                 
             }
