@@ -35,8 +35,8 @@ export class OrderCreationComponent implements OnInit {
   public supplier: IgxComboComponent;
   @ViewChild('orderCreationGrid', { static: true })
   public orderCreationGrid: IgxGridComponent;
-  @ViewChild('OrderCreationSearchGrid', { static: true })
-  public OrderCreationSearchGrid: IgxGridComponent;
+  @ViewChild('orderCreationSearchGrid', { static: true })
+  public orderCreationSearchGrid: IgxGridComponent;
   @ViewChild('LoadAddPoDialog', { read: IgxDialogComponent })
   public LoadAddPoDialog: IgxDialogComponent;
   articleprintsizeList: import("d:/EPS/client/src/app/_models/POAssociation").POAssociation[];
@@ -71,6 +71,7 @@ export class OrderCreationComponent implements OnInit {
       customer: [''],
       article: [''],
       remarks: [''],
+      ochidx: ['',[Validators.required]],
     });
 
     this.docnosearchForm = this.fb.group({
@@ -80,7 +81,7 @@ export class OrderCreationComponent implements OnInit {
     });
 
     this.addpoForm = this.fb.group({
-      sohid: [''],
+      sohid: [0],
       addponame: [''],
       deliverydate: [''],
     });
@@ -129,41 +130,25 @@ export class OrderCreationComponent implements OnInit {
     }
   }
 
-  GRNsave() {
-    var GRNList = [];
-
-    var GRNHeaderData = {
-      GRNTypeId: this.orderCreationForm.get('grntype').value[0],
-      SupplierIdx: this.orderCreationForm.get('supplier').value[0],
-      SupplierRef: this.orderCreationForm.get('supreff').value,
-      DocDate: this.datePipe.transform(
-        this.orderCreationForm.get('docDate').value,
-        'yyyy-MM-dd'
-      ),
-      Transdatetime: this.datePipe.transform(
-        this.orderCreationForm.get('transDate').value,
-        'yyyy-MM-dd'
-      ),
-      AutoId: this.orderCreationForm.get('docnoId').value,
+  OCsave() {
+    var OCData = {
+      CustomerId: this.orderCreationForm.get('customer').value[0],
+      ArticleId: this.orderCreationForm.get('article').value[0],
+      Remaks: this.orderCreationForm.get('remarks').value
     };
 
-    var GRNDetailsData = {};
-
     var objSM = {
-      sGRNHeader: GRNHeaderData,
-      // sGRNDetails: GRNDetailsData,
-      ActivityNo: 1,
+      sOCHeader: OCData,
+      ActivityNo: 3,
       AgentNo: this.user.userId,
       ModuleNo: this.user.moduleId,
     };
+    console.log(objSM);
 
-    GRNList.push(objSM);
-    console.log(GRNList);
-
-    this.salesOrderService.SaveGRNData(GRNList).subscribe((result) => {
-      // console.log(result);
+    this.salesOrderService.SavePOAssociationData(objSM).subscribe((result) => {
+      console.log(result);
       if (result['result'] == 1) {
-        this.orderCreationForm.get('docnoId').setValue(result['refNumId']);
+        this.orderCreationForm.get('ochidx').setValue(result['refNumId']);
         this.orderCreationForm.get('docno').setValue(result['refNum']);
         this.toaster.success('save Successfully !!!');
       } else if (result['result'] == 2) {
@@ -176,6 +161,73 @@ export class OrderCreationComponent implements OnInit {
         );
       }
     });
+  }
+
+  SOSave(){
+    var SalesordersSaveList = [];
+    var ocdetailsdata = {};
+    var objOCDetailSave = {};
+    var SOHeader = {
+      AutoId:this.addpoForm.get('sohid').value|| 0,
+      OCHIdx: this.orderCreationForm.get('ochidx').value,
+      PoNo: this.addpoForm.get('addponame').value,
+      BuyerDelDate: this.addpoForm.get('deliverydate')?.value ? this.datePipe.transform(this.addpoForm.get('deliverydate')?.value,'yyyy-MM-dd' ).toString(): null,
+    };
+
+
+    var objOCHeaderSave = {
+      sSalesOrderHeader: SOHeader,
+      ActivityNo: 8,
+      AgentNo: this.user.userId,
+      ModuleNo: this.user.moduleId
+    };
+
+    SalesordersSaveList.push(objOCHeaderSave);
+
+    var selectedRows = this.orderCreationSearchGrid.data;
+    console.log(selectedRows);
+
+    selectedRows.forEach((items) => {
+       ocdetailsdata = {
+        SOHId: this.addpoForm.get('sohid').value,
+        MISPId: items.f01,
+        MSId: items.f02,
+        MPId: items.f03,
+        OrderQty: items.f04,
+        Price: items.f14
+      };
+
+
+       objOCDetailSave = {
+        sSalesOrderDeatails: ocdetailsdata,
+        ActivityNo: 8,
+        AgentNo: this.user.userId,
+        ModuleNo: this.user.moduleId,
+      };
+
+      SalesordersSaveList.push(objOCDetailSave);
+
+    });
+
+    console.log(SalesordersSaveList);
+
+    this.salesOrderService.SavePOAssociationData(SalesordersSaveList).subscribe((result) => {
+      console.log(result);
+      if (result['result'] == 1) {
+        this.addpoForm.get('sohid').setValue(result['refNumId']);
+        this.toaster.success('save Successfully !!!');
+      } else if (result['result'] == 2) {
+        this.toaster.warning('update Successfully !!!');
+      } else if (result['result'] == 3) {
+        this.toaster.error('Code already Exists!!!');
+      } else {
+        this.toaster.warning(
+          'Contact Admin. Error No:- ' + result['result'].toString()
+        );
+      }
+    });
+
+
   }
 
   filterByDocNo(term){
@@ -206,9 +258,6 @@ export class OrderCreationComponent implements OnInit {
 
   }
 
-  saverecipestep(){
-    
-  }
 
   LoadAddPo(){
     this.LoadAddPoDialog.open();

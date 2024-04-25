@@ -34,6 +34,7 @@ namespace API.Entities
         public int WashItemTypeId { get; set; }
         public string WashItemName { get; set; }
         public string Remaks { get; set; }
+        public string PoNo { get; set; }
         public int SpecialOperationId { get; set; }
         public string CusWashType { get; set; }
         public int WashStandId { get; set; }

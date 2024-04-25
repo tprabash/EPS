@@ -11,6 +11,8 @@ namespace API.DTOs
            public int LocationId	{ get; set; }
            public int ModuleId	{ get; set; }
            public int UserId	{ get; set; }
+
+
            public virtual TransAgreement sAgreement {get; set;}
            public virtual TransOCHeader sOCHeader {get; set;}
            public virtual TransSalesOrderHeader sSalesOrderHeader {get; set;}
