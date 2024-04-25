@@ -16,5 +16,8 @@ namespace API.Entities
         public decimal UnitRate { get; set; }
         public decimal Value { get; set; }
         public int bActive { get; set; }
+        public long SupplierIdx { get; set; }
+        public string DocNo { get; set; }
+        public string SupplierName { get; set; }
     }
 }

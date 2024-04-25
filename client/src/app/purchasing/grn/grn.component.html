@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-2 mt-3">
                 <div class="form-group">
-                    <igx-input-group>
+                    <igx-input-group hidden>
                         <input igxInput type="number" formControlName="docnoId" />
                     </igx-input-group>
                     <igx-input-group>
@@ -49,7 +49,7 @@
                     </igx-combo>
                 </div>
             </div>
-            <div class="col-md-2 mt-3">
+            <div class="col-md-1 mt-3">
                 <div class="form-group">
                     <igx-input-group>
                         <input igxInput type="text" formControlName="supreff" />
@@ -71,14 +71,22 @@
                     </igx-date-picker>
                 </div>
             </div>
+            <div class="col-md-1 mt-4">
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#LoadGRNDialog"
+                        data-placement="bottom" title="View">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </span>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <igx-grid #masterCompanyGrid [data]="masterCompanyList" [autoGenerate]="false" [paging]="true"
-                    [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none" [perPage]="10" height="500px"
-                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
-                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
+                <igx-grid #mainGRNGrid [data]="mainGRNList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
+                    [primaryKey]="'f01'" cellSelection="none" [perPage]="10" height="500px" displayDensity="compact"
+                    [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
+                    [rowSelection]="'Single'">
                     <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
                         <ng-template igxCell let-cell="cell">
                             <button igxButton="icon" class="fab-compact" (click)="onEditCompany($event,cell.cellID)">
@@ -86,20 +94,116 @@
                             </button>
                         </ng-template>
                     </igx-column>
-                    <igx-column [field]="''" [header]="'GRNQty'" [resizable]="true" [dataType]="'string'"
-                        [sortable]="true">
+                    <igx-column [field]="'f02'" [header]="'Supplier ID'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [hidden]="true" [width]="'150px'" [editable]="false">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'FreeQty'" [resizable]="true" [dataType]="'string'"
-                        [sortable]="true">
+                    <igx-column [field]="'f03'" [header]="'Item Master ID'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [hidden]="true" [width]="'150px'" [editable]="false">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'unitrate'" [resizable]="true" [dataType]="'string'"
-                        [sortable]="true">
+                    <igx-column [field]="'f16'" [header]="'Doc No'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true" [width]="'150px'" [editable]="false">
                     </igx-column>
-                    <igx-column [field]="''" [header]="'Value'" [resizable]="true" [dataType]="'string'"
-                        [sortable]="true">
+                    <igx-column [field]="'f19'" [header]="'Supplier Name'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true" [width]="'250px'" [editable]="false">
+                    </igx-column>
+                    <igx-column [field]="'f20'" [header]="'Item Name'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true" [width]="'150px'" [editable]="false">
+                    </igx-column>
+                    <igx-column [field]="'f09'" [header]="'GRNQty'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f10'" [header]="'FreeQty'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f11'" [header]="'unitrate'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f12'" [header]="'Value'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [editable]="true">
                     </igx-column>
                 </igx-grid>
             </div>
         </div>
     </form>
+</div>
+
+<div class="modal fade" id="LoadGRNDialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">GRN List</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="GRNSearchForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="docnosearch"
+                                        placeholder="Filter By Doc No" (input)="filterByDocNo($event.target.value)"
+                                        formControlName="docnosearch">
+                                    <label igxLabel for="docnosearch">Doc No</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="customername"
+                                        placeholder="Filter By Customer Name"
+                                        (input)="filterByCustomer($event.target.value)" formControlName="customername">
+                                    <label igxLabel for="customername">Customer Name</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="articlename"
+                                        placeholder="Filter By Article Name"
+                                        (input)="filterByArticle($event.target.value)" formControlName="articlename">
+                                    <label igxLabel for="articlename">Article Name</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="offset-md-5 col-md-1">
+                            <button type="button" class="btn btn-info" (click)="addGrn()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <igx-grid #grnSearchGrid [data]="grnSearchList" [autoGenerate]="false" [paging]="true"
+                            [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none" [perPage]="50"
+                            height="400px" displayDensity="compact" [allowFiltering]="true"
+                            [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
+                            [rowSelection]="'multiple'">
+                            <igx-column [field]="'f02'" [header]="'Supplier ID'" [resizable]="true"
+                                [dataType]="'number'" [sortable]="true" [hidden]="true" [width]="'150px'"
+                                [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="'f03'" [header]="'Item Master ID'" [resizable]="true"
+                                [dataType]="'number'" [sortable]="true" [hidden]="true" [width]="'150px'"
+                                [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="'f16'" [header]="'Doc No'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'150px'" [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="'f19'" [header]="'Supplier Name'" [resizable]="true"
+                                [dataType]="'string'" [sortable]="true" [width]="'250px'" [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="'f20'" [header]="'Item Name'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'150px'" [editable]="false">
+                            </igx-column>
+                        </igx-grid>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+            </div>
+        </div>
+    </div>
 </div>
