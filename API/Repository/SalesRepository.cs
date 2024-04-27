@@ -1537,339 +1537,124 @@ namespace API.Repository
             DataTable OrderCreationDT = new DataTable();
             DynamicParameters para = new DynamicParameters();
 
-            OrderCreationDT.Columns.Add("F01", typeof(long));
-            OrderCreationDT.Columns.Add("F02", typeof(long));
-            OrderCreationDT.Columns.Add("F03", typeof(long));
-            OrderCreationDT.Columns.Add("F04", typeof(long));
-            OrderCreationDT.Columns.Add("F05", typeof(long));
-            OrderCreationDT.Columns.Add("F06", typeof(long));
-            OrderCreationDT.Columns.Add("F07", typeof(long));
-            OrderCreationDT.Columns.Add("F08", typeof(long));
-            OrderCreationDT.Columns.Add("F09", typeof(long));
-            OrderCreationDT.Columns.Add("F10", typeof(long));
-            OrderCreationDT.Columns.Add("F11", typeof(long));
-            OrderCreationDT.Columns.Add("F12", typeof(long));
-            OrderCreationDT.Columns.Add("F13", typeof(long));
-            OrderCreationDT.Columns.Add("F14", typeof(long));
-            OrderCreationDT.Columns.Add("F15", typeof(long));
-            OrderCreationDT.Columns.Add("F16", typeof(long));
-            OrderCreationDT.Columns.Add("F17", typeof(long));
-            OrderCreationDT.Columns.Add("F18", typeof(long));
-            OrderCreationDT.Columns.Add("F19", typeof(long));
-            OrderCreationDT.Columns.Add("F20", typeof(long));
-            OrderCreationDT.Columns.Add("F21", typeof(long));
-            OrderCreationDT.Columns.Add("F22", typeof(long));
-            OrderCreationDT.Columns.Add("F23", typeof(long));
-            OrderCreationDT.Columns.Add("F24", typeof(long));
-            OrderCreationDT.Columns.Add("F25", typeof(int));
-            OrderCreationDT.Columns.Add("F26", typeof(int));
-            OrderCreationDT.Columns.Add("F27", typeof(string));
-            OrderCreationDT.Columns.Add("F28", typeof(string));
-            OrderCreationDT.Columns.Add("F29", typeof(string));
-            OrderCreationDT.Columns.Add("F30", typeof(string));
-            OrderCreationDT.Columns.Add("F31", typeof(string));
-            OrderCreationDT.Columns.Add("F32", typeof(string));
-            OrderCreationDT.Columns.Add("F33", typeof(string));
-            OrderCreationDT.Columns.Add("F34", typeof(string));
-            OrderCreationDT.Columns.Add("F35", typeof(string));
-            OrderCreationDT.Columns.Add("F36", typeof(string));
-            OrderCreationDT.Columns.Add("F37", typeof(string));
-            OrderCreationDT.Columns.Add("F38", typeof(string));
-            OrderCreationDT.Columns.Add("F39", typeof(string));
-            OrderCreationDT.Columns.Add("F40", typeof(string));
-            OrderCreationDT.Columns.Add("F41", typeof(string));
-            OrderCreationDT.Columns.Add("F42", typeof(string));
-            OrderCreationDT.Columns.Add("F43", typeof(string));
-            OrderCreationDT.Columns.Add("F44", typeof(string));
-            OrderCreationDT.Columns.Add("F45", typeof(string));
-            OrderCreationDT.Columns.Add("F46", typeof(string));
-            OrderCreationDT.Columns.Add("F47", typeof(string));
-            OrderCreationDT.Columns.Add("F48", typeof(string));
-            OrderCreationDT.Columns.Add("F49", typeof(string));
-            OrderCreationDT.Columns.Add("F50", typeof(string));
-            OrderCreationDT.Columns.Add("F51", typeof(string));
-            OrderCreationDT.Columns.Add("F52", typeof(string));
-            OrderCreationDT.Columns.Add("F53", typeof(decimal));
-            OrderCreationDT.Columns.Add("F54", typeof(decimal));
-            OrderCreationDT.Columns.Add("F55", typeof(decimal));
-            OrderCreationDT.Columns.Add("F56", typeof(DateTime));
-            OrderCreationDT.Columns.Add("F57", typeof(DateTime));
-            OrderCreationDT.Columns.Add("F58", typeof(DateTime));
-            OrderCreationDT.Columns.Add("F59", typeof(DateTime));
+            OrderCreationDT.Columns.Add("ActivityNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("ModuleNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("CompanyNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("LocationNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("AgentNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("bActive", typeof(Int64));
+            OrderCreationDT.Columns.Add("F01", typeof(Int64));
+            OrderCreationDT.Columns.Add("F02", typeof(Int64));
+            OrderCreationDT.Columns.Add("F03", typeof(Int64));
+            OrderCreationDT.Columns.Add("F04", typeof(Int64));
+            OrderCreationDT.Columns.Add("F05", typeof(Int64));
+            OrderCreationDT.Columns.Add("F06", typeof(Int64));
+            OrderCreationDT.Columns.Add("F07", typeof(Int64));
+            OrderCreationDT.Columns.Add("F08", typeof(Int64));
+            OrderCreationDT.Columns.Add("F09", typeof(Int64));
+            OrderCreationDT.Columns.Add("F10", typeof(Int64));
+            OrderCreationDT.Columns.Add("F11", typeof(Int64));
+            OrderCreationDT.Columns.Add("F12", typeof(Int64));
+            OrderCreationDT.Columns.Add("F13", typeof(Int64));
+            OrderCreationDT.Columns.Add("F14", typeof(decimal));
+            OrderCreationDT.Columns.Add("F15", typeof(decimal));
+            OrderCreationDT.Columns.Add("F16", typeof(string));
+            OrderCreationDT.Columns.Add("F17", typeof(string));
+            OrderCreationDT.Columns.Add("F18", typeof(string));
+            OrderCreationDT.Columns.Add("F19", typeof(string));
+            OrderCreationDT.Columns.Add("F20", typeof(string));
+            OrderCreationDT.Columns.Add("F21", typeof(string));
+            OrderCreationDT.Columns.Add("F22", typeof(string));
+            OrderCreationDT.Columns.Add("F23", typeof(DateTime));
+            OrderCreationDT.Columns.Add("F24", typeof(DateTime));
+            OrderCreationDT.Columns.Add("F25", typeof(DateTime));
 
 
             foreach (var item in ocdto)
 
             {
-                var ActivityCode = item.Action;
-                var ModuleId = item.ModuleId;
-                var LocationId = item.LocationId;
-                var UserId = item.UserId;
+ 
+            var ActivityNo = item.ActivityNo;
+            var ModuleNo = item.ModuleNo;
+            var CompanyNo = item.CompanyNo;
+            var LocationNo = item.LocationNo;
+            var AgentNo = item.AgentNo;
+            var bActive = item.bActive;
 
-
-                if (item.sOCHeader != null)
-                {
-                    OrderCreationDT.Rows.Add(
-                         ActivityCode, ModuleId, LocationId, UserId, item.sOCHeader.AutoId, 0, 0, 0, 0, 0,
-                         item.sOCHeader.CategoryId, item.sOCHeader.CustomerId, item.sOCHeader.CustomerDepId, 0,
-                         item.sOCHeader.SaleAgentId, item.sOCHeader.BuyerUserId, item.sOCHeader.BrandCodeId,
-                         item.sOCHeader.CurrencyId, item.sOCHeader.SeasonId, item.sOCHeader.EndCustomerId,
-                         item.sOCHeader.originCountryId, item.sOCHeader.PaymentTermId, item.sOCHeader.CustomerAddressId,
-                         0, 0, 0, 0, item.sOCHeader.PORef, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, 0, item.sOCHeader.Remaks
-                  );
-                }
                 if (item.sSalesOrderHeader != null)
                 {
                     OrderCreationDT.Rows.Add(
-                      ActivityCode, ModuleId, LocationId, UserId,
-                    item.sSalesOrderHeader.OCHIdx,
-                    item.sSalesOrderHeader.AutoId,
-                    item.sSalesOrderHeader.ArticleId,
-                    item.sSalesOrderHeader.BlockbookingId,
-                    item.sSalesOrderHeader.SalesordertypeId,
-                    item.sSalesOrderHeader.ParentId,
-                    item.sSalesOrderHeader.SalesCategoryId,
-                    item.sSalesOrderHeader.POTypeId,
-                    item.sSalesOrderHeader.ShipmentModeId,
-                    item.sSalesOrderHeader.FinaldesCountrId,
-                    item.sSalesOrderHeader.MarketId,
-                    item.sSalesOrderHeader.ShipToAddressId,
-                    item.sSalesOrderHeader.BillToId,
-                    item.sSalesOrderHeader.DeliveryTermId,
-                   item.sSalesOrderHeader.bActive,
-                    item.sSalesOrderHeader.WashItemTypeId,
-                    item.sSalesOrderHeader.SpecialOperationId,
-                    item.sSalesOrderHeader.WashStandId,
-                    item.sSalesOrderHeader.SampleTypeId,
-                    item.sSalesOrderHeader.CustomerLocId,
-                    0, item.sSalesOrderHeader.ProcessTypeId,
-                    item.sSalesOrderHeader.DocRefNo,
-                    item.sSalesOrderHeader.FinalDest,
-                    item.sSalesOrderHeader.BuyerStyleRef,
-                    item.sSalesOrderHeader.WashItemName,
-                    item.sSalesOrderHeader.CusWashType,
-                    item.sSalesOrderHeader.Coordinater,
-                    item.sSalesOrderHeader.Sender,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    item.sSalesOrderHeader.SampleIssueToId,
-                        0, 0, 0, 0, 0, 0,
-                    item.sSalesOrderHeader.DeliveryOCId,
-                    0, "H",
-                    item.sSalesOrderHeader.Remaks,
-                        item.sSalesOrderHeader.CustomerPrice,
-                    item.sSalesOrderHeader.TotalQuantity,
-                    item.sSalesOrderHeader.PcsWeight,
-                    item.sSalesOrderHeader.BuyerOrderDate,
-                    item.sSalesOrderHeader.BuyerDelDate,
-                    item.sSalesOrderHeader.OCDelDate,
-                    item.sSalesOrderHeader.FIHDate
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    0,//1
+                    0,//2
+                    0,//3
+                    item.sSalesOrderHeader.AutoId,//4
+                    item.sSalesOrderHeader.OCHIdx,//5
+                    0,//6
+                    0,//7
+                    0,//8
+                    0,//9
+                    0,//10
+                    0,//11
+                    0,//12
+                    0,//13
+                    0,//14
+                    0,//15 
+                    0,//16
+                    0,//17
+                    item.sSalesOrderHeader.PoNo,//18
+                    0,//19
+                    0,//20
+                    0,//21
+                    "H",//22
+                    item.sSalesOrderHeader.BuyerDelDate//23
                   );
                 }
+
                 if (item.sSalesOrderDeatails != null)
                 {
                     OrderCreationDT.Rows.Add(
-                      ActivityCode, ModuleId, LocationId, UserId, 0, item.sSalesOrderDeatails.OCHId, 0, 0, item.sSalesOrderDeatails.ArticleColorSizeId,
-                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "D", 0,
-                      item.sSalesOrderDeatails.Price, item.sSalesOrderDeatails.Qty,
-                      item.sSalesOrderDeatails.DailyCommitQty
-                  );
-                }
-                if (item.sSalesOrderAddtionalValue != null)
-                {
-                    OrderCreationDT.Rows.Add(
-                      ActivityCode, ModuleId, LocationId, UserId, 0, item.sSalesOrderAddtionalValue.SOHIdx, 0,
-                      item.sSalesOrderAddtionalValue.SOAId, 0,
-                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, item.sSalesOrderAddtionalValue.DetailsVal
-                  );
-                }
-
-                // Adding GMT Value Tables
-
-                if (item.sGMTValueUpdate != null)
-                {
-                    OrderCreationDT.Rows.Add(
-                      ActivityCode, ModuleId, LocationId, UserId, item.sGMTValueUpdate.AutoId,//5
-                    0,//6
-                    0,//7
-                    item.sGMTValueUpdate.CustomerId,//8
-                    item.sGMTValueUpdate.Articleid, //9
-                    item.sGMTValueUpdate.SOHid, //10
-                    0, //11
-                    0, //12
-                    0, //13
-                    0, //14
-                    0, //15
-                    0, //16
-                    0, //17
-                    0, //18 
-                    0, //19
-                    0, //20
-                    0, //21
-                    1, //22
-                    0, //23
-                    0, //24
-                    0, //25
-                    0,//26 ,
-                    item.sGMTValueUpdate.CusWashType, //27
-                    item.sGMTValueUpdate.ActWashType //28
-                  );
-                }
-
-
-                if (item.sGMTValueConfirmation != null)
-                {
-                    OrderCreationDT.Rows.Add(
-                      ActivityCode, ModuleId, LocationId, UserId, item.sGMTValueConfirmation.GMTVLupdateId,//5
-                    item.sGMTValueConfirmation.AutoId,//6
-                    0,//7
-                    item.sGMTValueConfirmation.OrderChargeble,//8
-                    item.sGMTValueConfirmation.AgremntRequired, //9
-                    item.sGMTValueConfirmation.WashTypeConfirm, //10
-                    item.sGMTValueConfirmation.GRNBlock, //11
-                    0, //12
-                    0, //13
-                    0, //14
-                    0, //15
-                    0, //16
-                    0, //17
-                    0, //18 
-                    0, //19
-                    0, //20
-                    0, //21
-                    1, //22
-                    0, //23
-                    0, //24
-                    item.sGMTValueConfirmation.TotalValue, //25
-                    0,//26 
-                    item.sGMTValueConfirmation.Comment, //27
-                    item.sGMTValueConfirmation.RewashFaultDesc, //28
-                    0, //29
-                    0, //30
-                    0, //31
-                    0, //32
-                    0, //33
-                    0, //34
-                    0, //35
-                    0, //36 
-                    0, //37
-                    0, //38
-                    0, //39
-                    0, //40
-                    0, //41
-                    0, //42
-                    0, //43
-                    0,//44 
-                    0, //45
-                    0, //46 
-                    0, //47
-                    0, //48
-                    0, //49
-                    0, //50
-                    0, //51
-                    0, //52
-                    item.sGMTValueConfirmation.FallOutPercentage, //53
-                    0//54 
-                  );
-                }
-
-
-                if (item.sGMTPriceDetails != null)
-                {
-                    OrderCreationDT.Rows.Add(
-                      ActivityCode, ModuleId, LocationId, UserId, item.sGMTPriceDetails.GMTVLupdateId,//5
-                    item.sGMTPriceDetails.GMTVLconfirmId,//6
-                    item.sGMTPriceDetails.AutoId,//7
-                    0,//8
-                    0, //9
-                    0, //10
-                    0, //11
-                    0, //12
-                    0, //13
-                    0, //14
-                    0, //15
-                    0, //16
-                    0, //17
-                    0, //18 
-                    0, //19
-                    0, //20
-                    0, //21
-                    2, //22
-                    0, //23
-                    0, //24
-                    item.sGMTPriceDetails.WashStdId, //25
-                    item.sGMTPriceDetails.Price,//26 ,
-                    0, //27
-                    0 //28
-                  );
-                }
-
-                if (item.sAgreement != null)
-                {
-                    OrderCreationDT.Rows.Add(
-                      ActivityCode, ModuleId, LocationId, UserId, item.sAgreement.AutoId,//5
-                    item.sAgreement.Articleid,//6
-                    item.sAgreement.SOHid,//7
-                    item.sAgreement.CustomerId,//8
-                    0, //9
-                    item.sAgreement.isSent, //10
-                    item.sAgreement.IsRecived, //11
-                    item.sAgreement.IsPriceIssue, //12  
-                    item.sAgreement.IsFalloutIssue, //13
-                    item.sAgreement.AgreementReceviedModeId, //14
-                    item.sAgreement.IsCancelled, //15
-                    item.sAgreement.CustomerAgreedPrice, //16
-                    item.sAgreement.AgreementSentUser, //17
-                    item.sAgreement.AgreementReceviedUser, //18 
-                    item.sAgreement.AgreementCancelledUser, //19
-                    0, //20
-                    0, //21
-                    2, //22
-                    0, //23
-                    0, //24
-                    0, //25
-                    0,//26 ,
-                    0, //27
-                    0,//28
-                      0, //29
-                    0, //30
-                    0, //31
-                    0, //32
-                    0, //33
-                    0, //34
-                    0, //35
-                    0, //36 
-                    0, //37
-                    0, //38
-                    0, //39
-                    0, //40
-                    0, //41
-                    0, //42
-                    0, //43
-                    0,//44 
-                    0, //45
-                    0, //46 
-                    0, //47
-                    0, //48
-                    0, //49
-                    0, //50
-                    0, //51
-                    0, //52
-                    0, //53
-                    0,//54 
-                    0,//55
-                    item.sAgreement.AgreementDate,//56
-                    item.sAgreement.AggrementSentDate,//57
-                    item.sAgreement.AgreementReceviedDate,//58
-                    item.sAgreement.AgreementCancelledDate//59
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    0,//1
+                    0,//2
+                    0,//3
+                    0,//4
+                    0,//5
+                    item.sSalesOrderDeatails.AutoId,//6
+                    item.sSalesOrderDeatails.SOHId,//7
+                    item.sSalesOrderDeatails.MISPId,//8
+                    item.sSalesOrderDeatails.MSId,//9
+                    item.sSalesOrderDeatails.MPId,//10
+                    item.sSalesOrderDeatails.OrderQty,//11
+                    item.sSalesOrderDeatails.ProductionOutQty,//12
+                    item.sSalesOrderDeatails.DamageQty,//13
+                    item.sSalesOrderDeatails.Price,//14
+                    0,//15 
+                    0,//16
+                    0,//17
+                    0,//18
+                    0,//19
+                    0,//20
+                    0,//21
+                    "D"
                   );
                 }
 
             }
 
-            para.Add("UDT", OrderCreationDT.AsTableValuedParameter("UDT_OC"));
+            para.Add("UDT", OrderCreationDT.AsTableValuedParameter("udt_OrderCreationData"));
 
-            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("SP_OrderCreation", para,
+            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_OrderCreationData", para,
             commandType: CommandType.StoredProcedure);
 
             return result;
