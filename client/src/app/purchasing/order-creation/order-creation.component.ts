@@ -71,7 +71,7 @@ export class OrderCreationComponent implements OnInit {
       customer: [''],
       article: [''],
       remarks: [''],
-      ochidx: ['',[Validators.required]],
+      ochidx: [0,[Validators.required]],
     });
 
     this.docnosearchForm = this.fb.group({
@@ -83,7 +83,7 @@ export class OrderCreationComponent implements OnInit {
     this.addpoForm = this.fb.group({
       sohid: [0],
       addponame: [''],
-      deliverydate: [''],
+      deliverydate: [new Date()]
     });
   }
 
@@ -193,8 +193,8 @@ export class OrderCreationComponent implements OnInit {
         MISPId: items.f01,
         MSId: items.f02,
         MPId: items.f03,
-        OrderQty: items.f04,
-        Price: items.f14
+        OrderQty: items.f04
+        // Price: items.f14
       };
 
 
@@ -211,7 +211,7 @@ export class OrderCreationComponent implements OnInit {
 
     console.log(SalesordersSaveList);
 
-    this.salesOrderService.SavePOAssociationData(SalesordersSaveList).subscribe((result) => {
+    this.salesOrderService.SaveOCData(SalesordersSaveList).subscribe((result) => {
       console.log(result);
       if (result['result'] == 1) {
         this.addpoForm.get('sohid').setValue(result['refNumId']);
