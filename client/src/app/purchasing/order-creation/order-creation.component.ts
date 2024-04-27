@@ -24,10 +24,12 @@ export class OrderCreationComponent implements OnInit {
   addpoForm: FormGroup;
   user: User;
   saveButton: boolean = false;
-  customerList: any[] = [];
-  articleList: any[] = [];
+  customerList: any[] ;
+  articleList: any[] ;
   OrderCreationSearchList: any[] = [];
   orderCreationList: any[] = [];
+  articleprintsizeList:any[];
+  gOCHIdx: number = 0;
 
   @ViewChild('grntype', { static: true })
   public grntype: IgxComboComponent;
@@ -39,7 +41,11 @@ export class OrderCreationComponent implements OnInit {
   public orderCreationSearchGrid: IgxGridComponent;
   @ViewChild('LoadAddPoDialog', { read: IgxDialogComponent })
   public LoadAddPoDialog: IgxDialogComponent;
-  articleprintsizeList: import("d:/EPS/client/src/app/_models/POAssociation").POAssociation[];
+  @ViewChild('customer', { read: IgxComboComponent })
+  public customer: IgxComboComponent;
+  @ViewChild('article', { read: IgxComboComponent })
+  public article: IgxComboComponent;
+  
 
   constructor(
     private accountService: AccountService,
@@ -71,7 +77,7 @@ export class OrderCreationComponent implements OnInit {
       customer: [''],
       article: [''],
       remarks: [''],
-      ochidx: [0,[Validators.required]],
+      ochidx: ['',[Validators.required]],
     });
 
     this.docnosearchForm = this.fb.group({
@@ -165,7 +171,6 @@ export class OrderCreationComponent implements OnInit {
 
   SOSave(){
     var SalesordersSaveList = [];
-    var ocdetailsdata = {};
     var objOCDetailSave = {};
     var SOHeader = {
       AutoId:this.addpoForm.get('sohid').value|| 0,
@@ -187,17 +192,18 @@ export class OrderCreationComponent implements OnInit {
     var selectedRows = this.orderCreationSearchGrid.data;
     console.log(selectedRows);
 
+    
     selectedRows.forEach((items) => {
-       ocdetailsdata = {
+     var  ocdetailsdata = {
         SOHId: this.addpoForm.get('sohid').value,
         MISPId: items.f01,
         MSId: items.f02,
         MPId: items.f03,
-        OrderQty: items.f04
-        // Price: items.f14
+        OrderQty: items.f04,
+        Price: items.f14
       };
 
-
+      if (ocdetailsdata.OrderQty !== 0 || ocdetailsdata.OrderQty == null) {
        objOCDetailSave = {
         sSalesOrderDeatails: ocdetailsdata,
         ActivityNo: 8,
@@ -206,7 +212,7 @@ export class OrderCreationComponent implements OnInit {
       };
 
       SalesordersSaveList.push(objOCDetailSave);
-
+    }
     });
 
     console.log(SalesordersSaveList);
@@ -215,11 +221,26 @@ export class OrderCreationComponent implements OnInit {
       console.log(result);
       if (result['result'] == 1) {
         this.addpoForm.get('sohid').setValue(result['refNumId']);
+        this.LoadSalesOrderList();
+        this.addpoForm.get('addponame').setValue('');
+        this.addpoForm.get('deliverydate').setValue('');
+        this.addpoForm.get('sohid').setValue(0);
+        this.LoadAddPoDialog.close();
         this.toaster.success('save Successfully !!!');
       } else if (result['result'] == 2) {
         this.toaster.warning('update Successfully !!!');
+        this.LoadSalesOrderList();
+        this.addpoForm.get('addponame').setValue('');
+        this.addpoForm.get('deliverydate').setValue('');
+        this.addpoForm.get('sohid').setValue(0);
+        this.LoadAddPoDialog.close();
       } else if (result['result'] == 3) {
         this.toaster.error('Code already Exists!!!');
+        this.LoadSalesOrderList();
+        this.addpoForm.get('addponame').setValue('');
+        this.addpoForm.get('deliverydate').setValue('');
+        this.addpoForm.get('sohid').setValue(0);
+        this.LoadAddPoDialog.close();
       } else {
         this.toaster.warning(
           'Contact Admin. Error No:- ' + result['result'].toString()
@@ -230,17 +251,20 @@ export class OrderCreationComponent implements OnInit {
 
   }
 
-  filterByDocNo(term){
-
+  LoadSalesOrderList() {
+    this.orderCreationList = [];
+    var objOG = {
+      ActivityNo: 9,
+      f04:this.orderCreationForm.get('ochidx').value,
+    };
+    console.log(objOG);
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+      this.orderCreationList = OpGroupList;
+      console.log('grnTypeList', OpGroupList);
+    });
   }
 
-  filterByCustomer(term){
 
-  }
-
-  filterByArticle(term){
-
-  }
 
   onEditOrderCreation(event){
 
@@ -258,6 +282,56 @@ export class OrderCreationComponent implements OnInit {
 
   }
 
+  onViewOCDetails(event, cellId) {
+    //Load OC Header Data
+    const ids = cellId.rowID;
+    this.gOCHIdx = ids;
+    var objOG = {
+      ActivityNo: 14,
+      f04: ids,
+    };
+    console.log(objOG);
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+      console.log(OpGroupList);
+
+      this.orderCreationForm.get('remarks').setValue(OpGroupList[0]['f16']);
+      this.orderCreationForm.get('docno').setValue(OpGroupList[0]['f17']);
+      this.orderCreationForm.get('ochidx').setValue(OpGroupList[0]['f01']);
+
+      const selectedItemcus = this.customerList.find(
+        (item) => item.f01 === OpGroupList[0]['f02']
+      );
+      if (selectedItemcus) {
+        this.customer.setSelectedItem(selectedItemcus);
+      }
+
+      const selectedcatItem = this.articleList.find(
+        (item) => item.f01 === OpGroupList[0]['f03']
+      );
+      if (selectedcatItem) {
+        this.article.setSelectedItem(selectedcatItem);
+      }
+
+    });
+
+    this.LoadSalesOrderListOnRecall();
+   
+  }
+
+
+  LoadSalesOrderListOnRecall() {
+    this.orderCreationList = [];
+    var objOG = {
+      ActivityNo: 9,
+      f04:this.gOCHIdx ,
+    };
+    console.log(objOG);
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+      this.orderCreationList = OpGroupList;
+      console.log('grnTypeList', OpGroupList);
+    });
+  }
+
 
   LoadAddPo(){
     this.LoadAddPoDialog.open();
@@ -269,4 +343,47 @@ export class OrderCreationComponent implements OnInit {
     this.LoadAddPoDialog.close();
   }
 
+
+    //Oc Search by Cus
+    public filterByCustomer(term) {
+      this.OrderCreationSearchList = [];
+        var objOG = {
+          ActivityNo: 6,
+          f19: this.docnosearchForm.get('customersearch').value,
+        };
+  
+        console.log(this.docnosearchForm.get('customersearch').value);
+
+          this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+            this.OrderCreationSearchList = OpGroupList;
+          });
+        
+    }
+  
+    //Oc Search by OC
+    public filterByOCNo(term) {
+      this.OrderCreationSearchList = [];
+        var objOG = {
+          ActivityNo: 5,
+          f16: this.docnosearchForm.get('docnosearch').value,
+        };
+          this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+            this.OrderCreationSearchList = OpGroupList;
+          });
+    }
+  
+    //Oc Search by Cus
+    public filterByArticle(term) {
+      this.OrderCreationSearchList = [];
+        var objOG = {
+          ActivityNo: 13,
+          f21: this.docnosearchForm.get('articlesearch').value,
+        };
+        console.log(objOG);
+          this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+            this.OrderCreationSearchList = OpGroupList;
+            console.log(OpGroupList);
+          });
+      
+    }
 }
