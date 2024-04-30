@@ -76,13 +76,6 @@ namespace API.Interfaces
          // Order Creation
         Task<IEnumerable<OrderCreationDto>> GetOCData(OrderCreationDto ocdto);
         Task<ReturnDto> SaveOCData (List<SaveOrderCreationDto>ocdto);
-
-        //Recipe
-        Task<IEnumerable<RecipeDto>> GetRecipeData(RecipeDto rcpdto);
-        Task<ReturnDto> SaveRecipeData (List<SaveRecipeDto> rcpdto);
-         //Wash Cost
-        Task<IEnumerable<CostSheetDto>> GetCostingData(CostSheetDto costdto);
-        Task<ReturnDto>SaveCostingData(List<SaveCostSheetDto >costdto);
         
         //Production Issue To
         Task<IEnumerable<ProductionDto>> GetProductionIssueToData(ProductionDto productdto);
@@ -102,8 +95,16 @@ namespace API.Interfaces
         Task<IEnumerable<POAssociationDto>> GetPOAssociationData(POAssociationDto productdto);
         Task<ReturnDto> SavePOAssociationDataAsync (SavePOAssociationDto productdto);
 
+         //Wash Cost
+        Task<IEnumerable<CostSheetDto>> GetCostingData(CostSheetDto costdto);
+        Task<ReturnDto>SaveCostingData(List<SaveCostSheetDto >costdto);
+
+                //Recipe
+        Task<IEnumerable<RecipeDto>> GetRecipeData(RecipeDto rcpdto);
+        Task<ReturnDto> SaveRecipeData (List<SaveRecipeDto> rcpdto);
+
         //GRN Data
         Task<IEnumerable<GRNDto>> GetGRNData(GRNDto wsdt);
-        Task<ReturnDto> SaveGRNDATA(List<SaveGRNDto> wsdt);
+        Task<ReturnDto> SaveGRNDATA(SaveGRNDto wsdt);
     }
 }

@@ -765,7 +765,7 @@ namespace API.Controllers.CCSystem.Transaction
             return Ok(result);
         }
         [HttpPost("SaveGRNDATA")]
-        public async Task<IActionResult> SaveGRNDATA(List<SaveGRNDto> wsDt)
+        public async Task<IActionResult> SaveGRNDATA(SaveGRNDto wsDt)
         {
             var result = await _salesRepository.SaveGRNDATA(wsDt);
             return Ok(result);
