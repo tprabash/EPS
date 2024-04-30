@@ -12,7 +12,7 @@ namespace API.DTOs
         public int LocationNo { get; set; }
         public int AgentNo { get; set; }
         public int bActive { get; set; }
-        public GRNHeader sGRNHeader { get; set; }
-        public GRNDetails sGRNDetails { get; set; }
+        public virtual GRNHeader sGRNHeader { get; set; }
+        public virtual List<GRNDetails> sGRNDetails { get; set; }
     }
 }
