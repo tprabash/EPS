@@ -30,6 +30,7 @@ export class OrderCreationComponent implements OnInit {
   orderCreationList: any[] = [];
   articleprintsizeList:any[];
   gOCHIdx: number = 0;
+  gsohIdx: number = 0;
 
   @ViewChild('grntype', { static: true })
   public grntype: IgxComboComponent;
@@ -266,12 +267,79 @@ export class OrderCreationComponent implements OnInit {
 
 
 
-  onEditOrderCreation(event){
+  onEditOrderCreation(event, cellId){
+    this.LoadAddPoDialog.open();
+    const ids = cellId.rowID;
+    this.gOCHIdx = ids;
+    var objOG = {
+      ActivityNo: 10,
+      f04: ids,
+    };
+    console.log(objOG);
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+      console.log(OpGroupList);
 
+      this.addpoForm.get('sohid').setValue(OpGroupList[0]['f04']);
+      this.gsohIdx = this.addpoForm.get('sohid').value;
+      this.addpoForm.get('addponame').setValue(OpGroupList[0]['f18']);
+      this.addpoForm.get('deliverydate').setValue(new Date(OpGroupList[0]['f23']));
+
+
+      this.articleprintsizeList = [];
+      var objOG = {
+        ActivityNo: 11,
+        f07:this.gsohIdx
+      };
+      console.log(objOG);
+      this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+        this.articleprintsizeList = OpGroupList;
+        console.log('grnTypeList', OpGroupList);
+      });
+
+    });
   }
 
-  deleteOrderCreation(event){
+  loadArticlePrintSizeListonRecall() {
+    this.articleprintsizeList = [];
+    var objOG = {
+      ActivityNo: 7,
+      f07:this.gsohIdx
+    };
+    console.log(objOG);
+    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+      this.articleprintsizeList = OpGroupList;
+      console.log('grnTypeList', OpGroupList);
+    });
+  }
 
+  deleteOrderCreation(event, cellId){
+    var SalesordersSaveList = [];
+     const ids = cellId.rowID;
+     var objOG = {
+      AutoId: ids,
+      BuyerDelDate: this.addpoForm.get('deliverydate')?.value ? this.datePipe.transform(this.addpoForm.get('deliverydate')?.value,'yyyy-MM-dd' ).toString(): null
+     };
+
+     var objOCHeaderSave = {
+      sSalesOrderHeader: objOG,
+      ActivityNo: 15,
+      AgentNo: this.user.userId,
+      ModuleNo: this.user.moduleId
+    };
+
+     console.log(objOCHeaderSave);
+     SalesordersSaveList.push(objOCHeaderSave);
+     this.salesOrderService.SaveOCData(SalesordersSaveList).subscribe((result) => {
+      console.log(result);
+      if (result['result'] == 1) {      
+        this.toaster.error('Deleted Succesfully!!!');
+        this.LoadSalesOrderList();
+      }else {
+        this.toaster.warning(
+          'Contact Admin. Error No:- ' + result['result'].toString()
+        );
+      }  
+    });
   }
 
   refreshcompany() {
