@@ -1612,7 +1612,9 @@ namespace API.Repository
                     0,//20
                     0,//21
                     "H",//22
-                    item.sSalesOrderHeader.BuyerDelDate//23
+                    item.sSalesOrderHeader.BuyerDelDate,//23
+                    item.sSalesOrderHeader.BuyerDelDate,
+                    item.sSalesOrderHeader.BuyerDelDate
                   );
                 }
 
