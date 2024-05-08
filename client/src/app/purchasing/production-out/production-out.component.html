@@ -1,0 +1,277 @@
+<div class="card card-body">
+    <form [formGroup]="prodOutForm" autocomplete="off">
+        <div class="row">
+            <div class="col-md-10">
+                <h6 class="bg-secondary">
+                    Production Out
+                </h6>
+            </div>
+            <div class="col-md-2 text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success" data-placement="bottom" title="Save"
+                        (click)="OCsave()" >
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
+                        data-placement="bottom" title="Clear">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="addpo()" data-toggle="tooltip"
+                        data-placement="bottom" title="Clear" (click)="LoadAddPo()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+
+               
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="recipeno">Doc No</label>
+                <div class="input-group mb-3">
+                    <input type="text" formControlName="docno" id="docno" placeholder="Doc No"
+                        class="form-control rounded-0" style="width: 145px;" [readonly]="true">
+                    <span class="input-group-append">
+                        <button type="button" class="btn btn-info" data-toggle="modal"
+                            data-target="#LoadDocNoSearchDialog" data-placement="bottom" title="View">
+                            <i class="fas fa-eye fa-beat"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Article *</label>
+                    <igx-combo #article id="article" class="combo mt-1" displayKey="f16" valueKey="f01"
+                        [itemsMaxHeight]="250" [data]="articleList" placeholder="Article" formControlName="article"
+                        searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
+                    </igx-combo>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="text" formControlName="remarks" class="mt-1" />
+                        <label igxLabel>Remarks</label>
+                    </igx-input-group>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3" hidden>
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="number" formControlName="ochidx" class="mt-1" />
+                        <label igxLabel>ochidx</label>
+                    </igx-input-group>
+                </div>
+                <div class="form-group">
+                    <igx-input-group>
+                        <input igxInput type="number" formControlName="styleid" class="mt-1" />
+                        <label igxLabel>styleid</label>
+                    </igx-input-group>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <igx-grid #prodOutGrid [data]="orderCreationList" [autoGenerate]="false" [paging]="true"
+                    [rowEditable]="false" [primaryKey]="'f04'" cellSelection="none" [perPage]="10" height="500px"
+                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
+                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
+                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                        <ng-template igxCell let-cell="cell">
+                            <button igxButton="icon" class="fab-compact"
+                                (click)="deleteOrderCreation($event,cell.cellID)">
+                                <igx-icon family="material">delete</igx-icon>
+                            </button>
+                        </ng-template>
+                    </igx-column>
+                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                        <ng-template igxCell let-cell="cell">
+                            <button igxButton="icon" class="fab-compact"
+                                (click)="onEditOrderCreation($event,cell.cellID)">
+                                <igx-icon family="material">edit</igx-icon>
+                            </button>
+                        </ng-template>
+                    </igx-column>
+                    <igx-column [field]="'f04'" [header]="'SODID'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" hidden="'true">
+                    </igx-column>
+                    <igx-column [field]="'f18'" [header]="'PO Name'" [resizable]="true" [dataType]="'string'"
+                    [sortable]="true">
+                   </igx-column>
+                   <igx-column [field]="'f18'" [header]="'Size'" [resizable]="true" [dataType]="'string'"
+                   [sortable]="true">
+                  </igx-column>
+                  <igx-column [field]="'f18'" [header]="'Print'" [resizable]="true" [dataType]="'string'"
+                  [sortable]="true">
+                 </igx-column>
+                    <igx-column [field]="'f11'" [header]="'Order QTY'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f12'" [header]="'Production QTY'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="'f13'" [header]="'Damage QTY'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                </igx-grid>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="LoadDocNoSearchDialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Doc No Search</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="docnosearchForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="docnosearch"
+                                        placeholder="Filter by OC No" (input)="filterByOCNo($event.target.value)"
+                                        formControlName="docnosearch">
+                                    <label igxLabel for="docnosearch">Doc No</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="customersearch"
+                                        placeholder="Filter by Customer" (input)="filterByCustomer($event.target.value)"
+                                        formControlName="customersearch">
+                                    <label igxLabel for="customersearch">Customer</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="articlesearch"
+                                        placeholder="Filter by Article" (input)="filterByArticle($event.target.value)"
+                                        formControlName="articlesearch">
+                                    <label igxLabel for="articlesearch">Article</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <igx-grid #OrderCreationSearchGrid [data]="OrderCreationSearchList" [autoGenerate]="false"
+                            [paging]="true" [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none" [perPage]="50"
+                            height="400px" displayDensity="compact" [allowFiltering]="true"
+                            [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true" [rowSelection]="'none'">
+                            <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                                <ng-template igxCell let-cell="cell">
+                                    <button igxButton="icon" class="fab-compact"
+                                        (click)="onViewOCDetails($event,cell.cellID)" data-dismiss="modal">
+                                        <igx-icon family="material">visibility</igx-icon>
+                                    </button>
+                                </ng-template>
+                            </igx-column>
+                            <igx-column [field]="'f01'" [header]="'OCHID'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'250px'" [editable]="false" hidden="true">
+                            </igx-column>
+                            <igx-column [field]="'f02'" [header]="'CustomerId'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'150px'" [editable]="false" hidden="true">
+                            </igx-column>
+                            <igx-column [field]="'f03'" [header]="'ArticleId'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'150px'" [editable]="false" hidden="true">
+                            </igx-column>
+                            <igx-column [field]="'f19'" [header]="'Customer'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'250px'" [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="'f20'" [header]="'Article Name'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'150px'" [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="'f16'" [header]="'Doc No'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'150px'" [editable]="false">
+                            </igx-column>
+                        </igx-grid>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+            </div>
+        </div>
+    </div>
+</div>
+
+<igx-dialog #LoadAddPoDialog [closeOnOutsideSelect]="false" class="getrecipeDetails">
+    <igx-dialog-title>
+        <h5 class="col-md-9 bg-secondary">Add Item</h5>
+        <div igxButton class="col-md-2">
+            <button type="button" class="btn btn-default">
+                <i class="fas fa-broom"></i>
+            </button>
+            <button type="button" class="btn btn-success" (click)="SOSave()">
+                <i class="fas fa-save"></i>
+            </button>
+        </div>
+        <div igxButton class="col-md-1">
+            <button type="button" class="close" (click)="closeaddpo()">
+                <igx-icon>clear</igx-icon>
+            </button>
+        </div>
+    </igx-dialog-title>
+    <form [formGroup]="addpoForm">
+        <!-- <div class="row">
+            <div class="col-xl-4">
+                <igx-input-group>
+                    <input class="gridSample__filter" igxInput type="text" id="addponame" placeholder="PO Name"
+                        formControlName="addponame">
+                    <label igxLabel for="addponame">PO Name</label>
+                </igx-input-group>
+            </div>
+            <div class="col-xl-4">
+                <igx-date-picker id="deliverydate" formControlName="deliverydate">
+                    <label igxLabel>Delivery Date</label>
+                </igx-date-picker>
+            </div>
+            <div class="col-xl-4">
+                <igx-input-group hidden>
+                    <input class="gridSample__filter" igxInput type="number" id="sohid" placeholder="sohid"
+                        formControlName="sohid">
+                    <label igxLabel for="addponame">sohid</label>
+                </igx-input-group>
+            </div>
+        </div> -->
+    </form>
+    <div class="row mt-3">
+        <igx-grid #orderCreationSearchGrid [data]="articleprintsizeList" [autoGenerate]="false" [paging]="true"
+            [rowEditable]="false" [primaryKey]="'f01'" cellSelection="none" [perPage]="50" height="400px"
+            displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
+            [allowAdvancedFiltering]="true" [rowSelection]="'none'">
+            <igx-column [field]="'f01'" [header]="'SODID'" [resizable]="true" [dataType]="'number'" [sortable]="true"
+                [width]="'250px'" [editable]="false" hidden="true">
+            </igx-column>
+            <igx-column [field]="'f16'" [header]="'PO'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+            [width]="'250px'" [editable]="false">
+        </igx-column>
+            <igx-column [field]="'f16'" [header]="'Size'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+                [width]="'150px'" [editable]="false">
+            </igx-column>
+            <igx-column [field]="'f17'" [header]="'Print'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+                [width]="'150px'" [editable]="false">
+            </igx-column>
+            <igx-column [field]="'f04'" [header]="'Order Qty'" [resizable]="true" [dataType]="'number'" [sortable]="true"
+                [width]="'150px'" [editable]="true">
+            </igx-column>
+            <igx-column [field]="'f05'" [header]="'Production Qty'" [resizable]="true" [dataType]="'number'"
+                [sortable]="true" [width]="'150px'" [editable]="true">
+            </igx-column>
+            <igx-column [field]="'f06'" [header]="'Damage Qty'" [resizable]="true" [dataType]="'number'" [sortable]="true"
+                [width]="'150px'" [editable]="true">
+            </igx-column>
+        </igx-grid>
+    </div>
+    <div class="modal-footer justify-content-between">
+    </div>
+</igx-dialog>
