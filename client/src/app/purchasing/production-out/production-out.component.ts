@@ -112,10 +112,10 @@ export class ProductionOutComponent implements OnInit {
   loadArticleList() {
     this.articleList = [];
     var objOG = {
-      ActivityNo: 2,
+      ActivityNo: 1,
     };
     console.log(objOG);
-    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+    this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
       this.articleList = OpGroupList;
       console.log('grnTypeList', OpGroupList);
     });
@@ -124,11 +124,11 @@ export class ProductionOutComponent implements OnInit {
   loadArticlePrintSizeList() {
     this.articleprintsizeList = [];
     var objOG = {
-      ActivityNo: 7,
+      ActivityNo: 8,
       f01:this.prodOutForm.get('article').value[0],
     };
     console.log(objOG);
-    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+    this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
       this.articleprintsizeList = OpGroupList;
       console.log('grnTypeList', OpGroupList);
     });

@@ -106,5 +106,9 @@ namespace API.Interfaces
         //GRN Data
         Task<IEnumerable<GRNDto>> GetGRNData(GRNDto wsdt);
         Task<ReturnDto> SaveGRNDATA(SaveGRNDto wsdt);
+
+        // Order Creation
+        Task<IEnumerable<ProductionOutDto>> GetProductionOutData(ProductionOutDto ocdto);
+        // Task<ReturnDto> SaveProductionOutData (List<SaveOrderCreationDto>ocdto);
     }
 }

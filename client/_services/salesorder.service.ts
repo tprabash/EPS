@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GRN } from 'src/app/_models/GRN';
 import { POAssociation } from 'src/app/_models/POAssociation';
+import { ProductionOut } from 'src/app/_models/ProductionOut';
 import { environment } from 'src/environments/environment';
 
 var usertoken: any;
@@ -43,5 +44,9 @@ export class SalesorderService {
 
   SaveOCData(wsDt: any) {
     return this.http.post(this.baseUrl + 'SalesOrder/SaveOCData' , wsDt , httpOptions );
+  }
+
+  GetProductionOutData(wsDt: any) {
+    return this.http.post<ProductionOut[]>(this.baseUrl + 'SalesOrder/GetProductionOutData', wsDt, httpOptions);
   }
 }

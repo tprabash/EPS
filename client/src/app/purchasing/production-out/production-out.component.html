@@ -42,7 +42,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Article *</label>
-                    <igx-combo #article id="article" class="combo mt-1" displayKey="f16" valueKey="f01"
+                    <igx-combo #article id="article" class="combo mt-1" displayKey="f16" valueKey="f02"
                         [itemsMaxHeight]="250" [data]="articleList" placeholder="Article" formControlName="article"
                         searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
                     </igx-combo>
@@ -252,7 +252,7 @@
             <igx-column [field]="'f01'" [header]="'SODID'" [resizable]="true" [dataType]="'number'" [sortable]="true"
                 [width]="'250px'" [editable]="false" hidden="true">
             </igx-column>
-            <igx-column [field]="'f16'" [header]="'PO'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+            <igx-column [field]="'f15'" [header]="'PO'" [resizable]="true" [dataType]="'string'" [sortable]="true"
             [width]="'250px'" [editable]="false">
         </igx-column>
             <igx-column [field]="'f16'" [header]="'Size'" [resizable]="true" [dataType]="'string'" [sortable]="true"

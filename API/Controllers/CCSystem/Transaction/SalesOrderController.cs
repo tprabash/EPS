@@ -771,6 +771,18 @@ namespace API.Controllers.CCSystem.Transaction
             return Ok(result);
         }
         #endregion "GRn"
+
+        #region "Production Out"
+
+        [HttpPost("GetProductionOutData")]
+        public async Task<IActionResult> GetProductionOutData(ProductionOutDto productdto)
+        {
+            var result = await _salesRepository.GetProductionOutData(productdto);
+            return Ok(result);
+        }
+
+        #endregion "Production Out"
+
     
       }
 }
