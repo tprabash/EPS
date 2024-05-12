@@ -78,13 +78,7 @@ export class GrnComponent implements OnInit {
     this.accountService.currentUser$.forEach((element) => {
       this.user = element;
     });
-    var authMenus = this.user.permitMenus;
-
-    if (authMenus != null) {
-      if (authMenus.filter((x) => x.autoIdx == 2201).length > 0) {
-        this.saveButton = true;
-      }
-    }
+   
     this.masterSupplierForm = this.fb.group({
       createUserId: this.user.userId,
       docno: [''],

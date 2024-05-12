@@ -37,6 +37,7 @@ import { ItemTabComponent } from './Master/Item/item-tab/item-tab.component';
 import { ColorTabComponent } from './Master/Item/color-tab/color-tab.component';
 import { SizeTabComponent } from './Master/Item/size-tab/size-tab.component';
 import { OrderCreationComponent } from './purchasing/order-creation/order-creation.component';
+import { IssuetoProductionComponent } from './production/issueto-production/issueto-production.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { OrderCreationComponent } from './purchasing/order-creation/order-creati
     PrintMasterComponent, 
     SupplierMasterComponent, 
     CustomerMasterComponent, 
-    ItemMasterComponent, GrnComponent, ItemTabComponent, ColorTabComponent, SizeTabComponent, OrderCreationComponent,
+    ItemMasterComponent, GrnComponent, ItemTabComponent, ColorTabComponent, SizeTabComponent, OrderCreationComponent, IssuetoProductionComponent,
   ],
   imports: [
     BrowserModule,

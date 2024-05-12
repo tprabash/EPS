@@ -771,6 +771,24 @@ namespace API.Controllers.CCSystem.Transaction
             return Ok(result);
         }
         #endregion "GRn"
+
+        #region "Issue-To-Production"
+
+        [HttpPost("GetIssueToProduction")]
+        public async Task<IActionResult> GetIssueToProduction(IssueToProductionDto issueToProduction)
+        {
+            var result = await _salesRepository.GetIssueToProduction(issueToProduction);
+            return Ok(result);
+        }
+
+        [HttpPost("SaveIssueToProduction")]
+        public async Task<IActionResult> SaveIssueToProduction(IssueToProductionSaveDto issueToProduction)
+        {
+            var result = await _salesRepository.SaveIssueToProduction(issueToProduction);
+            return Ok(result);
+        }
+
+        #endregion "Issue-To-Production"
     
       }
 }
