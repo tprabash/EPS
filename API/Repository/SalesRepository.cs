@@ -3419,7 +3419,130 @@ namespace API.Repository
             return PoassociationList;
         }
 
+         public async Task<ReturnDto> SaveProductionOutData(List<SaveProductionOutDto> ocdto)
 
+        {
+            DataTable OrderCreationDT = new DataTable();
+            DynamicParameters para = new DynamicParameters();
+
+            OrderCreationDT.Columns.Add("ActivityNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("ModuleNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("CompanyNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("LocationNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("AgentNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("bActive", typeof(Int64));
+            OrderCreationDT.Columns.Add("F01", typeof(Int64));
+            OrderCreationDT.Columns.Add("F02", typeof(Int64));
+            OrderCreationDT.Columns.Add("F03", typeof(Int64));
+            OrderCreationDT.Columns.Add("F04", typeof(Int64));
+            OrderCreationDT.Columns.Add("F05", typeof(Int64));
+            OrderCreationDT.Columns.Add("F06", typeof(Int64));
+            OrderCreationDT.Columns.Add("F07", typeof(Int64));
+            OrderCreationDT.Columns.Add("F08", typeof(Int64));
+            OrderCreationDT.Columns.Add("F09", typeof(Int64));
+            OrderCreationDT.Columns.Add("F10", typeof(Int64));
+            OrderCreationDT.Columns.Add("F11", typeof(decimal));
+            OrderCreationDT.Columns.Add("F12", typeof(decimal));
+            OrderCreationDT.Columns.Add("F13", typeof(decimal));
+            OrderCreationDT.Columns.Add("F14", typeof(decimal));
+            OrderCreationDT.Columns.Add("F15", typeof(string));
+            OrderCreationDT.Columns.Add("F16", typeof(string));
+            OrderCreationDT.Columns.Add("F17", typeof(string));
+            OrderCreationDT.Columns.Add("F18", typeof(string));
+            OrderCreationDT.Columns.Add("F19", typeof(string));
+            OrderCreationDT.Columns.Add("F20", typeof(string));
+
+            foreach (var item in ocdto)
+
+            {
+
+                var ActivityNo = item.ActivityNo;
+                var ModuleNo = item.ModuleNo;
+                var CompanyNo = item.CompanyNo;
+                var LocationNo = item.LocationNo;
+                var AgentNo = item.AgentNo;
+                var bActive = item.bActive;
+
+                if (item.sProductionoutHeader != null)
+                {
+                    OrderCreationDT.Rows.Add(
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    item.sProductionoutHeader.AutoId,//1
+                    item.sProductionoutHeader.ArticleId,//2
+                    0,//3
+                    0,//4
+                    0,//5
+                    0,//6
+                    0,//7
+                    0,//8
+                    0,//9
+                    0,//10
+                    0,//11
+                    0,//12
+                    0,//13
+                    0,//14
+                    item.sProductionoutHeader.DocNo,//15 
+                    0,//16
+                    0,//17
+                    0,//18
+                    0,//19
+                    0,//20
+                    0,//21
+                    "H",//22
+                    0,//23
+                    0,
+                    0
+                  );
+                }
+
+                if (item.sProductionoutDetails != null)
+                {
+                    OrderCreationDT.Rows.Add(
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    item.sProductionoutDetails.POHId,//1
+                    0,//2
+                    item.sProductionoutDetails.AutoIdx,//3
+                    0,//4
+                    item.sProductionoutDetails.SODId,//5
+                    item.sProductionoutDetails.OrderQty,//6
+                    item.sProductionoutDetails.ProductionOutQty,//7
+                    item.sProductionoutDetails.DamageQty,//8
+                    0,//9
+                    0,//10
+                    0,//11
+                    0,//12
+                    0,//13
+                    0,//14
+                    0,//15 
+                    0,//16
+                    0,//17
+                    0,//18
+                    0,//19
+                    0,//20
+                    0,//21
+                    "D"
+                  );
+                }
+
+            }
+
+            para.Add("UDT", OrderCreationDT.AsTableValuedParameter("udt_ProductionOutData"));
+
+            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_ProductionoutData", para,
+            commandType: CommandType.StoredProcedure);
+
+            return result;
+        }
          #endregion "Production-Out"
 
     }

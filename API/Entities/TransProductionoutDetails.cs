@@ -16,5 +16,6 @@ namespace API.Entities
         public int ProductionOutQty {get;set;} 
         public int DamageQty {get;set;} 
         public int bActive {get;set;} 
+
     }
 }

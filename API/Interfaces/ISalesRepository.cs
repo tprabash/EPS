@@ -109,6 +109,6 @@ namespace API.Interfaces
 
         // Order Creation
         Task<IEnumerable<ProductionOutDto>> GetProductionOutData(ProductionOutDto ocdto);
-        // Task<ReturnDto> SaveProductionOutData (List<SaveOrderCreationDto>ocdto);
+        Task<ReturnDto> SaveProductionOutData (List<SaveProductionOutDto>ocdto);
     }
 }

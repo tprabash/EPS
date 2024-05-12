@@ -781,6 +781,14 @@ namespace API.Controllers.CCSystem.Transaction
             return Ok(result);
         }
 
+
+           [HttpPost("SaveProductionOutData")]
+        public async Task<IActionResult> SaveProductionOutData(List<SaveProductionOutDto >ocdto)
+        {
+                var result = await _salesRepository.SaveProductionOutData(ocdto);
+                return Ok(result);
+        }
+
         #endregion "Production Out"
 
     
