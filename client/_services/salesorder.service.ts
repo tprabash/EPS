@@ -49,4 +49,8 @@ export class SalesorderService {
   GetProductionOutData(wsDt: any) {
     return this.http.post<ProductionOut[]>(this.baseUrl + 'SalesOrder/GetProductionOutData', wsDt, httpOptions);
   }
+
+  SaveProductionOutData(wsDt: any) {
+    return this.http.post(this.baseUrl + 'SalesOrder/SaveProductionOutData' , wsDt , httpOptions );
+  }
 }

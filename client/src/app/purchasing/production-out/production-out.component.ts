@@ -173,20 +173,19 @@ export class ProductionOutComponent implements OnInit {
     });
   }
 
-  SOSave(){
+  prodoutSave(){
     var SalesordersSaveList = [];
     var objOCDetailSave = {};
     var SOHeader = {
-      AutoId:this.addpoForm.get('sohid').value|| 0,
-      OCHIdx: this.prodOutForm.get('ochidx').value,
-      PoNo: this.addpoForm.get('addponame').value,
-      BuyerDelDate: this.addpoForm.get('deliverydate')?.value ? this.datePipe.transform(this.addpoForm.get('deliverydate')?.value,'yyyy-MM-dd' ).toString(): null,
+      AutoId:this.prodOutForm.get('sohid').value|| 0,
+      ArticleId: this.prodOutForm.get('ochidx').value,
+      DocNo: this.prodOutForm.get('addponame').value
     };
 
 
     var objOCHeaderSave = {
-      sSalesOrderHeader: SOHeader,
-      ActivityNo: 8,
+      sProductionoutHeader: SOHeader,
+      ActivityNo: 5,
       AgentNo: this.user.userId,
       ModuleNo: this.user.moduleId
     };
@@ -199,18 +198,17 @@ export class ProductionOutComponent implements OnInit {
     
     selectedRows.forEach((items) => {
      var  ocdetailsdata = {
-        SOHId: this.addpoForm.get('sohid').value,
-        MISPId: items.f01,
-        MSId: items.f02,
-        MPId: items.f03,
+        POHId: items.f02,
+        SODId: items.f01,
         OrderQty: items.f04,
-        Price: items.f14
+        ProductionOutQty: items.f05,
+        DamageQty: items.f06
       };
 
-      if (ocdetailsdata.OrderQty !== 0 || ocdetailsdata.OrderQty == null) {
+      if (ocdetailsdata.ProductionOutQty !== 0 || ocdetailsdata.ProductionOutQty == null) {
        objOCDetailSave = {
-        sSalesOrderDeatails: ocdetailsdata,
-        ActivityNo: 8,
+        sProductionoutDetails: ocdetailsdata,
+        ActivityNo: 5,
         AgentNo: this.user.userId,
         ModuleNo: this.user.moduleId,
       };
@@ -221,14 +219,15 @@ export class ProductionOutComponent implements OnInit {
 
     console.log(SalesordersSaveList);
 
-    this.salesOrderService.SaveOCData(SalesordersSaveList).subscribe((result) => {
+    this.salesOrderService.SaveProductionOutData(SalesordersSaveList).subscribe((result) => {
       console.log(result);
       if (result['result'] == 1) {
         this.addpoForm.get('sohid').setValue(result['refNumId']);
+        this.addpoForm.get('docno').setValue(result['refNum']);
         this.LoadSalesOrderList();
-        this.addpoForm.get('addponame').setValue('');
-        this.addpoForm.get('deliverydate').setValue('');
-        this.addpoForm.get('sohid').setValue(0);
+        // this.addpoForm.get('addponame').setValue('');
+        // this.addpoForm.get('deliverydate').setValue('');
+        // this.addpoForm.get('sohid').setValue(0);
         this.LoadAddPoDialog.close();
         this.toaster.success('save Successfully !!!');
       } else if (result['result'] == 2) {

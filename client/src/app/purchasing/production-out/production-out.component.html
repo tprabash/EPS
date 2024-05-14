@@ -211,7 +211,7 @@
             <button type="button" class="btn btn-default">
                 <i class="fas fa-broom"></i>
             </button>
-            <button type="button" class="btn btn-success" (click)="SOSave()">
+            <button type="button" class="btn btn-success" (click)="prodoutSave()">
                 <i class="fas fa-save"></i>
             </button>
         </div>
@@ -252,6 +252,9 @@
             <igx-column [field]="'f01'" [header]="'SODID'" [resizable]="true" [dataType]="'number'" [sortable]="true"
                 [width]="'250px'" [editable]="false" hidden="true">
             </igx-column>
+            <igx-column [field]="'f02'" [header]="'POHID'" [resizable]="true" [dataType]="'number'" [sortable]="true"
+            [width]="'250px'" [editable]="false" hidden="true">
+        </igx-column>
             <igx-column [field]="'f15'" [header]="'PO'" [resizable]="true" [dataType]="'string'" [sortable]="true"
             [width]="'250px'" [editable]="false">
         </igx-column>
