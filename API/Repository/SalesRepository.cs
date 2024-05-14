@@ -3450,7 +3450,7 @@ namespace API.Repository
             OrderCreationDT.Columns.Add("F17", typeof(string));
             OrderCreationDT.Columns.Add("F18", typeof(string));
             OrderCreationDT.Columns.Add("F19", typeof(string));
-            OrderCreationDT.Columns.Add("F20", typeof(string));
+            OrderCreationDT.Columns.Add("F20", typeof(DateTime));
 
             foreach (var item in ocdto)
 
@@ -3480,22 +3480,16 @@ namespace API.Repository
                     0,//6
                     0,//7
                     0,//8
-                    0,//9
+                    1,//9
                     0,//10
                     0,//11
                     0,//12
                     0,//13
                     0,//14
                     item.sProductionoutHeader.DocNo,//15 
-                    0,//16
+                    item.sProductionoutHeader.Remarks,//16
                     0,//17
                     0,//18
-                    0,//19
-                    0,//20
-                    0,//21
-                    "H",//22
-                    0,//23
-                    0,
                     0
                   );
                 }
@@ -3517,7 +3511,7 @@ namespace API.Repository
                     item.sProductionoutDetails.OrderQty,//6
                     item.sProductionoutDetails.ProductionOutQty,//7
                     item.sProductionoutDetails.DamageQty,//8
-                    0,//9
+                    2,//9
                     0,//10
                     0,//11
                     0,//12
@@ -3527,10 +3521,7 @@ namespace API.Repository
                     0,//16
                     0,//17
                     0,//18
-                    0,//19
-                    0,//20
-                    0,//21
-                    "D"
+                    0
                   );
                 }
 

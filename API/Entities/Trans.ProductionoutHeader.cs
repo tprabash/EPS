@@ -12,6 +12,7 @@ namespace API.Entities
         public long AutoId {get;set;}      
         public long ArticleId {get;set;} 
         public string DocNo {get;set;}  
+         public string Remarks {get;set;} 
         public int bActive { get; set; }
         public DateTime Transdatetime {get;set;}   
     }
