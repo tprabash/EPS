@@ -19,6 +19,7 @@ import { CustomerMasterComponent } from './Master/customer-master/customer-maste
 import { GrnComponent } from './purchasing/grn/grn.component';
 import { ItemTabComponent } from './Master/Item/item-tab/item-tab.component';
 import { OrderCreationComponent } from './purchasing/order-creation/order-creation.component';
+import { IssuetoProductionComponent } from './production/issueto-production/issueto-production.component';
 import { ProductionOutComponent } from './purchasing/production-out/production-out.component';
 
 const routes: Routes = [
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: 'item-master', component: ItemTabComponent },
       { path: 'grn', component: GrnComponent },
       { path: 'order-creation', component: OrderCreationComponent },
+      { path: 'issueto-production', component: IssuetoProductionComponent }
       { path: 'production-out', component: ProductionOutComponent }
     ]
   },  

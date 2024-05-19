@@ -3364,10 +3364,218 @@ namespace API.Repository
             return result;
         }
         #endregion "GRNData"
-
-
         
-         #region "Production-Out"
+        #region "Issue-To-Production"
+
+        public async Task<IEnumerable<IssueToProductionDto>> GetIssueToProduction(IssueToProductionDto wsdt)
+        {
+            DataTable IssueToProductionDT = new DataTable();
+            IEnumerable<IssueToProductionDto> IssueToProductionList;
+
+            DynamicParameters para = new DynamicParameters();
+
+            IssueToProductionDT.Columns.Add("ActivityNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("ModuleNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("CompanyNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("LocationNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("AgentNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("bActive", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F01", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F02", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F03", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F04", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F05", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F06", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F07", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F08", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F09", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F10", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F11", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F12", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F13", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F14", typeof(decimal));
+            IssueToProductionDT.Columns.Add("F15", typeof(decimal));
+            IssueToProductionDT.Columns.Add("F16", typeof(string));
+            IssueToProductionDT.Columns.Add("F17", typeof(string));
+            IssueToProductionDT.Columns.Add("F18", typeof(string));
+            IssueToProductionDT.Columns.Add("F19", typeof(string));
+            IssueToProductionDT.Columns.Add("F20", typeof(string));
+            IssueToProductionDT.Columns.Add("F21", typeof(string));
+            IssueToProductionDT.Columns.Add("F22", typeof(string));
+            IssueToProductionDT.Columns.Add("F23", typeof(string));
+            IssueToProductionDT.Columns.Add("F24", typeof(string));
+            IssueToProductionDT.Columns.Add("F25", typeof(DateTime));
+
+
+            IssueToProductionDT.Rows.Add(
+                      wsdt.ActivityNo,
+                      wsdt.ModuleNo,
+                      wsdt.CompanyNo,
+                      wsdt.LocationNo,
+                      wsdt.AgentNo,
+                      wsdt.bActive,
+                      wsdt.F01,
+                      wsdt.F02,
+                      wsdt.F03,
+                      wsdt.F04,
+                      wsdt.F05,
+                      wsdt.F06,
+                      wsdt.F07,
+                      wsdt.F08,
+                      wsdt.F09,
+                      wsdt.F10,
+                      wsdt.F11,
+                      wsdt.F12,
+                      wsdt.F13,
+                      wsdt.F14,
+                      wsdt.F15,
+                      wsdt.F16,
+                      wsdt.F17,
+                      wsdt.F18,
+                      wsdt.F19,
+                      wsdt.F20,
+                      wsdt.F21,
+                      wsdt.F22,
+                      wsdt.F23,
+                      wsdt.F24,
+                      wsdt.F25
+            );
+
+            para.Add("UDT", IssueToProductionDT.AsTableValuedParameter("udt_IssueMaterialData"));
+
+            IssueToProductionList = await DbConnection.QueryAsync<IssueToProductionDto>("sp_IssueMaterialData", para
+                , commandType: CommandType.StoredProcedure);
+
+            return IssueToProductionList;
+        }
+
+        public async Task<ReturnDto> SaveIssueToProduction(IssueToProductionSaveDto wsDt)
+
+        {
+            DataTable IssueToProductionDT = new DataTable();
+            DynamicParameters para = new DynamicParameters();
+
+            IssueToProductionDT.Columns.Add("ActivityNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("ModuleNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("CompanyNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("LocationNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("AgentNo", typeof(Int64));
+            IssueToProductionDT.Columns.Add("bActive", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F01", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F02", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F03", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F04", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F05", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F06", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F07", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F08", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F09", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F10", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F11", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F12", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F13", typeof(Int64));
+            IssueToProductionDT.Columns.Add("F14", typeof(decimal));
+            IssueToProductionDT.Columns.Add("F15", typeof(decimal));
+            IssueToProductionDT.Columns.Add("F16", typeof(string));
+            IssueToProductionDT.Columns.Add("F17", typeof(string));
+            IssueToProductionDT.Columns.Add("F18", typeof(string));
+            IssueToProductionDT.Columns.Add("F19", typeof(string));
+            IssueToProductionDT.Columns.Add("F20", typeof(string));
+            IssueToProductionDT.Columns.Add("F21", typeof(string));
+            IssueToProductionDT.Columns.Add("F22", typeof(string));
+            IssueToProductionDT.Columns.Add("F23", typeof(string));
+            IssueToProductionDT.Columns.Add("F24", typeof(string));
+            IssueToProductionDT.Columns.Add("F25", typeof(DateTime));
+
+            var ActivityNo = wsDt.ActivityNo;
+            var ModuleNo = wsDt.ModuleNo;
+            var CompanyNo = wsDt.CompanyNo;
+            var LocationNo = wsDt.LocationNo;
+            var AgentNo = wsDt.AgentNo;
+            var bActive = wsDt.bActive;
+
+            if (wsDt.sIssueToProductionHeader != null)
+            {
+                IssueToProductionDT.Rows.Add(
+                  ActivityNo,
+                  ModuleNo,
+                  CompanyNo,
+                  CompanyNo,
+                  AgentNo,
+                  bActive,
+                  wsDt.sIssueToProductionHeader.MIHId,//1
+                  wsDt.sIssueToProductionHeader.SOHId,//2
+                  wsDt.sIssueToProductionHeader.StyleId,//3
+                  0,//4
+                  0,//5
+                  0,//6
+                  0,//7
+                  1,//8
+                  0,//9
+                  0,//10
+                  0,//11
+                  0,//12
+                  0,//13
+                  0,//14
+                  0,//15
+                  0,//16,
+                  wsDt.sIssueToProductionHeader.Remarks,//17,
+                  0,//18,
+                  0,//19
+                  0,//20
+                  0,//21
+                  0,//22
+                  0,//23
+                  0//24
+              );
+            }
+            if (wsDt.sIssueToProductionDetails != null)
+            {
+                foreach (var wsDtRow in wsDt.sIssueToProductionDetails)
+                {
+                    IssueToProductionDT.Rows.Add(
+                        ActivityNo,
+                            ModuleNo,
+                            CompanyNo,
+                            LocationNo,
+                            AgentNo,
+                            bActive,
+                            wsDtRow.MIHId,//1
+                            0,//2
+                            0,//3
+                            0,//4
+                            0,//5
+                            wsDtRow.ItemId,//6
+                            0,//7
+                            2,//8
+                            0,//9
+                            0,//10
+                            0,//11
+                            0,//12
+                            0,//13
+                            wsDtRow.SIHQty,//14
+                            wsDtRow.IssueQty,//15
+                            0,//16,
+                            0,//17,
+                            wsDtRow.UOM,//18,
+                            0,//19
+                            0,//20
+                            0,//21
+                            0,//23
+                            0//24
+                     );
+                }
+            }
+
+            para.Add("UDT", IssueToProductionDT.AsTableValuedParameter("udt_IssueMaterialData"));
+
+            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_IssueMaterialData", para,
+            commandType: CommandType.StoredProcedure);
+
+            return result;
+        }
+        
+          #region "Production-Out"
 
 
      public async Task<IEnumerable<ProductionOutDto>> GetProductionOutData(ProductionOutDto poassociationDto)
@@ -3530,11 +3738,6 @@ namespace API.Repository
             para.Add("UDT", OrderCreationDT.AsTableValuedParameter("udt_ProductionOutData"));
 
             var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_ProductionoutData", para,
-            commandType: CommandType.StoredProcedure);
-
-            return result;
-        }
-         #endregion "Production-Out"
 
     }
 }

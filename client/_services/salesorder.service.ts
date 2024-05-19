@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GRN } from 'src/app/_models/GRN';
+import { IssueToProduction } from 'src/app/_models/IssueToProduction';
 import { POAssociation } from 'src/app/_models/POAssociation';
 import { ProductionOut } from 'src/app/_models/ProductionOut';
 import { environment } from 'src/environments/environment';
@@ -32,8 +33,7 @@ export class SalesorderService {
   SaveGRNData(wsDt: any) {
     return this.http.post(this.baseUrl + 'SalesOrder/SaveGRNData', wsDt, httpOptions);
   }
-
-
+  
   GetPOAssociationData(wsDt: any) {
     return this.http.post<POAssociation[]>(this.baseUrl + 'SalesOrder/GetPOAssociationData', wsDt, httpOptions);
   }
@@ -46,7 +46,15 @@ export class SalesorderService {
     return this.http.post(this.baseUrl + 'SalesOrder/SaveOCData' , wsDt , httpOptions );
   }
 
-  GetProductionOutData(wsDt: any) {
+  GetIssueToProduction(wsDt: any) {
+    return this.http.post<IssueToProduction[]>(this.baseUrl + 'SalesOrder/GetIssueToProduction', wsDt, httpOptions);
+  }
+
+  SaveIssueToProduction(wsDt: any) {
+    return this.http.post(this.baseUrl + 'SalesOrder/SaveIssueToProduction', wsDt, httpOptions);
+  }
+
+ GetProductionOutData(wsDt: any) {
     return this.http.post<ProductionOut[]>(this.baseUrl + 'SalesOrder/GetProductionOutData', wsDt, httpOptions);
   }
 

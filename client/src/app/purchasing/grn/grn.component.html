@@ -20,15 +20,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>GRN Type</label>
-                    <igx-combo #grntype id="grntype" class="combo" displayKey="f20" valueKey="f05"
-                        [itemsMaxHeight]="250" [data]="grnTypeList" placeholder="GRN Type" formControlName="grntype"
-                        searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
-                    </igx-combo>
-                </div>
-            </div>
             <div class="col-md-2 mt-3">
                 <div class="form-group row">
                     <igx-input-group hidden>
@@ -44,10 +35,19 @@
                     </span>
                 </div>
             </div>
-            <igx-input-group>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>GRN Type</label>
+                    <igx-combo #grntype id="grntype" class="combo" displayKey="f20" valueKey="f05"
+                        [itemsMaxHeight]="250" [data]="grnTypeList" placeholder="GRN Type" formControlName="grntype"
+                        searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
+                    </igx-combo>
+                </div>
+            </div>
+            <igx-input-group hidden>
                 <input igxInput type="number" formControlName="supplierIdx" />
             </igx-input-group>
-            <igx-input-group>
+            <igx-input-group hidden>
                 <input igxInput type="number" formControlName="GRNMasterIdx" />
             </igx-input-group>
             <div class="col-md-3">

@@ -124,6 +124,24 @@
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>
             <p>
+              Production
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/issueto-production" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Issue To Production</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" *ngIf="masterGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
               Order
               <i class="right fas fa-angle-left"></i>
             </p>

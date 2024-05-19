@@ -99,7 +99,7 @@ namespace API.Interfaces
         Task<IEnumerable<CostSheetDto>> GetCostingData(CostSheetDto costdto);
         Task<ReturnDto>SaveCostingData(List<SaveCostSheetDto >costdto);
 
-                //Recipe
+        //Recipe
         Task<IEnumerable<RecipeDto>> GetRecipeData(RecipeDto rcpdto);
         Task<ReturnDto> SaveRecipeData (List<SaveRecipeDto> rcpdto);
 
@@ -107,7 +107,11 @@ namespace API.Interfaces
         Task<IEnumerable<GRNDto>> GetGRNData(GRNDto wsdt);
         Task<ReturnDto> SaveGRNDATA(SaveGRNDto wsdt);
 
-        // Order Creation
+        //Issue To Production
+        Task<IEnumerable<IssueToProductionDto>> GetIssueToProduction(IssueToProductionDto wsdt);
+        Task<ReturnDto> SaveIssueToProduction(IssueToProductionSaveDto wsdt);
+      
+              // Order Creation
         Task<IEnumerable<ProductionOutDto>> GetProductionOutData(ProductionOutDto ocdto);
         Task<ReturnDto> SaveProductionOutData (List<SaveProductionOutDto>ocdto);
     }

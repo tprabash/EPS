@@ -772,6 +772,23 @@ namespace API.Controllers.CCSystem.Transaction
         }
         #endregion "GRn"
 
+        #region "Issue-To-Production"
+
+        [HttpPost("GetIssueToProduction")]
+        public async Task<IActionResult> GetIssueToProduction(IssueToProductionDto issueToProduction)
+        {
+            var result = await _salesRepository.GetIssueToProduction(issueToProduction);
+            return Ok(result);
+        }
+
+        [HttpPost("SaveIssueToProduction")]
+        public async Task<IActionResult> SaveIssueToProduction(IssueToProductionSaveDto issueToProduction)
+        {
+            var result = await _salesRepository.SaveIssueToProduction(issueToProduction);
+            return Ok(result);
+        }
+
+        #endregion "Issue-To-Production"
         #region "Production Out"
 
         [HttpPost("GetProductionOutData")]
@@ -781,8 +798,7 @@ namespace API.Controllers.CCSystem.Transaction
             return Ok(result);
         }
 
-
-           [HttpPost("SaveProductionOutData")]
+          [HttpPost("SaveProductionOutData")]
         public async Task<IActionResult> SaveProductionOutData(List<SaveProductionOutDto >ocdto)
         {
                 var result = await _salesRepository.SaveProductionOutData(ocdto);
@@ -790,7 +806,6 @@ namespace API.Controllers.CCSystem.Transaction
         }
 
         #endregion "Production Out"
-
     
       }
 }
