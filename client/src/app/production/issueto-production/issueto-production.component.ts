@@ -100,12 +100,6 @@ export class IssuetoProductionComponent implements OnInit {
     }
   }
 
-  styleSlection(event) {
-    for (const item of event.added) {
-      this.styleId = item;
-    }
-  }
-
   loadItemList() {
     this.styleList = [];
     var objOG = {
@@ -245,6 +239,8 @@ export class IssuetoProductionComponent implements OnInit {
     this.issueToProMainForm.get('customer').setValue(selectedRow['f19']);
     this.issueToProMainForm.get('OCHID').setValue(selectedRow['f04']);
     this.issueToProMainForm.get('MIHID').setValue(selectedRow['f02']);
+    this.issueToProMainForm.get('style').setValue(selectedRow['f20']);
+    this.styleId = selectedRow['f03'];
   }
 
   POfilterByDocNo(term) {

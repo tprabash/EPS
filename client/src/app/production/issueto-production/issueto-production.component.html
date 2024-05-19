@@ -8,10 +8,12 @@
             </div>
             <div class="col-2 text-right">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save" (click)="issueToProductionSave()">
+                    <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save"
+                        (click)="issueToProductionSave()">
                         <i class="fas fa-save"></i>
                     </button>
-                    <button type="button" class="btn btn-danger mr-1" data-placement="bottom" title="Save" (click)="issueToProductionDelete()">
+                    <button type="button" class="btn btn-danger mr-1" data-placement="bottom" title="Save"
+                        (click)="issueToProductionDelete()">
                         <i class="fas fa-trash"></i>
                     </button>
                     <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
@@ -43,19 +45,19 @@
                     </span>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 mt-3">
                 <div class="form-group">
-                    <label>Style</label>
-                    <igx-combo #style id="style" class="combo" displayKey="f19" valueKey="f01" [itemsMaxHeight]="250"
-                        [data]="styleList" placeholder="Style" formControlName="style" searchPlaceholder="Search..."
-                        (onSelectionChange)="singleSelection($event)" (onSelectionChange)="styleSlection($event)">
-                    </igx-combo>
+                    <igx-input-group>
+                        <input class="gridSample__filter" igxInput type="text" id="style" placeholder="Style"
+                            formControlName="style">
+                        <label igxLabel for="style">Style</label>
+                    </igx-input-group>
                 </div>
             </div>
             <div class="col-md-2 mt-3">
                 <div class="form-group row">
-                    <input type="text" formControlName="po" id="po" placeholder="PO"
-                        class="form-control rounded-0" style="width: 160px;" [readonly]="true">
+                    <input type="text" formControlName="po" id="po" placeholder="PO" class="form-control rounded-0"
+                        style="width: 160px;" [readonly]="true">
                     <span class="input-group-append">
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#POList"
                             data-placement="bottom" title="View">
@@ -67,7 +69,7 @@
             <div class="col-md-2 mt-3">
                 <div class="group">
                     <igx-input-group>
-                        <input igxInput type="text" formControlName="customer" readonly/>
+                        <input igxInput type="text" formControlName="customer" readonly />
                         <label igxLabel>Customer</label>
                     </igx-input-group>
                 </div>
@@ -92,10 +94,10 @@
 
         <div class="row">
             <div class="col-md-12">
-                <igx-grid #issueToProductionGrid [data]="issueToProductionList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
-                    [primaryKey]="'f06'" cellSelection="none" [perPage]="10" height="500px" displayDensity="compact"
-                    [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
-                    [rowSelection]="'Single'">
+                <igx-grid #issueToProductionGrid [data]="issueToProductionList" [autoGenerate]="false" [paging]="true"
+                    [rowEditable]="false" [primaryKey]="'f06'" cellSelection="none" [perPage]="10" height="500px"
+                    displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
+                    [allowAdvancedFiltering]="true" [rowSelection]="'Single'">
                     <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
                         <ng-template igxCell let-cell="cell">
                             <button igxButton="icon" class="fab-compact" (click)="onDeletePO($event,cell.cellID)">
@@ -115,7 +117,7 @@
                     <igx-column [field]="'f24'" [header]="'Item Name'" [resizable]="true" [dataType]="'string'"
                         [sortable]="true" [editable]="false">
                     </igx-column>
-                    <igx-column [field]="'f14'" [header]="'SIHQty'" [resizable]="true" [dataType]="'number'"
+                    <igx-column [field]="'f14'" [header]="'SIH QTY'" [resizable]="true" [dataType]="'number'"
                         [sortable]="true" [editable]="true">
                     </igx-column>
                     <igx-column [field]="'f15'" [header]="'Issue Qty'" [resizable]="true" [dataType]="'number'"
@@ -159,8 +161,8 @@
                             <div class="form-group">
                                 <igx-input-group>
                                     <input class="gridSample__filter" igxInput type="text" id="style"
-                                        placeholder="Filter By Style"
-                                        (input)="DocNofilterBystyle($event.target.value)" formControlName="style">
+                                        placeholder="Filter By Style" (input)="DocNofilterBystyle($event.target.value)"
+                                        formControlName="style">
                                     <label igxLabel for="style">Style</label>
                                 </igx-input-group>
                             </div>
@@ -169,8 +171,8 @@
                             <div class="form-group">
                                 <igx-input-group>
                                     <input class="gridSample__filter" igxInput type="text" id="po"
-                                        placeholder="Filter By PO"
-                                        (input)="DocNofilterByPO($event.target.value)" formControlName="po">
+                                        placeholder="Filter By PO" (input)="DocNofilterByPO($event.target.value)"
+                                        formControlName="po">
                                     <label igxLabel for="po">PO</label>
                                 </igx-input-group>
                             </div>
@@ -262,7 +264,7 @@
                             <div class="form-group">
                                 <igx-input-group>
                                     <input class="gridSample__filter" igxInput type="text" id="suppliername"
-                                        placeholder="Filter By Supplier Name"  formControlName="suppliername"
+                                        placeholder="Filter By Supplier Name" formControlName="suppliername"
                                         (input)="POsupplierName($event.target.value)">
                                     <label igxLabel for="suppliername">PO</label>
                                 </igx-input-group>
@@ -343,8 +345,8 @@
                             <div class="form-group">
                                 <igx-input-group>
                                     <input class="gridSample__filter" igxInput type="text" id="category"
-                                        placeholder="Filter By Category" (input)="ItemfilterByCategory($event.target.value)"
-                                        formControlName="category">
+                                        placeholder="Filter By Category"
+                                        (input)="ItemfilterByCategory($event.target.value)" formControlName="category">
                                     <label igxLabel for="category">Category</label>
                                 </igx-input-group>
                             </div>
@@ -354,7 +356,8 @@
                                 <igx-input-group>
                                     <input class="gridSample__filter" igxInput type="text" id="subcategory"
                                         placeholder="Filter By Sub Category"
-                                        (input)="ItemfilterBySubCategory($event.target.value)" formControlName="subcategory">
+                                        (input)="ItemfilterBySubCategory($event.target.value)"
+                                        formControlName="subcategory">
                                     <label igxLabel for="subcategory">Sub Category</label>
                                 </igx-input-group>
                             </div>
@@ -383,6 +386,9 @@
                             [sortable]="true">
                         </igx-column>
                         <igx-column [field]="'f24'" [header]="'Item Name'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="'f14'" [header]="'SIH QTY'" [resizable]="true" [dataType]="'string'"
                             [sortable]="true">
                         </igx-column>
                     </igx-grid>

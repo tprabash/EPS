@@ -46,7 +46,7 @@ const routes: Routes = [
       { path: 'item-master', component: ItemTabComponent },
       { path: 'grn', component: GrnComponent },
       { path: 'order-creation', component: OrderCreationComponent },
-      { path: 'issueto-production', component: IssuetoProductionComponent }
+      { path: 'issueto-production', component: IssuetoProductionComponent },
       { path: 'production-out', component: ProductionOutComponent }
     ]
   },  

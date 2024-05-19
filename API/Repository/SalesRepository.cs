@@ -3575,7 +3575,9 @@ namespace API.Repository
             return result;
         }
         
-          #region "Production-Out"
+     #endregion "Issue-To-Production"
+
+     #region "Production-Out"
 
 
      public async Task<IEnumerable<ProductionOutDto>> GetProductionOutData(ProductionOutDto poassociationDto)
@@ -3738,6 +3740,11 @@ namespace API.Repository
             para.Add("UDT", OrderCreationDT.AsTableValuedParameter("udt_ProductionOutData"));
 
             var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_ProductionoutData", para,
+            commandType: CommandType.StoredProcedure);
+
+            return result;
+        }
+        #endregion "Production-Out"
 
     }
 }
