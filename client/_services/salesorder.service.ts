@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { GRN } from 'src/app/_models/GRN';
 import { IssueToProduction } from 'src/app/_models/IssueToProduction';
 import { POAssociation } from 'src/app/_models/POAssociation';
+import { ProductionOut } from 'src/app/_models/ProductionOut';
 import { environment } from 'src/environments/environment';
 
 var usertoken: any;
@@ -44,7 +45,7 @@ export class SalesorderService {
   SaveOCData(wsDt: any) {
     return this.http.post(this.baseUrl + 'SalesOrder/SaveOCData' , wsDt , httpOptions );
   }
-  
+
   GetIssueToProduction(wsDt: any) {
     return this.http.post<IssueToProduction[]>(this.baseUrl + 'SalesOrder/GetIssueToProduction', wsDt, httpOptions);
   }
@@ -53,4 +54,11 @@ export class SalesorderService {
     return this.http.post(this.baseUrl + 'SalesOrder/SaveIssueToProduction', wsDt, httpOptions);
   }
 
+ GetProductionOutData(wsDt: any) {
+    return this.http.post<ProductionOut[]>(this.baseUrl + 'SalesOrder/GetProductionOutData', wsDt, httpOptions);
+  }
+
+  SaveProductionOutData(wsDt: any) {
+    return this.http.post(this.baseUrl + 'SalesOrder/SaveProductionOutData' , wsDt , httpOptions );
+  }
 }

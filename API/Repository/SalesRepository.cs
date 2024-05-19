@@ -3364,8 +3364,7 @@ namespace API.Repository
             return result;
         }
         #endregion "GRNData"
-
-
+        
         #region "Issue-To-Production"
 
         public async Task<IEnumerable<IssueToProductionDto>> GetIssueToProduction(IssueToProductionDto wsdt)
@@ -3575,7 +3574,170 @@ namespace API.Repository
 
             return result;
         }
+        
+          #region "Production-Out"
 
-        #endregion "Issue-To-Production"
+
+     public async Task<IEnumerable<ProductionOutDto>> GetProductionOutData(ProductionOutDto poassociationDto)
+        {
+            DataTable POAssociationDT = new DataTable();
+            IEnumerable<ProductionOutDto> PoassociationList;
+
+            DynamicParameters para = new DynamicParameters();
+
+            POAssociationDT.Columns.Add("ActivityNo", typeof(Int64));
+            POAssociationDT.Columns.Add("ModuleNo", typeof(Int64));
+            POAssociationDT.Columns.Add("CompanyNo", typeof(Int64));
+            POAssociationDT.Columns.Add("LocationNo", typeof(Int64));
+            POAssociationDT.Columns.Add("AgentNo", typeof(Int64));
+            POAssociationDT.Columns.Add("bActive", typeof(Int64));
+            POAssociationDT.Columns.Add("F01", typeof(long));
+            POAssociationDT.Columns.Add("F02", typeof(long));
+            POAssociationDT.Columns.Add("F03", typeof(long));
+            POAssociationDT.Columns.Add("F04", typeof(long));
+            POAssociationDT.Columns.Add("F05", typeof(long));
+            POAssociationDT.Columns.Add("F06", typeof(long));
+            POAssociationDT.Columns.Add("F07", typeof(long));
+            POAssociationDT.Columns.Add("F08", typeof(long));
+            POAssociationDT.Columns.Add("F09", typeof(long));
+            POAssociationDT.Columns.Add("F10", typeof(long));
+            POAssociationDT.Columns.Add("F11", typeof(decimal));
+            POAssociationDT.Columns.Add("F12", typeof(decimal));
+            POAssociationDT.Columns.Add("F13", typeof(decimal));
+            POAssociationDT.Columns.Add("F14", typeof(decimal));
+            POAssociationDT.Columns.Add("F15", typeof(string));
+            POAssociationDT.Columns.Add("F16", typeof(string));
+            POAssociationDT.Columns.Add("F17", typeof(string));
+            POAssociationDT.Columns.Add("F18", typeof(string));
+            POAssociationDT.Columns.Add("F19", typeof(string));
+            POAssociationDT.Columns.Add("F20", typeof(string));
+
+
+            POAssociationDT.Rows.Add(
+            poassociationDto.ActivityNo, poassociationDto.ModuleNo, poassociationDto.CompanyNo, poassociationDto.LocationNo, poassociationDto.AgentNo, poassociationDto.bActive,
+            poassociationDto.F01, poassociationDto.F02, poassociationDto.F03, poassociationDto.F04, poassociationDto.F05, poassociationDto.F06, poassociationDto.F07, poassociationDto.F08, poassociationDto.F09, poassociationDto.F10,
+            poassociationDto.F11, poassociationDto.F12, poassociationDto.F13, poassociationDto.F14, poassociationDto.F15, poassociationDto.F16, poassociationDto.F17, poassociationDto.F18, poassociationDto.F19, poassociationDto.F20
+        
+            );
+            para.Add("UDT", POAssociationDT.AsTableValuedParameter("udt_ProductionOutData"));
+
+            PoassociationList = await DbConnection.QueryAsync<ProductionOutDto>("sp_ProductionoutData", para
+            , commandType: CommandType.StoredProcedure);
+
+            return PoassociationList;
+        }
+
+         public async Task<ReturnDto> SaveProductionOutData(List<SaveProductionOutDto> ocdto)
+
+        {
+            DataTable OrderCreationDT = new DataTable();
+            DynamicParameters para = new DynamicParameters();
+
+            OrderCreationDT.Columns.Add("ActivityNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("ModuleNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("CompanyNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("LocationNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("AgentNo", typeof(Int64));
+            OrderCreationDT.Columns.Add("bActive", typeof(Int64));
+            OrderCreationDT.Columns.Add("F01", typeof(Int64));
+            OrderCreationDT.Columns.Add("F02", typeof(Int64));
+            OrderCreationDT.Columns.Add("F03", typeof(Int64));
+            OrderCreationDT.Columns.Add("F04", typeof(Int64));
+            OrderCreationDT.Columns.Add("F05", typeof(Int64));
+            OrderCreationDT.Columns.Add("F06", typeof(Int64));
+            OrderCreationDT.Columns.Add("F07", typeof(Int64));
+            OrderCreationDT.Columns.Add("F08", typeof(Int64));
+            OrderCreationDT.Columns.Add("F09", typeof(Int64));
+            OrderCreationDT.Columns.Add("F10", typeof(Int64));
+            OrderCreationDT.Columns.Add("F11", typeof(decimal));
+            OrderCreationDT.Columns.Add("F12", typeof(decimal));
+            OrderCreationDT.Columns.Add("F13", typeof(decimal));
+            OrderCreationDT.Columns.Add("F14", typeof(decimal));
+            OrderCreationDT.Columns.Add("F15", typeof(string));
+            OrderCreationDT.Columns.Add("F16", typeof(string));
+            OrderCreationDT.Columns.Add("F17", typeof(string));
+            OrderCreationDT.Columns.Add("F18", typeof(string));
+            OrderCreationDT.Columns.Add("F19", typeof(string));
+            OrderCreationDT.Columns.Add("F20", typeof(DateTime));
+
+            foreach (var item in ocdto)
+
+            {
+
+                var ActivityNo = item.ActivityNo;
+                var ModuleNo = item.ModuleNo;
+                var CompanyNo = item.CompanyNo;
+                var LocationNo = item.LocationNo;
+                var AgentNo = item.AgentNo;
+                var bActive = item.bActive;
+
+                if (item.sProductionoutHeader != null)
+                {
+                    OrderCreationDT.Rows.Add(
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    item.sProductionoutHeader.AutoId,//1
+                    item.sProductionoutHeader.ArticleId,//2
+                    0,//3
+                    0,//4
+                    0,//5
+                    0,//6
+                    0,//7
+                    0,//8
+                    1,//9
+                    0,//10
+                    0,//11
+                    0,//12
+                    0,//13
+                    0,//14
+                    item.sProductionoutHeader.DocNo,//15 
+                    item.sProductionoutHeader.Remarks,//16
+                    0,//17
+                    0,//18
+                    0
+                  );
+                }
+
+                if (item.sProductionoutDetails != null)
+                {
+                    OrderCreationDT.Rows.Add(
+                    ActivityNo,
+                    ModuleNo,
+                    CompanyNo,
+                    LocationNo,
+                    AgentNo,
+                    bActive,
+                    item.sProductionoutDetails.POHId,//1
+                    0,//2
+                    item.sProductionoutDetails.AutoIdx,//3
+                    0,//4
+                    item.sProductionoutDetails.SODId,//5
+                    item.sProductionoutDetails.OrderQty,//6
+                    item.sProductionoutDetails.ProductionOutQty,//7
+                    item.sProductionoutDetails.DamageQty,//8
+                    2,//9
+                    0,//10
+                    0,//11
+                    0,//12
+                    0,//13
+                    0,//14
+                    0,//15 
+                    0,//16
+                    0,//17
+                    0,//18
+                    0
+                  );
+                }
+
+            }
+
+            para.Add("UDT", OrderCreationDT.AsTableValuedParameter("udt_ProductionOutData"));
+
+            var result = await DbConnection.QueryFirstOrDefaultAsync<ReturnDto>("sp_ProductionoutData", para,
+
     }
 }

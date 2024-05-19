@@ -148,6 +148,23 @@
           </a>
           <ul class="nav nav-treeview" *ngIf="userReg">
             <li class="nav-item">
+              <a class="nav-link " routerLink="/order-creation" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Order Creation</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" *ngIf="masterGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Production
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
               <a class="nav-link " routerLink="/grn" routerLinkActive="active">
                 <i class="far fa-circle nav-icon"></i>
                 <p>GRN</p>
@@ -156,9 +173,9 @@
           </ul>
           <ul class="nav nav-treeview" *ngIf="userReg">
             <li class="nav-item">
-              <a class="nav-link " routerLink="/order-creation" routerLinkActive="active">
+              <a class="nav-link " routerLink="/production-out" routerLinkActive="active">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Order Creation</p>
+                <p>Production Out</p>
               </a>
             </li>
           </ul>

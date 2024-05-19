@@ -789,6 +789,23 @@ namespace API.Controllers.CCSystem.Transaction
         }
 
         #endregion "Issue-To-Production"
+        #region "Production Out"
+
+        [HttpPost("GetProductionOutData")]
+        public async Task<IActionResult> GetProductionOutData(ProductionOutDto productdto)
+        {
+            var result = await _salesRepository.GetProductionOutData(productdto);
+            return Ok(result);
+        }
+
+          [HttpPost("SaveProductionOutData")]
+        public async Task<IActionResult> SaveProductionOutData(List<SaveProductionOutDto >ocdto)
+        {
+                var result = await _salesRepository.SaveProductionOutData(ocdto);
+                return Ok(result);
+        }
+
+        #endregion "Production Out"
     
       }
 }

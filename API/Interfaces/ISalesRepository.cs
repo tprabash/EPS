@@ -110,5 +110,9 @@ namespace API.Interfaces
         //Issue To Production
         Task<IEnumerable<IssueToProductionDto>> GetIssueToProduction(IssueToProductionDto wsdt);
         Task<ReturnDto> SaveIssueToProduction(IssueToProductionSaveDto wsdt);
+      
+              // Order Creation
+        Task<IEnumerable<ProductionOutDto>> GetProductionOutData(ProductionOutDto ocdto);
+        Task<ReturnDto> SaveProductionOutData (List<SaveProductionOutDto>ocdto);
     }
 }
