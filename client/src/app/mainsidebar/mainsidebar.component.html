@@ -75,7 +75,7 @@
     <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
   </a>
 
-  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='EPS' ; then " style="background-color:#77dd76">
+  <a href="/" class="brand-link text-center" *ngIf="SystemTitle=='EPS' ; then " style="background-color:#D27685">
     <!-- <img src="assets/img/Maliban_logo.gif" alt="EAM Logo" class="brand-image img-circle elevation-3"
       style="opacity: .8"> -->
     <span class="brand-text font-weight-bold">{{SystemTitle}}</span>
@@ -115,67 +115,6 @@
               <a class="nav-link " routerLink="/UserRegister" routerLinkActive="active" (click)="menuClose()">
                 <i class="far fa-circle nav-icon"></i>
                 <p>User Register</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="nav-item" *ngIf="masterGroup">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Production
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" *ngIf="userReg">
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/issueto-production" routerLinkActive="active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Issue To Production</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="nav-item" *ngIf="masterGroup">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Order
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" *ngIf="userReg">
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/order-creation" routerLinkActive="active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Order Creation</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" *ngIf="masterGroup">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Production
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" *ngIf="userReg">
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/grn" routerLinkActive="active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>GRN</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview" *ngIf="userReg">
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/production-out" routerLinkActive="active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Production Out</p>
               </a>
             </li>
           </ul>
@@ -246,6 +185,77 @@
             </li>
           </ul>
         </li>
+
+        <!-- <li class="nav-item" *ngIf="masterGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Production
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/issueto-production" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Issue To Production</p>
+              </a>
+            </li>
+          </ul>
+        </li> -->
+
+        <li class="nav-item" *ngIf="masterGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Order
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/order-creation" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Order Creation</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" *ngIf="masterGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Production
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/grn" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>GRN</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/issueto-production" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Issue To Production</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/production-out" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Production Out</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+ 
         <li class="nav-item" *ngIf="workstudyGroup">
           <a href="#" class="nav-link">
             <i class="nav-icon fa fa-book"></i>
