@@ -86,7 +86,7 @@ export class ProductionOutComponent implements OnInit {
 
     this.docnosearchForm = this.fb.group({
       docnosearch: [''],
-      customersearch: [''],
+      posearch: [''],
       articlesearch: [''],
     });
 
@@ -138,39 +138,6 @@ export class ProductionOutComponent implements OnInit {
     if (event.added.length) {
       event.newSelection = event.added;
     }
-  }
-
-  OCsave() {
-    var OCData = {
-      CustomerId: this.prodOutForm.get('customer').value[0],
-      ArticleId: this.prodOutForm.get('article').value[0],
-      Remaks: this.prodOutForm.get('remarks').value
-    };
-
-    var objSM = {
-      sOCHeader: OCData,
-      ActivityNo: 3,
-      AgentNo: this.user.userId,
-      ModuleNo: this.user.moduleId,
-    };
-    console.log(objSM);
-
-    this.salesOrderService.SavePOAssociationData(objSM).subscribe((result) => {
-      console.log(result);
-      if (result['result'] == 1) {
-        this.prodOutForm.get('ochidx').setValue(result['refNumId']);
-        this.prodOutForm.get('docno').setValue(result['refNum']);
-        this.toaster.success('save Successfully !!!');
-      } else if (result['result'] == 2) {
-        this.toaster.warning('update Successfully !!!');
-      } else if (result['result'] == 3) {
-        this.toaster.error('Code already Exists!!!');
-      } else {
-        this.toaster.warning(
-          'Contact Admin. Error No:- ' + result['result'].toString()
-        );
-      }
-    });
   }
 
   prodoutSave(){
@@ -225,17 +192,16 @@ export class ProductionOutComponent implements OnInit {
         this.prodOutForm.get('proouthid').setValue(result['refNumId']);
         this.prodOutForm.get('docno').setValue(result['refNum']);
         this.LoadAddPoDialog.close();
+        this.LoadProdOutList();
         this.toaster.success('save Successfully !!!');
       } else if (result['result'] == 2) {
         this.toaster.warning('update Successfully !!!');
-        this.LoadSalesOrderList();
-        this.addpoForm.get('addponame').setValue('');
-        this.addpoForm.get('deliverydate').setValue('');
-        this.addpoForm.get('sohid').setValue(0);
+        this.prodOutForm.get('proouthid').setValue(result['refNumId']);
+        this.prodOutForm.get('docno').setValue(result['refNum']);
         this.LoadAddPoDialog.close();
+        this.LoadProdOutList();
       } else if (result['result'] == 3) {
         this.toaster.error('Code already Exists!!!');
-        this.LoadSalesOrderList();
         this.addpoForm.get('addponame').setValue('');
         this.addpoForm.get('deliverydate').setValue('');
         this.addpoForm.get('sohid').setValue(0);
@@ -250,14 +216,14 @@ export class ProductionOutComponent implements OnInit {
 
   }
 
-  LoadSalesOrderList() {
+  LoadProdOutList() {
     this.orderCreationList = [];
     var objOG = {
       ActivityNo: 9,
-      f04:this.prodOutForm.get('ochidx').value,
+      f01:this.prodOutForm.get('proouthid').value,
     };
     console.log(objOG);
-    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+    this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
       this.orderCreationList = OpGroupList;
       console.log('grnTypeList', OpGroupList);
     });
@@ -310,28 +276,27 @@ export class ProductionOutComponent implements OnInit {
     });
   }
 
-  deleteOrderCreation(event, cellId){
+  deleteProdUpdate(event, cellId){
     var SalesordersSaveList = [];
      const ids = cellId.rowID;
      var objOG = {
-      AutoId: ids,
-      BuyerDelDate: this.addpoForm.get('deliverydate')?.value ? this.datePipe.transform(this.addpoForm.get('deliverydate')?.value,'yyyy-MM-dd' ).toString(): null
+      AutoId: ids
      };
 
      var objOCHeaderSave = {
-      sSalesOrderHeader: objOG,
-      ActivityNo: 15,
+      sProductionoutHeader: objOG,
+      ActivityNo: 6,
       AgentNo: this.user.userId,
       ModuleNo: this.user.moduleId
     };
 
      console.log(objOCHeaderSave);
      SalesordersSaveList.push(objOCHeaderSave);
-     this.salesOrderService.SaveOCData(SalesordersSaveList).subscribe((result) => {
+     this.salesOrderService.SaveProductionOutData(SalesordersSaveList).subscribe((result) => {
       console.log(result);
       if (result['result'] == 1) {      
         this.toaster.error('Deleted Succesfully!!!');
-        this.LoadSalesOrderList();
+        this.LoadProdOutList();
       }else {
         this.toaster.warning(
           'Contact Admin. Error No:- ' + result['result'].toString()
@@ -348,28 +313,21 @@ export class ProductionOutComponent implements OnInit {
 
   }
 
-  onViewOCDetails(event, cellId) {
+  onViewProdOutDetails(event, cellId) {
     //Load OC Header Data
     const ids = cellId.rowID;
     this.gOCHIdx = ids;
     var objOG = {
-      ActivityNo: 14,
+      ActivityNo: 10,
       f04: ids,
     };
     console.log(objOG);
-    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+    this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
       console.log(OpGroupList);
 
       this.prodOutForm.get('remarks').setValue(OpGroupList[0]['f16']);
       this.prodOutForm.get('docno').setValue(OpGroupList[0]['f17']);
-      this.prodOutForm.get('ochidx').setValue(OpGroupList[0]['f01']);
-
-      const selectedItemcus = this.customerList.find(
-        (item) => item.f01 === OpGroupList[0]['f02']
-      );
-      if (selectedItemcus) {
-        this.customer.setSelectedItem(selectedItemcus);
-      }
+      this.prodOutForm.get('proouthid').setValue(OpGroupList[0]['f01']);
 
       const selectedcatItem = this.articleList.find(
         (item) => item.f01 === OpGroupList[0]['f03']
@@ -389,10 +347,10 @@ export class ProductionOutComponent implements OnInit {
     this.orderCreationList = [];
     var objOG = {
       ActivityNo: 9,
-      f04:this.gOCHIdx ,
+      f01:this.gOCHIdx ,
     };
     console.log(objOG);
-    this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+    this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
       this.orderCreationList = OpGroupList;
       console.log('grnTypeList', OpGroupList);
     });
@@ -411,29 +369,28 @@ export class ProductionOutComponent implements OnInit {
 
 
     //Oc Search by Cus
-    public filterByCustomer(term) {
+    public filterByPO(term) {
       this.OrderCreationSearchList = [];
         var objOG = {
-          ActivityNo: 6,
-          f19: this.docnosearchForm.get('customersearch').value,
+          ActivityNo: 2,
+          f15: this.docnosearchForm.get('posearch').value,
         };
   
-        console.log(this.docnosearchForm.get('customersearch').value);
+        console.log(this.docnosearchForm.get('posearch').value);
 
-          this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+          this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
             this.OrderCreationSearchList = OpGroupList;
           });
-        
     }
   
     //Oc Search by OC
     public filterByOCNo(term) {
       this.OrderCreationSearchList = [];
         var objOG = {
-          ActivityNo: 5,
+          ActivityNo: 3,
           f16: this.docnosearchForm.get('docnosearch').value,
         };
-          this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+          this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
             this.OrderCreationSearchList = OpGroupList;
           });
     }
@@ -442,11 +399,11 @@ export class ProductionOutComponent implements OnInit {
     public filterByArticle(term) {
       this.OrderCreationSearchList = [];
         var objOG = {
-          ActivityNo: 13,
-          f21: this.docnosearchForm.get('articlesearch').value,
+          ActivityNo: 4,
+          f17: this.docnosearchForm.get('articlesearch').value,
         };
         console.log(objOG);
-          this.salesOrderService.GetPOAssociationData(objOG).subscribe((OpGroupList) => {
+          this.salesOrderService.GetProductionOutData(objOG).subscribe((OpGroupList) => {
             this.OrderCreationSearchList = OpGroupList;
             console.log(OpGroupList);
           });

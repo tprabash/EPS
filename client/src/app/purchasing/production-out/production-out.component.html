@@ -8,8 +8,7 @@
             </div>
             <div class="col-md-2 text-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success" data-placement="bottom" title="Save"
-                        (click)="OCsave()" >
+                    <button type="button" class="btn btn-success" data-placement="bottom" title="Save" >
                         <i class="fas fa-save"></i>
                     </button>
                     <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
@@ -80,29 +79,29 @@
                     <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
                         <ng-template igxCell let-cell="cell">
                             <button igxButton="icon" class="fab-compact"
-                                (click)="deleteOrderCreation($event,cell.cellID)">
+                                (click)="deleteProdUpdate($event,cell.cellID)">
                                 <igx-icon family="material">delete</igx-icon>
                             </button>
                         </ng-template>
                     </igx-column>
-                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                    <!-- <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
                         <ng-template igxCell let-cell="cell">
                             <button igxButton="icon" class="fab-compact"
                                 (click)="onEditOrderCreation($event,cell.cellID)">
                                 <igx-icon family="material">edit</igx-icon>
                             </button>
                         </ng-template>
-                    </igx-column>
+                    </igx-column> -->
                     <igx-column [field]="'f04'" [header]="'SODID'" [resizable]="true" [dataType]="'number'"
                         [sortable]="true" hidden="'true">
                     </igx-column>
-                    <igx-column [field]="'f18'" [header]="'PO Name'" [resizable]="true" [dataType]="'string'"
+                    <igx-column [field]="'f15'" [header]="'PO Name'" [resizable]="true" [dataType]="'string'"
                     [sortable]="true">
                    </igx-column>
-                   <igx-column [field]="'f18'" [header]="'Size'" [resizable]="true" [dataType]="'string'"
+                   <igx-column [field]="'f16'" [header]="'Size'" [resizable]="true" [dataType]="'string'"
                    [sortable]="true">
                   </igx-column>
-                  <igx-column [field]="'f18'" [header]="'Print'" [resizable]="true" [dataType]="'string'"
+                  <igx-column [field]="'f17'" [header]="'Print'" [resizable]="true" [dataType]="'string'"
                   [sortable]="true">
                  </igx-column>
                     <igx-column [field]="'f11'" [header]="'Order QTY'" [resizable]="true" [dataType]="'string'"
@@ -136,7 +135,7 @@
                             <div class="form-group">
                                 <igx-input-group>
                                     <input class="gridSample__filter" igxInput type="text" id="docnosearch"
-                                        placeholder="Filter by OC No" (input)="filterByOCNo($event.target.value)"
+                                        placeholder="Filter by Doc No" (input)="filterByOCNo($event.target.value)"
                                         formControlName="docnosearch">
                                     <label igxLabel for="docnosearch">Doc No</label>
                                 </igx-input-group>
@@ -145,10 +144,10 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <igx-input-group>
-                                    <input class="gridSample__filter" igxInput type="text" id="customersearch"
-                                        placeholder="Filter by Customer" (input)="filterByCustomer($event.target.value)"
-                                        formControlName="customersearch">
-                                    <label igxLabel for="customersearch">Customer</label>
+                                    <input class="gridSample__filter" igxInput type="text" id="posearch"
+                                        placeholder="Filter by PO" (input)="filterByPO($event.target.value)"
+                                        formControlName="posearch">
+                                    <label igxLabel for="posearch">PO</label>
                                 </igx-input-group>
                             </div>
                         </div>
@@ -171,29 +170,29 @@
                             <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
                                 <ng-template igxCell let-cell="cell">
                                     <button igxButton="icon" class="fab-compact"
-                                        (click)="onViewOCDetails($event,cell.cellID)" data-dismiss="modal">
+                                        (click)="onViewProdOutDetails($event,cell.cellID)" data-dismiss="modal">
                                         <igx-icon family="material">visibility</igx-icon>
                                     </button>
                                 </ng-template>
                             </igx-column>
-                            <igx-column [field]="'f01'" [header]="'OCHID'" [resizable]="true" [dataType]="'string'"
+                            <igx-column [field]="'f01'" [header]="'POHID'" [resizable]="true" [dataType]="'string'"
                                 [sortable]="true" [width]="'250px'" [editable]="false" hidden="true">
                             </igx-column>
-                            <igx-column [field]="'f02'" [header]="'CustomerId'" [resizable]="true" [dataType]="'string'"
+                            <igx-column [field]="'f03'" [header]="'styleid'" [resizable]="true" [dataType]="'string'"
                                 [sortable]="true" [width]="'150px'" [editable]="false" hidden="true">
                             </igx-column>
-                            <igx-column [field]="'f03'" [header]="'ArticleId'" [resizable]="true" [dataType]="'string'"
-                                [sortable]="true" [width]="'150px'" [editable]="false" hidden="true">
-                            </igx-column>
-                            <igx-column [field]="'f19'" [header]="'Customer'" [resizable]="true" [dataType]="'string'"
+                            <igx-column [field]="'f16'" [header]="'Style'" [resizable]="true" [dataType]="'string'"
                                 [sortable]="true" [width]="'250px'" [editable]="false">
                             </igx-column>
-                            <igx-column [field]="'f20'" [header]="'Article Name'" [resizable]="true" [dataType]="'string'"
+                            <igx-column [field]="'f19'" [header]="'PO'" [resizable]="true" [dataType]="'string'"
                                 [sortable]="true" [width]="'150px'" [editable]="false">
                             </igx-column>
-                            <igx-column [field]="'f16'" [header]="'Doc No'" [resizable]="true" [dataType]="'string'"
+                            <igx-column [field]="'f18'" [header]="'Doc No'" [resizable]="true" [dataType]="'string'"
                                 [sortable]="true" [width]="'150px'" [editable]="false">
                             </igx-column>
+                            <igx-column [field]="'f17'" [header]="'Doc Date'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true" [width]="'150px'" [editable]="false">
+                        </igx-column>
                         </igx-grid>
                     </div>
                 </form>
