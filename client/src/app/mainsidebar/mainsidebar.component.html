@@ -253,8 +253,33 @@
               </a>
             </li>
           </ul>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/gate-pass" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Gaet Pass</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
+        <li class="nav-item" *ngIf="masterGroup">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Finance
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="userReg">
+            <li class="nav-item">
+              <a class="nav-link " routerLink="/invoice" routerLinkActive="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Invoice</p>
+              </a>
+            </li>
+          </ul>
+        </li>
  
         <li class="nav-item" *ngIf="workstudyGroup">
           <a href="#" class="nav-link">

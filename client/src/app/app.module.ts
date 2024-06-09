@@ -39,6 +39,8 @@ import { SizeTabComponent } from './Master/Item/size-tab/size-tab.component';
 import { OrderCreationComponent } from './purchasing/order-creation/order-creation.component';
 import { IssuetoProductionComponent } from './production/issueto-production/issueto-production.component';
 import { ProductionOutComponent } from './purchasing/production-out/production-out.component';
+import { GatePassComponent } from './production/gate-pass/gate-pass.component';
+import { InvoiceComponent } from './finance/invoice/invoice.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,7 @@ import { ProductionOutComponent } from './purchasing/production-out/production-o
     SupplierMasterComponent, 
     CustomerMasterComponent, 
     ItemMasterComponent, GrnComponent, ItemTabComponent, ColorTabComponent, SizeTabComponent, OrderCreationComponent, IssuetoProductionComponent,
-    ItemMasterComponent, GrnComponent, ItemTabComponent, ColorTabComponent, SizeTabComponent, OrderCreationComponent, ProductionOutComponent,
+    ItemMasterComponent, GrnComponent, ItemTabComponent, ColorTabComponent, SizeTabComponent, OrderCreationComponent, ProductionOutComponent, GatePassComponent, InvoiceComponent,
   ],
   imports: [
     BrowserModule,

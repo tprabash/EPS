@@ -1,0 +1,436 @@
+<div class="card card-body">
+    <form [formGroup]="invoiceMainForm" autocomplete="off">
+        <div class="row">
+            <div class="col-10">
+                <h6 class="bg-secondary">
+                    Invoice
+                </h6>
+            </div>
+            <div class="col-2 text-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success mr-1" data-placement="bottom" title="Save"
+                        (click)="invoiceSave()">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger mr-1" data-placement="bottom" title="Save"
+                        (click)="invoiceDelete()">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button type="button" class="btn btn-default" (click)="refreshcompany()" data-toggle="tooltip"
+                        data-placement="bottom" title="Clear">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <igx-input-group hidden>
+                <input igxInput type="number" formControlName="IHID" />
+            </igx-input-group>
+            <igx-input-group hidden>
+                <input igxInput type="number" formControlName="CMId" />
+            </igx-input-group>
+            <div class="col-md-2 mt-3">
+                <div class="form-group row">
+                    <input type="text" formControlName="docno" id="docno" placeholder="Doc No"
+                        class="form-control rounded-0" style="width: 160px;" [readonly]="true">
+                    <span class="input-group-append">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#DOCNoList"
+                            data-placement="bottom" title="View">
+                            <i class="fas fa-eye fa-beat"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label> Customer *</label>
+                    <igx-combo #supplier id="customer" class="combo" displayKey="f20" valueKey="f05"
+                        [itemsMaxHeight]="250" [data]="customerList" placeholder="Customer" formControlName="customer"
+                        searchPlaceholder="Search..." (onSelectionChange)="singleSelection($event)">
+                    </igx-combo>
+                </div>
+            </div>
+            <!-- <div class="col-md-2 mt-3">
+                <div class="form-group row">
+                    <input type="text" formControlName="po" id="po" placeholder="PO" class="form-control rounded-0"
+                        style="width: 160px;" [readonly]="true">
+                    <span class="input-group-append">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#InvoiceList"
+                            data-placement="bottom" title="View">
+                            <i class="fas fa-eye fa-beat"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2 mt-3">
+                <div class="group">
+                    <igx-input-group>
+                        <input igxInput type="text" formControlName="customer" readonly />
+                        <label igxLabel>Customer</label>
+                    </igx-input-group>
+                </div>
+            </div>
+            <div class="col-md-3 mt-3">
+                <div class="group">
+                    <igx-input-group>
+                        <input igxInput type="text" formControlName="remarks" />
+                        <label igxLabel>Remarks</label>
+                    </igx-input-group>
+                </div>
+            </div> -->
+            <div class="offset-md-7 col-md-1 mt-4">
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#LoadItemDialog"
+                        data-placement="bottom" title="View">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <igx-grid #invoiceGrid [data]="invoiceList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
+                    [primaryKey]="''" cellSelection="none" [perPage]="10" height="500px" displayDensity="compact"
+                    [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
+                    [rowSelection]="'Single'">
+                    <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                        <ng-template igxCell let-cell="cell">
+                            <button igxButton="icon" class="fab-compact" (click)="onDeletePO($event,cell.cellID)">
+                                <igx-icon family="material">delete</igx-icon>
+                            </button>
+                        </ng-template>
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'ItemMID'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [hidden]="false" [width]="'150px'" [editable]="false">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'SODID'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [hidden]="false" [width]="'150px'" [editable]="false">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Style'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'PO'" [resizable]="true" [dataType]="'string'" [sortable]="true"
+                        [editable]="false">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Size'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Print'" [resizable]="true" [dataType]="'string'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Invoice Qty'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Unit Price'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                    <igx-column [field]="''" [header]="'Item Price'" [resizable]="true" [dataType]="'number'"
+                        [sortable]="true" [editable]="true">
+                    </igx-column>
+                </igx-grid>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="DOCNoList">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-9">
+                    <h4 class="modal-title">Doc No Search</h4>
+                </div>
+                <div class="col-md-1">
+                    <div class="text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="DocNoSearchForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="docnosearch"
+                                        placeholder="Filter By Doc No" (input)="DocNofilterByDocNo($event.target.value)"
+                                        formControlName="docnosearch">
+                                    <label igxLabel for="docnosearch">Doc No</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="customer"
+                                        placeholder="Filter By Customer"
+                                        (input)="DocNofilterByCustomer($event.target.value)" formControlName="customer">
+                                    <label igxLabel for="customer">Customer</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="style"
+                                        placeholder="Filter By Style" (input)="DocNofilterByStyle($event.target.value)"
+                                        formControlName="style">
+                                    <label igxLabel for="style">Style</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="po"
+                                        placeholder="Filter By PO" (input)="DocNofilterByPO($event.target.value)"
+                                        formControlName="po">
+                                    <label igxLabel for="po">PO</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <igx-grid #DocNoGrid [data]="DocNoList" [autoGenerate]="false" [paging]="true" [rowEditable]="false"
+                        [primaryKey]="''" cellSelection="none" [perPage]="10" height="500px" displayDensity="compact"
+                        [allowFiltering]="true" [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true"
+                        [rowSelection]="'none'">
+                        <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                            <ng-template igxCell let-cell="cell">
+                                <button igxButton="icon" class="fab-compact"
+                                    (click)="onViewDOCNoCheck($event,cell.cellID)" data-dismiss="modal">
+                                    <igx-icon family="material">visibility</igx-icon>
+                                </button>
+                            </ng-template>
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'IHId'" [resizable]="true" [dataType]="'number'"
+                            [sortable]="true" [hidden]="false" [width]="'150px'" [editable]="false">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'CustomerId'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'StyleId'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Customer'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Style'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'PO'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'DocNo'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'DocDate'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Total Qty'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Total Price'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                    </igx-grid>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="InvoiceList">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">PO Search</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="invoiceSearchForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="docnosearch"
+                                        placeholder="Filter By Doc No" (input)="POfilterByDocNo($event.target.value)"
+                                        formControlName="docnosearch">
+                                    <label igxLabel for="docnosearch">Doc No</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="po"
+                                        placeholder="Filter By PO" formControlName="po"
+                                        (input)="POName($event.target.value)">
+                                    <label igxLabel for="po">PO</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="articlename"
+                                        placeholder="Filter By Article Name" formControlName="articlename">
+                                    <label igxLabel for="articlename">Customer</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <igx-grid #InvoiceNoGrid [data]="InvoiceNoList" [autoGenerate]="false" [paging]="true"
+                            [rowEditable]="false" [primaryKey]="''" cellSelection="none" [perPage]="50"
+                            height="400px" displayDensity="compact" [allowFiltering]="true"
+                            [filterMode]="'excelStyleFilter'" [allowAdvancedFiltering]="true" [rowSelection]="'none'">
+                            <igx-column [width]="'50px'" [selectable]="false" [sortable]="false" [resizable]="false">
+                                <ng-template igxCell let-cell="cell">
+                                    <button igxButton="icon" class="fab-compact"
+                                        (click)="onViewDOCNoDetails($event,cell.cellID)" data-dismiss="modal">
+                                        <igx-icon family="material">visibility</igx-icon>
+                                    </button>
+                                </ng-template>
+                            </igx-column>
+                            <igx-column [field]="''" [header]="'OCHID'" [resizable]="true" [dataType]="'number'"
+                                [sortable]="true" [editable]="false" [hidden]="false">
+                            </igx-column>
+                            <igx-column [field]="''" [header]="'SupplierId'" [resizable]="true" [dataType]="'number'"
+                                [sortable]="true" [editable]="false" [hidden]="false">
+                            </igx-column>
+                            <igx-column [field]="''" [header]="'ArticleId'" [resizable]="true" [dataType]="'number'"
+                                [sortable]="true" [editable]="false" [hidden]="false">
+                            </igx-column>
+                            <igx-column [field]="''" [header]="'Doc No'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'150px'" [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="''" [header]="'Supplier'" [resizable]="true" [dataType]="'string'"
+                                [sortable]="true" [width]="'250px'" [editable]="false">
+                            </igx-column>
+                            <igx-column [field]="''" [header]="'Article Name'" [resizable]="true"
+                                [dataType]="'string'" [sortable]="true" [width]="'150px'" [editable]="false">
+                            </igx-column>
+                        </igx-grid>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="LoadItemDialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Item List</h4>
+                <div class="offset-md-9 col-md-1 text-right">
+                    <button type="button" class="btn btn-info" (click)="addItem()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="col-md-1 text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="ItemSearchForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="style"
+                                        placeholder="Filter By Style" (input)="ItemfilterByStyle($event.target.value)"
+                                        formControlName="style">
+                                    <label igxLabel for="style">Style</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="po"
+                                        placeholder="Filter By PO" (input)="ItemfilterByPO($event.target.value)"
+                                        formControlName="po">
+                                    <label igxLabel for="po">PO</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="size"
+                                        placeholder="Filter By Size"
+                                        (input)="ItemfilterBySize($event.target.value)" formControlName="size">
+                                    <label igxLabel for="size">Size</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <igx-input-group>
+                                    <input class="gridSample__filter" igxInput type="text" id="print"
+                                        placeholder="Filter By Print" (input)="ItemfilterByPrint($event.target.value)"
+                                        formControlName="print">
+                                    <label igxLabel for="print">Print</label>
+                                </igx-input-group>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <igx-grid #itemSearchGrid [data]="itemSearchList" [autoGenerate]="false" [paging]="true"
+                        [rowEditable]="false" [primaryKey]="''" cellSelection="none" [perPage]="10" height="500px"
+                        displayDensity="compact" [allowFiltering]="true" [filterMode]="'excelStyleFilter'"
+                        [allowAdvancedFiltering]="true" [rowSelection]="'multiple'">
+                        <igx-column [field]="''" [header]="'Item ID'" [resizable]="true" [dataType]="'number'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'SODID'" [resizable]="true" [dataType]="'number'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Style'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'PO'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Size'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Print'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'SIH Qty'" [resizable]="true" [dataType]="'number'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Unit Price'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Invoice Qty'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                        <igx-column [field]="''" [header]="'Item Price'" [resizable]="true" [dataType]="'string'"
+                            [sortable]="true">
+                        </igx-column>
+                    </igx-grid>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+            </div>
+        </div>
+    </div>
+</div>
